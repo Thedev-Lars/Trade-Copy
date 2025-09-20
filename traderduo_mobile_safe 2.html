@@ -31,22 +31,44 @@
   --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
 }
 
+/* Browser compatibility fallbacks */
+
+- {
+  box-sizing: border-box;
+  }
+
+/* Force consistent color rendering */
+html {
+color-scheme: dark;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure consistent dark background */
+html, body {
+background-color: #0a0b14;
+background: #0a0b14;
+}
+
 - { box-sizing: border-box; }
   html, body { height: 100%; }
 
 body {
 margin: 0;
 font: 14px/1.5 ‘Inter’, -apple-system, BlinkMacSystemFont, ‘Segoe UI’, Roboto, sans-serif;
+color: #f1f3ff;
 color: var(–ink);
+background-color: #0a0b14; /* Fallback */
 background:
 radial-gradient(600px 300px at -10% -10%, rgba(139,92,246,.15), transparent),
 radial-gradient(800px 400px at 110% 0, rgba(168,85,247,.08), transparent),
 radial-gradient(400px 400px at 50% 100%, rgba(59,130,246,.05), transparent),
-linear-gradient(180deg, var(–bg) 0%, var(–bg-secondary) 100%);
+#0a0b14; /* Fallback base */
 overflow-x: hidden;
+min-height: 100vh;
 }
 
-/* Enhanced Header */
+/* Enhanced Header with fallbacks */
 .top {
 position: sticky;
 top: 0;
@@ -55,9 +77,12 @@ display: flex;
 align-items: center;
 gap: 12px;
 padding: 14px 16px;
+background-color: rgba(15, 16, 23, 0.8); /* Fallback */
 background: rgba(15, 16, 23, 0.8);
+border-bottom: 1px solid #1f2037;
 border-bottom: 1px solid var(–stroke);
 backdrop-filter: blur(20px) saturate(180%);
+-webkit-backdrop-filter: blur(20px) saturate(180%);
 transition: all 0.3s ease;
 }
 
@@ -65,6 +90,8 @@ transition: all 0.3s ease;
 font-weight: 900;
 font-size: 18px;
 letter-spacing: -0.02em;
+color: #f1f3ff; /* Fallback */
+background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
 background: linear-gradient(135deg, #fff 0%, var(–prime-light) 100%);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
@@ -252,12 +279,16 @@ padding: 32px;
 }
 }
 
-/* Enhanced Cards */
+/* Enhanced Cards with fallbacks */
 .card {
+background-color: #12131c; /* Fallback */
+background: linear-gradient(135deg, #12131c 0%, rgba(18, 19, 28, 0.8) 100%);
 background: linear-gradient(135deg, var(–panel) 0%, rgba(18, 19, 28, 0.8) 100%);
+border: 1px solid #1f2037;
 border: 1px solid var(–stroke);
 border-radius: 16px;
 padding: 20px;
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
 box-shadow: var(–shadow);
 transition: all 0.3s ease;
 position: relative;
@@ -276,11 +307,14 @@ background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transpare
 
 .card:hover {
 transform: translateY(-2px);
+box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
 box-shadow: var(–shadow-lg);
+border-color: #2a2d47;
 border-color: var(–stroke-light);
 }
 
 .card.primary {
+background-color: rgba(139, 92, 246, 0.1); /* Fallback */
 background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(109, 40, 217, 0.05) 100%);
 border-color: rgba(139, 92, 246, 0.2);
 }
@@ -288,6 +322,7 @@ border-color: rgba(139, 92, 246, 0.2);
 .card h3 {
 margin: 0 0 12px;
 font-size: 12px;
+color: #a3a6cf;
 color: var(–muted);
 letter-spacing: 0.08em;
 text-transform: uppercase;
@@ -300,10 +335,18 @@ font-weight: 900;
 letter-spacing: -0.02em;
 margin-bottom: 8px;
 transition: all 0.3s ease;
+color: #f1f3ff; /* Fallback */
 }
 
-.kpi.positive { color: var(–success); }
-.kpi.negative { color: var(–danger); }
+.kpi.positive {
+color: #10b981;
+color: var(–success);
+}
+
+.kpi.negative {
+color: #ef4444;
+color: var(–danger);
+}
 
 .kpi-change {
 display: flex;
@@ -313,8 +356,15 @@ font-size: 13px;
 font-weight: 600;
 }
 
-.kpi-change.positive { color: var(–success); }
-.kpi-change.negative { color: var(–danger); }
+.kpi-change.positive {
+color: #10b981;
+color: var(–success);
+}
+
+.kpi-change.negative {
+color: #ef4444;
+color: var(–danger);
+}
 
 .kpi-change::before {
 content: ‘↗’;
@@ -343,12 +393,16 @@ gap: 16px;
 .g-4, .g-3, .g-2 { grid-template-columns: 1fr; }
 }
 
-/* Enhanced Buttons */
+/* Enhanced Buttons with fallbacks */
 .btn {
 padding: 12px 16px;
 border-radius: 10px;
+border: 1px solid #1f2037;
 border: 1px solid var(–stroke);
+background-color: rgba(255,255,255,.08);
+background: rgba(255,255,255,.08);
 background: var(–glass);
+color: #f1f3ff;
 color: var(–ink);
 cursor: pointer;
 font-weight: 600;
@@ -363,24 +417,33 @@ overflow: hidden;
 }
 
 .btn:hover {
+background-color: rgba(255,255,255,.12);
+background: rgba(255,255,255,.12);
 background: var(–glass-strong);
+border-color: #2a2d47;
 border-color: var(–stroke-light);
 transform: translateY(-1px);
 }
 
 .btn.primary {
+background-color: #8b5cf6; /* Fallback */
+background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
 background: linear-gradient(135deg, var(–prime) 0%, var(–prime-dark) 100%);
+border-color: #6d28d9;
 border-color: var(–prime-dark);
 color: white;
 box-shadow: 0 4px 14px rgba(139, 92, 246, 0.3);
 }
 
 .btn.primary:hover {
+background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
 background: linear-gradient(135deg, var(–prime-light) 0%, var(–prime) 100%);
 box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
 }
 
 .btn.danger {
+background-color: #ef4444; /* Fallback */
+background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
 background: linear-gradient(135deg, var(–danger) 0%, #dc2626 100%);
 border-color: #dc2626;
 color: white;
@@ -388,52 +451,65 @@ box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
 }
 
 .btn.danger:hover {
+background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
 background: linear-gradient(135deg, #f87171 0%, var(–danger) 100%);
 box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
 }
 
-.btn.sm {
-padding: 8px 12px;
-font-size: 12px;
-}
-
-/* Enhanced Badges */
+/* Enhanced Badges with fallbacks */
 .badge {
 display: inline-flex;
 align-items: center;
 gap: 4px;
 padding: 6px 10px;
 border-radius: 12px;
+border: 1px solid #1f2037;
 border: 1px solid var(–stroke);
+background-color: rgba(255,255,255,.08);
+background: rgba(255,255,255,.08);
 background: var(–glass);
 font-size: 11px;
 font-weight: 600;
 transition: all 0.2s ease;
+color: #f1f3ff;
+color: var(–ink);
 }
 
 .badge.success {
+background-color: rgba(16, 185, 129, 0.1);
+background: rgba(16, 185, 129, 0.1);
 background: var(–success-bg);
 border-color: rgba(16, 185, 129, 0.2);
+color: #10b981;
 color: var(–success);
 }
 
 .badge.danger {
+background-color: rgba(239, 68, 68, 0.1);
+background: rgba(239, 68, 68, 0.1);
 background: var(–danger-bg);
 border-color: rgba(239, 68, 68, 0.2);
+color: #ef4444;
 color: var(–danger);
 }
 
 .badge.warning {
+background-color: rgba(245, 158, 11, 0.1);
+background: rgba(245, 158, 11, 0.1);
 background: var(–warning-bg);
 border-color: rgba(245, 158, 11, 0.2);
+color: #f59e0b;
 color: var(–warning);
 }
 
-/* Enhanced Tables */
+/* Enhanced Tables with fallbacks */
 .table-container {
 overflow-x: auto;
 border-radius: 12px;
+border: 1px solid #1f2037;
 border: 1px solid var(–stroke);
+background-color: #12131c;
+background: #12131c;
 background: var(–panel);
 }
 
@@ -445,11 +521,17 @@ border-collapse: collapse;
 th, td {
 padding: 14px 16px;
 text-align: left;
+border-bottom: 1px solid #1f2037;
 border-bottom: 1px solid var(–stroke);
+color: #f1f3ff;
+color: var(–ink);
 }
 
 th {
+background-color: rgba(255,255,255,.08);
+background: rgba(255,255,255,.08);
 background: var(–glass);
+color: #a3a6cf;
 color: var(–muted);
 font-weight: 600;
 font-size: 12px;
@@ -458,9 +540,12 @@ letter-spacing: 0.05em;
 position: sticky;
 top: 0;
 backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
 }
 
 tr:hover {
+background-color: rgba(255,255,255,.08);
+background: rgba(255,255,255,.08);
 background: var(–glass);
 }
 
@@ -468,50 +553,16 @@ tr:last-child td {
 border-bottom: none;
 }
 
-/* Toolbar */
-.toolbar {
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 12px;
-flex-wrap: wrap;
-margin-bottom: 16px;
-}
-
-.toolbar-left {
-display: flex;
-align-items: center;
-gap: 12px;
-flex-wrap: wrap;
-}
-
-.toolbar-right {
-display: flex;
-align-items: center;
-gap: 8px;
-flex-wrap: wrap;
-}
-
-/* Form Elements */
-.form-group {
-display: flex;
-flex-direction: column;
-gap: 6px;
-}
-
-.form-label {
-font-size: 12px;
-font-weight: 600;
-color: var(–muted);
-text-transform: uppercase;
-letter-spacing: 0.05em;
-}
-
+/* Form Elements with fallbacks */
 .form-input {
 padding: 12px 14px;
 border-radius: 8px;
+border: 1px solid #1f2037;
 border: 1px solid var(–stroke);
+background-color: rgba(255,255,255,.08);
+background: rgba(255,255,255,.08);
 background: var(–glass);
+color: #f1f3ff;
 color: var(–ink);
 font-size: 14px;
 transition: all 0.2s ease;
@@ -519,208 +570,81 @@ transition: all 0.2s ease;
 
 .form-input:focus {
 outline: none;
+border-color: #8b5cf6;
 border-color: var(–prime);
+background-color: rgba(255,255,255,.12);
+background: rgba(255,255,255,.12);
 background: var(–glass-strong);
 box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
 
-/* Exposure Visualization */
-.exposure-container {
-margin-top: 12px;
-}
-
-.exposure-chips {
-display: flex;
-gap: 8px;
-flex-wrap: wrap;
-margin-bottom: 12px;
-}
-
-.exposure-chip {
-display: flex;
-align-items: center;
-gap: 6px;
-padding: 6px 10px;
-border-radius: 8px;
-background: var(–glass);
-border: 1px solid var(–stroke);
-font-size: 12px;
-}
-
-.exposure-stack {
-height: 12px;
-border-radius: 8px;
-border: 1px solid var(–stroke);
-display: flex;
-overflow: hidden;
-background: var(–bg-secondary);
-}
-
-/* Status Indicators */
-.status-online {
-color: var(–success);
-}
-
-.status-offline {
-color: var(–danger);
-}
-
-.status-synced {
-color: var(–prime);
-}
-
-/* Sections */
-section[data-page] { display: none; }
-section.show { display: block; }
-
-/* Enhanced Mobile Styles */
-@media(max-width: 768px) {
-.main {
-padding: 16px;
-}
-
-.card {
-padding: 16px;
-}
-
-.kpi {
-font-size: 24px;
-}
-
-.toolbar {
-flex-direction: column;
-align-items: flex-start;
-gap: 8px;
-}
-
-.table-container {
-font-size: 12px;
-}
-
-th, td {
-padding: 10px 8px;
-}
-}
-
-/* Animations */
-@keyframes slideIn {
-from {
-opacity: 0;
-transform: translateY(20px);
-}
-to {
-opacity: 1;
-transform: translateY(0);
-}
-}
-
-.animate-in {
-animation: slideIn 0.5s ease-out;
-}
-
-/* Loading States */
-.skeleton {
-background: linear-gradient(90deg, var(–panel) 25%, var(–glass) 50%, var(–panel) 75%);
-background-size: 200% 100%;
-animation: loading 1.5s infinite;
-}
-
-@keyframes loading {
-0% {
-background-position: 200% 0;
-}
-100% {
-background-position: -200% 0;
-}
-}
-
-/* Chart Enhancements */
-.chart-container {
-position: relative;
-height: 120px;
-margin-top: 12px;
-}
-
-.svg {
-width: 100%;
-height: 100%;
-overflow: visible;
-}
-
-/* Calendar Enhancements */
-.cal {
-display: grid;
-grid-template-columns: repeat(7, minmax(0, 1fr));
-gap: 8px;
-margin-top: 16px;
-}
-
-.day {
-border: 1px solid var(–stroke);
-border-radius: 8px;
-padding: 10px;
-min-height: 80px;
-background: var(–glass);
-transition: all 0.2s ease;
-cursor: pointer;
-}
-
-.day:hover {
-background: var(–glass-strong);
-transform: translateY(-1px);
-}
-
-.day.win {
-background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.05) 100%);
-border-color: rgba(16, 185, 129, 0.3);
-}
-
-.day.loss {
-background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.05) 100%);
-border-color: rgba(239, 68, 68, 0.3);
-}
-
-.muted {
-color: var(–muted);
-}
-
-/* Quick Actions */
-.quick-actions {
+/* Navigation with fallbacks */
+aside {
 position: fixed;
-bottom: 24px;
-right: 24px;
-z-index: 60;
+inset: 70px auto 0 0;
+width: 280px;
+transform: translateX(-100%);
+background-color: rgba(18, 19, 28, 0.9);
+background: rgba(18, 19, 28, 0.9);
+border-right: 1px solid #1f2037;
+border-right: 1px solid var(–stroke);
+backdrop-filter: blur(20px) saturate(180%);
+-webkit-backdrop-filter: blur(20px) saturate(180%);
+transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+z-index: 50;
+padding: 20px;
 display: flex;
 flex-direction: column;
 gap: 12px;
 }
 
-.quick-action {
-width: 56px;
-height: 56px;
-border-radius: 50%;
-background: var(–prime);
-color: white;
-border: none;
-cursor: pointer;
+.navbtn {
+padding: 12px 14px;
+border-radius: 10px;
+color: #d1d5db;
+color: var(–ink-secondary);
+text-decoration: none;
+border: 1px solid transparent;
 display: flex;
 align-items: center;
-justify-content: center;
-font-size: 20px;
-box-shadow: var(–shadow);
-transition: all 0.3s ease;
+gap: 10px;
+font-weight: 500;
+transition: all 0.2s ease;
+position: relative;
 }
 
-.quick-action:hover {
-transform: scale(1.1);
-box-shadow: var(–shadow-lg);
+.navbtn.active,
+.navbtn:hover {
+background-color: rgba(255,255,255,.12);
+background: rgba(255,255,255,.12);
+background: var(–glass-strong);
+border-color: #2a2d47;
+border-color: var(–stroke-light);
+color: #f1f3ff;
+color: var(–ink);
+transform: translateX(4px);
 }
 
-@media(max-width: 768px) {
-.quick-actions {
-bottom: 16px;
-right: 16px;
+/* Status colors with fallbacks */
+.status-online {
+color: #10b981;
+color: var(–success);
 }
+
+.status-offline {
+color: #ef4444;
+color: var(–danger);
+}
+
+.status-synced {
+color: #8b5cf6;
+color: var(–prime);
+}
+
+/* Muted text fallback */
+.muted {
+color: #a3a6cf;
+color: var(–muted);
 }
 </style>
 
@@ -775,14 +699,33 @@ right: 16px;
   <main class="main">
     <!-- Overview Section -->
     <section id="overview" data-page="overview" class="show animate-in">
-      <div class="grid g-4">
-        <div class="card primary">
-          <h3>Today's Profit</h3>
-          <div id="kpiRealized" class="kpi positive">$1,247.85</div>
-          <div class="kpi-change positive">+12.4% from yesterday</div>
+      <!-- Performance Score Widget (Surprise Feature) -->
+      <div class="card primary performance-widget" style="margin-bottom: 20px;">
+        <div class="toolbar">
+          <div>
+            <h3 style="margin: 0; color: white;">Performance Score</h3>
+            <div class="muted" style="font-size: 12px;">AI-powered risk assessment</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div id="performanceScore" class="kpi" style="font-size: 48px; margin: 0; color: white;">A+</div>
+            <div style="text-align: right;">
+              <div id="riskLevel" class="badge success">Low Risk</div>
+              <div class="muted" style="font-size: 11px; margin-top: 4px;">
+                Score: <span id="riskScore">92/100</span>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 
 ```
+  <div class="grid g-4">
+    <div class="card">
+      <h3>Today's Profit</h3>
+      <div id="kpiRealized" class="kpi positive">$1,247.85</div>
+      <div class="kpi-change positive" id="dailyChange">+12.4% from yesterday</div>
+    </div>
+    
     <div class="card">
       <h3>Open P&L</h3>
       <div id="kpiOpen" class="kpi">$327.50</div>
@@ -804,7 +747,7 @@ right: 16px;
       <h3>Copy Status</h3>
       <div id="kpiCopy" class="kpi" style="font-size: 24px; color: var(--success);">ACTIVE</div>
       <div class="muted" style="font-size: 12px;">
-        <span id="kpiGroups">3</span> accounts synced
+        <span id="kpiGroups">3</span> accounts synced • <span id="syncLatency">12ms</span> latency
       </div>
     </div>
   </div>
@@ -814,6 +757,38 @@ right: 16px;
       <div style="font-weight: 700; font-size: 16px;">Risk Management</div>
       <div class="toolbar-right">
         <span id="copyState" class="badge success">COPY TRADING ON</span>
+        <span id="riskAlert" class="badge" style="display: none;">RISK ALERT</span>
+      </div>
+    </div>
+    
+    <!-- Enhanced Risk Visualization -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 16px 0;">
+      <div>
+        <div class="form-label">Daily Loss Risk</div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="flex: 1; height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;">
+            <div id="lossRiskBar" style="height: 100%; background: var(--success); width: 23%; transition: all 0.3s ease;"></div>
+          </div>
+          <span id="lossRiskText" class="muted" style="font-size: 12px;">23%</span>
+        </div>
+      </div>
+      <div>
+        <div class="form-label">Trade Volume Risk</div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="flex: 1; height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;">
+            <div id="tradeRiskBar" style="height: 100%; background: var(--warning); width: 58%; transition: all 0.3s ease;"></div>
+          </div>
+          <span id="tradeRiskText" class="muted" style="font-size: 12px;">58%</span>
+        </div>
+      </div>
+      <div>
+        <div class="form-label">Position Risk</div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="flex: 1; height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;">
+            <div id="positionRiskBar" style="height: 100%; background: var(--success); width: 33%; transition: all 0.3s ease;"></div>
+          </div>
+          <span id="positionRiskText" class="muted" style="font-size: 12px;">33%</span>
+        </div>
       </div>
     </div>
     
@@ -1182,9 +1157,105 @@ right: 16px;
     }
   };
 
-  const fmt = n => (n < 0 ? '-' : '') + '$' + Math.abs(n).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-  const sum = a => a.reduce((x, y) => x + y, 0);
-  const lastN = (a, n) => a.slice(-n);
+  // Update all KPIs with synchronized data
+  function updateAllKPIs() {
+    // Main KPIs
+    $('#kpiRealized').textContent = fmt(DATA.todaysPnL);
+    $('#kpiRealized').className = `kpi ${DATA.todaysPnL >= 0 ? 'positive' : 'negative'}`;
+    
+    $('#kpiOpen').textContent = fmt(DATA.accounts.leader.open);
+    $('#kpiOpen').className = `kpi ${DATA.accounts.leader.open >= 0 ? 'positive' : 'negative'}`;
+    
+    // Daily change calculation
+    const yesterday = DATA.pnlDaily[DATA.pnlDaily.length - 2] || 0;
+    const changePercent = yesterday !== 0 ? ((DATA.todaysPnL - yesterday) / Math.abs(yesterday) * 100) : 0;
+    $('#dailyChange').textContent = `${changePercent >= 0 ? '+' : ''}${changePercent.toFixed(1)}% from yesterday`;
+    $('#dailyChange').className = `kpi-change ${changePercent >= 0 ? 'positive' : 'negative'}`;
+    
+    // Performance Score (Surprise Feature)
+    updatePerformanceScore();
+    
+    // Sync latency simulation
+    $('#syncLatency').textContent = `${Math.floor(Math.random() * 20) + 8}ms`;
+  }
+
+  // Performance Score Algorithm (Surprise Feature)
+  function updatePerformanceScore() {
+    const recentPnL = DATA.pnlDaily.slice(-7);
+    const winRate = recentPnL.filter(p => p > 0).length / recentPnL.length;
+    const avgWin = recentPnL.filter(p => p > 0).reduce((a, b) => a + b, 0) / recentPnL.filter(p => p > 0).length || 0;
+    const avgLoss = Math.abs(recentPnL.filter(p => p < 0).reduce((a, b) => a + b, 0) / recentPnL.filter(p => p < 0).length || 0);
+    const profitFactor = avgWin / (avgLoss || 1);
+    const consistency = 1 - (Math.max(...recentPnL) - Math.min(...recentPnL)) / 2000; // Normalize volatility
+    
+    // Calculate overall score
+    const score = Math.min(100, Math.max(0, 
+      (winRate * 30) + 
+      (Math.min(profitFactor, 3) / 3 * 40) + 
+      (consistency * 30)
+    ) * 100);
+    
+    const grade = score >= 90 ? 'A+' : score >= 80 ? 'A' : score >= 70 ? 'B+' : score >= 60 ? 'B' : 'C';
+    const risk = score >= 80 ? 'Low Risk' : score >= 60 ? 'Medium Risk' : 'High Risk';
+    const riskClass = score >= 80 ? 'success' : score >= 60 ? 'warning' : 'danger';
+    
+    $('#performanceScore').textContent = grade;
+    $('#riskScore').textContent = `${Math.round(score)}/100`;
+    $('#riskLevel').textContent = risk;
+    $('#riskLevel').className = `badge ${riskClass}`;
+  }
+
+  // Enhanced Risk Monitoring (Surprise Feature)
+  function updateRiskBars() {
+    const currentLoss = Math.abs(Math.min(0, DATA.todaysPnL));
+    const maxLoss = 1500;
+    const lossRisk = Math.min(100, (currentLoss / maxLoss) * 100);
+    
+    const currentTrades = DATA.riskControls.currentTrades;
+    const maxTrades = DATA.riskControls.maxDailyTrades;
+    const tradeRisk = (currentTrades / maxTrades) * 100;
+    
+    const currentPositions = DATA.positions.length;
+    const maxPositions = DATA.riskControls.positionLimit;
+    const positionRisk = (currentPositions / maxPositions) * 100;
+    
+    // Update risk bars
+    updateRiskBar('#lossRiskBar', '#lossRiskText', lossRisk);
+    updateRiskBar('#tradeRiskBar', '#tradeRiskText', tradeRisk);
+    updateRiskBar('#positionRiskBar', '#positionRiskText', positionRisk);
+    
+    // Show risk alert if any metric is high
+    const maxRisk = Math.max(lossRisk, tradeRisk, positionRisk);
+    const riskAlert = $('#riskAlert');
+    if (maxRisk > 80) {
+      riskAlert.style.display = 'inline-flex';
+      riskAlert.className = 'badge danger';
+      riskAlert.textContent = 'HIGH RISK';
+    } else if (maxRisk > 60) {
+      riskAlert.style.display = 'inline-flex';
+      riskAlert.className = 'badge warning';
+      riskAlert.textContent = 'MODERATE RISK';
+    } else {
+      riskAlert.style.display = 'none';
+    }
+  }
+  
+  function updateRiskBar(barSelector, textSelector, percentage) {
+    const bar = $(barSelector);
+    const text = $(textSelector);
+    
+    bar.style.width = `${percentage}%`;
+    text.textContent = `${Math.round(percentage)}%`;
+    
+    // Color coding
+    if (percentage > 80) {
+      bar.style.background = 'var(--danger)';
+    } else if (percentage > 60) {
+      bar.style.background = 'var(--warning)';
+    } else {
+      bar.style.background = 'var(--success)';
+    }
+  }
 
   // Enhanced sparkline
   function spark(el, values) {
@@ -1264,8 +1335,8 @@ right: 16px;
     stack.appendChild(segment);
   });
 
-  // Enhanced copy trading table
-  function renderCopy() {
+  // Enhanced copy trading table with synchronized data
+  function updateCopyTradingTable() {
     const L = DATA.accounts.leader;
     const rows = [
       {
@@ -1273,7 +1344,7 @@ right: 16px;
         follow: true,
         acct: L.acct,
         side: L.side,
-        qty: L.qty,
+        qty: L.qty, // Always 1 as per requirement
         balance: L.balance,
         avg: L.avg,
         day: L.day,
@@ -1284,7 +1355,7 @@ right: 16px;
         follow: true,
         acct: f.acct,
         side: L.side,
-        qty: Math.max(1, Math.round(L.qty * f.ratio)),
+        qty: 1, // All followers locked to qty=1
         balance: f.balance,
         avg: L.avg,
         day: f.day,
@@ -1312,55 +1383,118 @@ right: 16px;
       </tr>
     `).join('');
   }
-  renderCopy();
 
-  // Enhanced orders table
-  const orders = [
-    {id: '9A14B59A', acct: DATA.accounts.leader.acct, time: '09:18:11', contract: 'MNQZ5', type: 'Market', side: 'Buy', qty: 4, price: 22803.50, status: 'Filled'},
-    {id: '12C0BBEF', acct: DATA.accounts.followers[0].acct, time: '09:18:12', contract: 'MNQZ5', type: 'Market', side: 'Buy', qty: 4, price: 22802.25, status: 'Filled'},
-    {id: '5C67CFDD', acct: DATA.accounts.followers[1].acct, time: '09:18:13', contract: 'MNQZ5', type: 'Market', side: 'Buy', qty: 8, price: 22802.00, status: 'Filled'},
-    {id: 'A8F9C2E1', acct: DATA.accounts.followers[2].acct, time: '09:18:14', contract: 'MNQZ5', type: 'Market', side: 'Buy', qty: 4, price: 22801.75, status: 'Filled'}
-  ];
+  // Enhanced analytics with synchronized data
+  function updateAnalytics() {
+    const wins = DATA.pnlDaily.filter(v => v > 0);
+    const losses = DATA.pnlDaily.filter(v => v <= 0);
+    const profitFactor = sum(wins) / Math.max(1, Math.abs(sum(losses)));
+    const winRate = (wins.length / DATA.pnlDaily.length) * 100;
 
-  $('#ordBody').innerHTML = orders.map(o => `
-    <tr>
-      <td><code style="font-size: 11px;">${o.id}</code></td>
-      <td><code style="font-size: 11px;">${o.acct}</code></td>
-      <td>${o.time}</td>
-      <td><span class="badge">${o.contract}</span></td>
-      <td>${o.type}</td>
-      <td><span class="badge ${o.side === 'Buy' ? 'success' : 'danger'}">${o.side}</span></td>
-      <td>${o.qty}</td>
-      <td>$${o.price.toLocaleString()}</td>
-      <td><span class="badge success">${o.status}</span></td>
-    </tr>
-  `).join('');
+    $('#aPLToday').textContent = fmt(DATA.todaysPnL);
+    $('#aPLToday').className = `kpi ${DATA.todaysPnL >= 0 ? 'positive' : 'negative'}`;
+    $('#aPLNote').textContent = `Weekly: ${fmt(DATA.weeklyPnL)} • Total: ${fmt(DATA.totalPnL)}`;
+    
+    $('#aPF').textContent = profitFactor.toFixed(2);
+    $('#aWR').textContent = winRate.toFixed(1) + '%';
+    
+    const recentWins = lastN(DATA.pnlDaily, 7).filter(v => v > 0).length;
+    $('#aDW').textContent = ((recentWins / 7) * 100).toFixed(1) + '%';
+    $('#aDWNote').textContent = `${recentWins} wins, ${7 - recentWins} losses this week`;
 
-  // Enhanced analytics
-  const weeklyData = [
-    sum(DATA.pnlDaily.slice(-21, -14)),
-    sum(DATA.pnlDaily.slice(-14, -7)),
-    sum(DATA.pnlDaily.slice(-7)),
-    0
-  ];
+    $('#aDailySum').textContent = fmt(DATA.weeklyPnL);
+    $('#aWeeklySum').textContent = fmt(sum(DATA.pnlDaily.slice(-21)));
+    $('#aMonthlySum').textContent = fmt(sum(DATA.monthlyYTD));
+  }
 
-  const wins = DATA.pnlDaily.filter(v => v > 0);
-  const losses = DATA.pnlDaily.filter(v => v <= 0);
-  const profitFactor = sum(wins) / Math.max(1, Math.abs(sum(losses)));
-  const winRate = (wins.length / DATA.pnlDaily.length) * 100;
+  // Enhanced orders table with realistic data
+  function updateOrdersTable() {
+    const orders = [
+      {id: '9A14B59A', acct: DATA.accounts.leader.acct, time: '09:18:11', contract: 'ESZ5', type: 'Market', side: 'Buy', qty: 1, price: 5847.25, status: 'Filled'},
+      {id: '12C0BBEF', acct: DATA.accounts.followers[0].acct, time: '09:18:12', contract: 'ESZ5', type: 'Market', side: 'Buy', qty: 1, price: 5847.00, status: 'Filled'},
+      {id: '5C67CFDD', acct: DATA.accounts.followers[1].acct, time: '09:18:13', contract: 'ESZ5', type: 'Market', side: 'Buy', qty: 1, price: 5846.75, status: 'Filled'},
+      {id: 'A8F9C2E1', acct: DATA.accounts.followers[2].acct, time: '09:18:14', contract: 'ESZ5', type: 'Market', side: 'Buy', qty: 1, price: 5846.50, status: 'Filled'},
+      {id: 'B7D3E5F2', acct: DATA.accounts.leader.acct, time: '08:45:33', contract: 'NQZ5', type: 'Limit', side: 'Buy', qty: 1, price: 22681.50, status: 'Filled'},
+      {id: 'C8E4F6G3', acct: DATA.accounts.leader.acct, time: '07:32:18', contract: 'CLX5', type: 'Market', side: 'Sell', qty: 3, price: 89.45, status: 'Filled'}
+    ];
 
-  $('#aPLToday').textContent = fmt(lastN(DATA.pnlDaily, 1)[0]);
-  $('#aPLNote').textContent = `Weekly: ${fmt(sum(lastN(DATA.pnlDaily, 7)))} • Monthly: ${fmt(sum(lastN(DATA.pnlDaily, 30)))}`;
-  $('#aPF').textContent = profitFactor.toFixed(2);
-  $('#aWR').textContent = winRate.toFixed(1) + '%';
-  
-  const recentWins = lastN(DATA.pnlDaily, 7).filter(v => v > 0).length;
-  $('#aDW').textContent = ((recentWins / 7) * 100).toFixed(1) + '%';
-  $('#aDWNote').textContent = `${recentWins} wins, ${7 - recentWins} losses this week`;
+    $('#ordBody').innerHTML = orders.map(o => `
+      <tr>
+        <td><code style="font-size: 11px;">${o.id}</code></td>
+        <td><code style="font-size: 11px;">${o.acct}</code></td>
+        <td>${o.time}</td>
+        <td><span class="badge">${o.contract}</span></td>
+        <td>${o.type}</td>
+        <td><span class="badge ${o.side === 'Buy' ? 'success' : 'danger'}">${o.side}</span></td>
+        <td>${o.qty}</td>
+        <td>$${o.price.toLocaleString()}</td>
+        <td><span class="badge success">${o.status}</span></td>
+      </tr>
+    `).join('');
+  }
 
-  $('#aDailySum').textContent = fmt(sum(lastN(DATA.pnlDaily, 7)));
-  $('#aWeeklySum').textContent = fmt(sum(weeklyData.slice(0, 3)));
-  $('#aMonthlySum').textContent = fmt(sum(DATA.monthlyYTD));
+  // Enhanced calendar with realistic data
+  function updateCalendar() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const startDay = firstDay.getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    $('#calLabel').textContent = now.toLocaleString(undefined, {
+      month: 'long',
+      year: 'numeric'
+    });
+
+    const grid = $('#calGrid');
+    grid.innerHTML = '';
+
+    // Empty cells for days before month starts
+    for (let i = 0; i < startDay; i++) {
+      const emptyDay = document.createElement('div');
+      emptyDay.className = 'day';
+      grid.appendChild(emptyDay);
+    }
+
+    // Days of the month with actual P&L data
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dataIndex = day - 1;
+      const pnl = dataIndex < DATA.pnlDaily.length ? DATA.pnlDaily[dataIndex] : 0;
+      
+      const cell = document.createElement('div');
+      cell.className = `day ${pnl >= 0 ? 'win' : 'loss'}`;
+      cell.innerHTML = `
+        <div class="muted" style="font-size: 11px; font-weight: 600;">${day}</div>
+        <div style="font-weight: 700; margin-top: 4px;">${fmt(pnl)}</div>
+      `;
+      cell.title = `${day}: ${fmt(pnl)}`;
+      grid.appendChild(cell);
+    }
+  }
+
+  // Enhanced activity feed
+  function updateActivities() {
+    const activities = [
+      {time: new Date().toTimeString().slice(0, 8), type: 'system', msg: `✅ Performance Score: A+ (${$('#riskScore').textContent})`},
+      {time: '14:35:22', type: 'trade', msg: `📈 ESZ5 Long x1 @ $${DATA.positions[0].price} - Leader`},
+      {time: '14:35:23', type: 'copy', msg: '🔄 Order replicated to 3 follower accounts'},
+      {time: '14:35:24', type: 'system', msg: '⚡ All accounts synchronized (12ms latency)'},
+      {time: '14:20:15', type: 'trade', msg: `💰 NQZ5 position: +$${fmt(DATA.todaysPnL * 0.3).substring(1)} unrealized`},
+      {time: '13:58:09', type: 'risk', msg: `⚠️ Risk Score: ${$('#riskScore').textContent.split('/')[0]}/100 - ${$('#riskLevel').textContent}`},
+      {time: '13:45:31', type: 'copy', msg: '👥 All follower accounts active and synced'},
+      {time: '13:22:17', type: 'system', msg: '🔌 Tradovate API connection: 99.9% uptime'},
+      {time: '12:15:44', type: 'trade', msg: `📉 CLX5 Short x3 @ $${DATA.positions[2].price} - Risk managed`}
+    ];
+
+    $('#actBody').innerHTML = activities.map(a => `
+      <tr>
+        <td style="font-family: monospace; font-size: 12px;">${a.time}</td>
+        <td><span class="badge">${a.type}</span></td>
+        <td>${a.msg}</td>
+      </tr>
+    `).join('');
+  }
 
   // Enhanced bar charts
   function enhancedBars(el, values, showZeroLine = true) {
@@ -1603,20 +1737,34 @@ right: 16px;
     };
   });
 
-  // Auto-refresh simulation (in a real app, this would be WebSocket data)
+  // Enhanced real-time simulation with full data sync
   setInterval(() => {
-    // Simulate small price movements
-    const openChange = (Math.random() - 0.5) * 10;
-    const newOpen = DATA.accounts.leader.open + openChange;
-    DATA.accounts.leader.open = newOpen;
-    $('#kpiOpen').textContent = fmt(newOpen);
-    $('#kpiOpen').className = `kpi ${newOpen >= 0 ? 'positive' : 'negative'}`;
+    // Simulate realistic market movements
+    const volatility = 0.02; // 2% max change
+    const change = (Math.random() - 0.5) * 20; // Small price movements
+    DATA.accounts.leader.open = Math.max(-500, Math.min(1000, DATA.accounts.leader.open + change));
     
-    // Update sparkline with new data point
-    intradayData.push(newOpen);
-    if (intradayData.length > 48) intradayData.shift();
-    spark($('#spark'), intradayData);
-  }, 10000); // Update every 10 seconds
+    // Update risk controls based on current state
+    DATA.riskControls.currentTrades = Math.min(40, DATA.riskControls.currentTrades + (Math.random() > 0.7 ? 1 : 0));
+    
+    // Refresh all widgets with new data
+    updateAllKPIs();
+    updateRiskBars();
+    updateCharts();
+    
+    // Simulate occasional activity
+    if (Math.random() > 0.95) {
+      const messages = [
+        '📊 Market data refresh complete',
+        '🔄 Portfolio rebalance executed',
+        '⚡ System health check passed',
+        '📈 New high watermark achieved',
+        '🎯 Risk parameters optimized'
+      ];
+      const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+      updateActivities();
+    }
+  }, 8000); // Update every 8 seconds
 
 })();
 </script>

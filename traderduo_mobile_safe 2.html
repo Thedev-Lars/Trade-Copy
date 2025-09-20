@@ -102,19 +102,29 @@ background-clip: text;
 display: inline-flex;
 align-items: center;
 justify-content: center;
-width: 42px;
-height: 42px;
+width: 48px;
+height: 48px;
+border: 1px solid #1f2037;
 border: 1px solid var(–stroke);
 border-radius: 12px;
+background-color: rgba(255,255,255,.08);
+background: rgba(255,255,255,.08);
 background: var(–glass);
+color: #d1d5db;
 color: var(–ink-secondary);
 cursor: pointer;
 transition: all 0.2s ease;
-font-size: 16px;
+font-size: 18px;
+/* Ensure it’s always clickable */
+touch-action: manipulation;
+-webkit-tap-highlight-color: transparent;
 }
 
-.hamb:hover {
+.hamb:hover, .hamb:active {
+background-color: rgba(255,255,255,.12);
+background: rgba(255,255,255,.12);
 background: var(–glass-strong);
+border-color: #2a2d47;
 border-color: var(–stroke-light);
 transform: translateY(-1px);
 }
@@ -127,13 +137,18 @@ position: relative;
 
 .search input {
 width: 100%;
-padding: 12px 16px 12px 44px;
+padding: 14px 16px 14px 48px;
 border-radius: 12px;
+border: 1px solid #1f2037;
 border: 1px solid var(–stroke);
+background-color: rgba(255,255,255,.08);
+background: rgba(255,255,255,.08);
 background: var(–glass);
+color: #f1f3ff;
 color: var(–ink);
-font-size: 14px;
+font-size: 16px; /* Prevent zoom on iOS */
 transition: all 0.2s ease;
+min-height: 48px; /* Touch-friendly height */
 }
 
 .search input:focus {
@@ -578,24 +593,104 @@ background: var(–glass-strong);
 box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
 
-/* Navigation with fallbacks */
-aside {
+/* Mobile overlay improvements */
+.overlay {
 position: fixed;
-inset: 70px auto 0 0;
-width: 280px;
-transform: translateX(-100%);
-background-color: rgba(18, 19, 28, 0.9);
-background: rgba(18, 19, 28, 0.9);
-border-right: 1px solid #1f2037;
-border-right: 1px solid var(–stroke);
-backdrop-filter: blur(20px) saturate(180%);
--webkit-backdrop-filter: blur(20px) saturate(180%);
-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-z-index: 50;
+inset: 0;
+background: rgba(0, 0, 0, 0.6);
+display: none;
+z-index: 40;
+backdrop-filter: blur(4px);
+-webkit-backdrop-filter: blur(4px);
+/* Better touch interaction */
+touch-action: manipulation;
+}
+
+#nav:checked ~ .overlay {
+display: block;
+}
+
+/* Mobile navigation improvements */
+@media(max-width: 768px) {
+aside {
+inset: 72px auto 0 0;
 padding: 20px;
-display: flex;
-flex-direction: column;
-gap: 12px;
+/* Ensure it’s above everything */
+z-index: 60;
+/* Better scrolling if content overflows */
+overflow-y: auto;
+-webkit-overflow-scrolling: touch;
+}
+
+/* Ensure hamburger menu is always clickable */
+.hamb {
+position: relative;
+z-index: 70;
+width: 52px;
+height: 52px;
+font-size: 20px;
+}
+
+/* Better mobile search */
+.search input {
+height: 52px;
+padding: 16px 20px 16px 52px;
+font-size: 16px;
+}
+
+.search::before {
+left: 20px;
+font-size: 16px;
+}
+
+/* Enhanced mobile status indicator */
+.status-indicator {
+padding: 8px 12px;
+font-size: 12px;
+min-height: 36px;
+white-space: nowrap;
+}
+
+/* Mobile emergency button improvements */
+.btn.danger {
+min-height: 52px;
+font-weight: 700;
+font-size: 16px;
+}
+
+/* Better mobile table scrolling */
+.table-container {
+position: relative;
+/* Add scroll indicator */
+background:
+linear-gradient(90deg, #12131c, transparent 30px),
+linear-gradient(90deg, transparent calc(100% - 30px), #12131c),
+linear-gradient(90deg, rgba(139, 92, 246, 0.1), transparent 1px),
+linear-gradient(90deg, transparent calc(100% - 1px), rgba(139, 92, 246, 0.1));
+}
+
+/* Mobile grid with better spacing */
+.grid.g-3 {
+grid-template-columns: 1fr;
+gap: 20px;
+}
+
+/* Mobile performance score adjustments */
+.performance-widget .kpi {
+font-size: 40px;
+}
+
+/* Mobile risk management section */
+.card h3 {
+font-size: 13px;
+margin-bottom: 16px;
+}
+
+/* Better mobile spacing for risk bars */
+.form-label {
+font-size: 12px;
+margin-bottom: 8px;
+}
 }
 
 .navbtn {

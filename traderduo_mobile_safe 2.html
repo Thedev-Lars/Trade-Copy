@@ -68,7 +68,7 @@ overflow-x: hidden;
 min-height: 100vh;
 }
 
-/* Enhanced Header with fallbacks */
+/* Enhanced Header with proper mobile sizing */
 .top {
 position: sticky;
 top: 0;
@@ -76,26 +76,71 @@ z-index: 100;
 display: flex;
 align-items: center;
 gap: 12px;
-padding: 14px 16px;
-background-color: rgba(15, 16, 23, 0.8); /* Fallback */
+padding: 12px 16px;
+background-color: rgba(15, 16, 23, 0.8);
 background: rgba(15, 16, 23, 0.8);
 border-bottom: 1px solid #1f2037;
 border-bottom: 1px solid var(–stroke);
 backdrop-filter: blur(20px) saturate(180%);
 -webkit-backdrop-filter: blur(20px) saturate(180%);
 transition: all 0.3s ease;
+width: 100%;
+max-width: 100vw;
+box-sizing: border-box;
+overflow: hidden;
 }
 
 .brand {
 font-weight: 900;
 font-size: 18px;
 letter-spacing: -0.02em;
-color: #f1f3ff; /* Fallback */
+color: #f1f3ff;
 background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
 background: linear-gradient(135deg, #fff 0%, var(–prime-light) 100%);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 background-clip: text;
+white-space: nowrap;
+flex-shrink: 0;
+}
+
+.search {
+flex: 1;
+max-width: none;
+min-width: 0; /* Allow shrinking */
+position: relative;
+}
+
+.search input {
+width: 100%;
+padding: 12px 16px 12px 44px;
+border-radius: 12px;
+border: 1px solid #1f2037;
+border: 1px solid var(–stroke);
+background-color: rgba(255,255,255,.08);
+background: rgba(255,255,255,.08);
+background: var(–glass);
+color: #f1f3ff;
+color: var(–ink);
+font-size: 14px;
+transition: all 0.2s ease;
+box-sizing: border-box;
+}
+
+.status-indicator {
+display: flex;
+align-items: center;
+gap: 6px;
+padding: 6px 10px;
+border-radius: 8px;
+background-color: rgba(16, 185, 129, 0.1);
+background: rgba(16, 185, 129, 0.1);
+background: var(–success-bg);
+border: 1px solid rgba(16, 185, 129, 0.2);
+font-size: 11px;
+font-weight: 600;
+white-space: nowrap;
+flex-shrink: 0;
 }
 
 .hamb {
@@ -1141,60 +1186,111 @@ color: var(–muted);
   const $ = q => document.querySelector(q);
   const $$ = q => Array.from(document.querySelectorAll(q));
 
-  // Enhanced Router with proper page switching
-  const pages = $$('section[data-page]');
-  const nav = $$('.navbtn');
-  
-  function goto(route) {
-    console.log('Navigating to:', route); // Debug
-    if (!pages.some(p => p.id === route)) route = 'overview';
+  // FINAL CLEANUP - Remove emojis and ensure proper initialization
+  const $ = q => document.querySelector(q);
+  const $$ = q => Array.from(document.querySelectorAll(q));
+
+  // Wait for DOM to be ready
+  function initNavigation() {
+    const pages = $$('section[data-page]');
+    const navButtons = $$('.navbtn');
+    const navCheckbox = $('#nav');
+    const overlay = $('.overlay');
     
-    // Hide all pages first
-    pages.forEach(p => {
-      p.classList.remove('show', 'animate-in');
-      p.style.display = 'none';
-    });
+    console.log('Found pages:', pages.map(p => p.id));
+    console.log('Found nav buttons:', navButtons.map(n => n.dataset.route));
     
-    // Show target page
-    const targetPage = pages.find(p => p.id === route);
-    if (targetPage) {
-      targetPage.style.display = 'block';
-      targetPage.classList.add('show');
-      // Add animation after a brief delay
-      setTimeout(() => targetPage.classList.add('animate-in'), 10);
+    // Navigation function
+    function navigateToPage(targetRoute) {
+      console.log('Navigating to:', targetRoute);
+      
+      // Default to overview if route doesn't exist
+      if (!targetRoute || !pages.some(p => p.id === targetRoute)) {
+        targetRoute = 'overview';
+      }
+      
+      // Hide ALL pages
+      pages.forEach(page => {
+        page.classList.remove('show', 'animate-in');
+        page.style.display = 'none';
+        page.style.visibility = 'hidden';
+      });
+      
+      // Show ONLY target page
+      const targetPage = document.getElementById(targetRoute);
+      if (targetPage) {
+        console.log('Showing page:', targetRoute);
+        targetPage.style.display = 'block';
+        targetPage.style.visibility = 'visible';
+        targetPage.classList.add('show');
+        
+        // Add animation
+        setTimeout(() => {
+          if (targetPage.classList.contains('show')) {
+            targetPage.classList.add('animate-in');
+          }
+        }, 50);
+      } else {
+        console.error('Page not found:', targetRoute);
+        return;
+      }
+      
+      // Update navigation active states
+      navButtons.forEach(btn => {
+        const isActive = btn.dataset.route === targetRoute;
+        btn.classList.toggle('active', isActive);
+      });
+      
+      // Update URL
+      history.replaceState({}, '', '#' + targetRoute);
+      
+      // Close mobile menu
+      if (navCheckbox) {
+        navCheckbox.checked = false;
+      }
+      
+      console.log('Navigation complete to:', targetRoute);
     }
     
-    // Update navigation active states
-    nav.forEach(n => n.classList.toggle('active', n.dataset.route === route));
+    // Bind click events to navigation buttons
+    navButtons.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const route = this.dataset.route;
+        console.log('Navigation clicked:', route);
+        navigateToPage(route);
+      });
+    });
     
-    // Update URL
-    history.replaceState({}, '', '#' + route);
+    // Handle overlay clicks (close mobile menu)
+    if (overlay) {
+      overlay.addEventListener('click', function() {
+        if (navCheckbox) {
+          navCheckbox.checked = false;
+        }
+      });
+    }
     
-    // Close mobile menu
-    const navToggle = $('#nav');
-    if (navToggle) navToggle.checked = false;
+    // Handle hash changes
+    window.addEventListener('hashchange', function() {
+      const route = location.hash.slice(1);
+      console.log('Hash changed to:', route);
+      navigateToPage(route);
+    });
     
-    console.log('Navigation complete to:', route); // Debug
+    // Initialize with current route
+    const initialRoute = location.hash.slice(1) || 'overview';
+    console.log('Initializing with route:', initialRoute);
+    navigateToPage(initialRoute);
   }
-
-  // Bind navigation events
-  nav.forEach(n => n.addEventListener('click', e => {
-    e.preventDefault();
-    console.log('Nav clicked:', n.dataset.route); // Debug
-    goto(n.dataset.route);
-  }));
-
-  // Handle browser back/forward
-  window.addEventListener('hashchange', () => {
-    const route = location.hash.slice(1);
-    console.log('Hash changed to:', route); // Debug
-    goto(route);
-  });
   
-  // Initialize with proper route
-  const initialRoute = location.hash.slice(1) || 'overview';
-  console.log('Initial route:', initialRoute); // Debug
-  goto(initialRoute);
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavigation);
+  } else {
+    initNavigation();
+  }
 
   // Coherent 21-day trading story - realistic progression
   const DATA = {

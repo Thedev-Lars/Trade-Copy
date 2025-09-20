@@ -1,378 +1,1625 @@
-
 <!doctype html>
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>TraderDuo — Static Showcase (Mobile‑Safe)</title>
+<title>TraderDuo — Professional Copy Trading Platform</title>
 <style>
 :root{
-  --bg:#0b0c12;--panel:#11121a;--muted:#b8bbd9;--stroke:#23243a;
-  --prime:#8b5cf6;--prime2:#6d28d9;--ink:#ececf7;--glass:rgba(255,255,255,.06);
+  --bg: #0a0b14;
+  --bg-secondary: #0f1017;
+  --panel: #12131c;
+  --panel-hover: #161823;
+  --muted: #a3a6cf;
+  --stroke: #1f2037;
+  --stroke-light: #2a2d47;
+  --prime: #8b5cf6;
+  --prime-light: #a78bfa;
+  --prime-dark: #6d28d9;
+  --ink: #f1f3ff;
+  --ink-secondary: #d1d5db;
+  --glass: rgba(255,255,255,.08);
+  --glass-strong: rgba(255,255,255,.12);
+  --success: #10b981;
+  --success-bg: rgba(16, 185, 129, 0.1);
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.1);
+  --warning: #f59e0b;
+  --warning-bg: rgba(245, 158, 11, 0.1);
+  --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
 }
-*{box-sizing:border-box} html,body{height:100%}
-body{margin:0;font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
-     color:var(--ink);
-     background:radial-gradient(700px 400px at -10% -10%,rgba(139,92,246,.18),transparent),
-                radial-gradient(700px 400px at 110% 0,rgba(168,85,247,.12),transparent),
-                linear-gradient(#0b0c12,#090a0f)}
-.top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
-     padding:12px 14px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
-     border-bottom:1px solid var(--stroke);backdrop-filter:blur(6px)}
-.brand{font-weight:800;letter-spacing:-.02em}
-.hamb{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid var(--stroke);border-radius:12px;background:var(--glass);}
-.search{flex:1;max-width:560px}
-.search input{width:100%;padding:11px 12px;border-radius:12px;border:1px solid var(--stroke);background:rgba(255,255,255,.05);color:var(--ink)}
-.layout{display:flex;min-height:100vh}
-aside{position:fixed;inset:56px auto 0 0;width:280px;transform:translateX(-100%);
-      background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
-      border-right:1px solid var(--stroke);backdrop-filter:blur(6px);transition:.2s ease;z-index:40;padding:14px;display:flex;flex-direction:column;gap:8px}
-#nav:checked ~ .layout aside{transform:translateX(0)}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:30}
-#nav:checked ~ .overlay{display:block}
-.navbtn{padding:11px 12px;border-radius:12px;color:#dee0f8;text-decoration:none;border:1px solid transparent;display:block}
-.navbtn.active,.navbtn:hover{background:var(--glass);border-color:var(--stroke);color:#fff}
-.main{flex:1;padding:16px}
-@media(min-width:1024px){aside{position:sticky;top:56px;transform:none}.main{margin-left:280px;padding:28px}}
-.card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid var(--stroke);
-      border-radius:16px;padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.25)}
-.card h3{margin:0 0 8px;font-size:12px;color:#c7c9e8;letter-spacing:.08em;text-transform:uppercase}
-.kpi{font-size:28px;font-weight:800;letter-spacing:-.02em}
-.grid{display:grid;gap:12px}
-.g-4{grid-template-columns:repeat(4,minmax(0,1fr))}
-.g-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.g-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-@media(max-width:1280px){.g-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:720px){.g-4,.g-3,.g-2{grid-template-columns:1fr}}
-.btn{padding:10px 12px;border-radius:12px;border:1px solid var(--stroke);background:var(--glass);color:#fff;cursor:pointer}
-.btn.primary{background:linear-gradient(180deg,rgba(139,92,246,.45),rgba(139,92,246,.15));border-color:#4b2f80}
-.btn.danger{background:rgba(255,77,109,.12);border-color:#5a2a49}
-.badge{display:inline-block;padding:3px 8px;border-radius:999px;border:1px solid var(--stroke);background:rgba(255,255,255,.08);font-size:11px}
-.muted{color:var(--muted)}
+
+- { box-sizing: border-box; }
+  html, body { height: 100%; }
+
+body {
+margin: 0;
+font: 14px/1.5 ‘Inter’, -apple-system, BlinkMacSystemFont, ‘Segoe UI’, Roboto, sans-serif;
+color: var(–ink);
+background:
+radial-gradient(600px 300px at -10% -10%, rgba(139,92,246,.15), transparent),
+radial-gradient(800px 400px at 110% 0, rgba(168,85,247,.08), transparent),
+radial-gradient(400px 400px at 50% 100%, rgba(59,130,246,.05), transparent),
+linear-gradient(180deg, var(–bg) 0%, var(–bg-secondary) 100%);
+overflow-x: hidden;
+}
+
+/* Enhanced Header */
+.top {
+position: sticky;
+top: 0;
+z-index: 100;
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 14px 16px;
+background: rgba(15, 16, 23, 0.8);
+border-bottom: 1px solid var(–stroke);
+backdrop-filter: blur(20px) saturate(180%);
+transition: all 0.3s ease;
+}
+
+.brand {
+font-weight: 900;
+font-size: 18px;
+letter-spacing: -0.02em;
+background: linear-gradient(135deg, #fff 0%, var(–prime-light) 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+.hamb {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 42px;
+height: 42px;
+border: 1px solid var(–stroke);
+border-radius: 12px;
+background: var(–glass);
+color: var(–ink-secondary);
+cursor: pointer;
+transition: all 0.2s ease;
+font-size: 16px;
+}
+
+.hamb:hover {
+background: var(–glass-strong);
+border-color: var(–stroke-light);
+transform: translateY(-1px);
+}
+
+.search {
+flex: 1;
+max-width: 600px;
+position: relative;
+}
+
+.search input {
+width: 100%;
+padding: 12px 16px 12px 44px;
+border-radius: 12px;
+border: 1px solid var(–stroke);
+background: var(–glass);
+color: var(–ink);
+font-size: 14px;
+transition: all 0.2s ease;
+}
+
+.search input:focus {
+outline: none;
+border-color: var(–prime);
+background: var(–glass-strong);
+box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.search::before {
+content: ‘🔍’;
+position: absolute;
+left: 16px;
+top: 50%;
+transform: translateY(-50%);
+opacity: 0.6;
+pointer-events: none;
+}
+
+.status-indicator {
+display: flex;
+align-items: center;
+gap: 6px;
+padding: 8px 12px;
+border-radius: 8px;
+background: var(–success-bg);
+border: 1px solid rgba(16, 185, 129, 0.2);
+font-size: 12px;
+font-weight: 600;
+}
+
+.status-indicator::before {
+content: ‘’;
+width: 6px;
+height: 6px;
+border-radius: 50%;
+background: var(–success);
+animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.5; }
+}
+
+/* Enhanced Layout */
+.layout { display: flex; min-height: 100vh; }
+
+aside {
+position: fixed;
+inset: 70px auto 0 0;
+width: 280px;
+transform: translateX(-100%);
+background: rgba(18, 19, 28, 0.9);
+border-right: 1px solid var(–stroke);
+backdrop-filter: blur(20px) saturate(180%);
+transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+z-index: 50;
+padding: 20px;
+display: flex;
+flex-direction: column;
+gap: 12px;
+}
+
+#nav:checked ~ .layout aside { transform: translateX(0); }
+
+.overlay {
+position: fixed;
+inset: 0;
+background: rgba(0, 0, 0, 0.6);
+display: none;
+z-index: 40;
+backdrop-filter: blur(4px);
+}
+
+#nav:checked ~ .overlay { display: block; }
+
+.nav-section {
+font-weight: 700;
+font-size: 12px;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+color: var(–muted);
+margin-bottom: 8px;
+margin-top: 16px;
+}
+
+.nav-section:first-child { margin-top: 0; }
+
+.navbtn {
+padding: 12px 14px;
+border-radius: 10px;
+color: var(–ink-secondary);
+text-decoration: none;
+border: 1px solid transparent;
+display: flex;
+align-items: center;
+gap: 10px;
+font-weight: 500;
+transition: all 0.2s ease;
+position: relative;
+}
+
+.navbtn::before {
+content: ‘’;
+width: 6px;
+height: 6px;
+border-radius: 50%;
+background: var(–muted);
+opacity: 0.6;
+transition: all 0.2s ease;
+}
+
+.navbtn.active,
+.navbtn:hover {
+background: var(–glass-strong);
+border-color: var(–stroke-light);
+color: var(–ink);
+transform: translateX(4px);
+}
+
+.navbtn.active::before {
+background: var(–prime);
+opacity: 1;
+box-shadow: 0 0 8px var(–prime);
+}
+
+.main {
+flex: 1;
+padding: 24px;
+transition: margin-left 0.3s ease;
+}
+
+@media(min-width: 1024px) {
+aside {
+position: sticky;
+top: 70px;
+transform: none;
+}
+.main {
+margin-left: 280px;
+padding: 32px;
+}
+}
+
+/* Enhanced Cards */
+.card {
+background: linear-gradient(135deg, var(–panel) 0%, rgba(18, 19, 28, 0.8) 100%);
+border: 1px solid var(–stroke);
+border-radius: 16px;
+padding: 20px;
+box-shadow: var(–shadow);
+transition: all 0.3s ease;
+position: relative;
+overflow: hidden;
+}
+
+.card::before {
+content: ‘’;
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+height: 1px;
+background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+}
+
+.card:hover {
+transform: translateY(-2px);
+box-shadow: var(–shadow-lg);
+border-color: var(–stroke-light);
+}
+
+.card.primary {
+background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(109, 40, 217, 0.05) 100%);
+border-color: rgba(139, 92, 246, 0.2);
+}
+
+.card h3 {
+margin: 0 0 12px;
+font-size: 12px;
+color: var(–muted);
+letter-spacing: 0.08em;
+text-transform: uppercase;
+font-weight: 600;
+}
+
+.kpi {
+font-size: 32px;
+font-weight: 900;
+letter-spacing: -0.02em;
+margin-bottom: 8px;
+transition: all 0.3s ease;
+}
+
+.kpi.positive { color: var(–success); }
+.kpi.negative { color: var(–danger); }
+
+.kpi-change {
+display: flex;
+align-items: center;
+gap: 4px;
+font-size: 13px;
+font-weight: 600;
+}
+
+.kpi-change.positive { color: var(–success); }
+.kpi-change.negative { color: var(–danger); }
+
+.kpi-change::before {
+content: ‘↗’;
+font-size: 14px;
+}
+
+.kpi-change.negative::before {
+content: ‘↘’;
+}
+
+/* Enhanced Grid */
+.grid {
+display: grid;
+gap: 16px;
+}
+
+.g-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.g-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.g-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media(max-width: 1280px) {
+.g-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media(max-width: 768px) {
+.g-4, .g-3, .g-2 { grid-template-columns: 1fr; }
+}
+
+/* Enhanced Buttons */
+.btn {
+padding: 12px 16px;
+border-radius: 10px;
+border: 1px solid var(–stroke);
+background: var(–glass);
+color: var(–ink);
+cursor: pointer;
+font-weight: 600;
+font-size: 14px;
+transition: all 0.2s ease;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+text-decoration: none;
+position: relative;
+overflow: hidden;
+}
+
+.btn:hover {
+background: var(–glass-strong);
+border-color: var(–stroke-light);
+transform: translateY(-1px);
+}
+
+.btn.primary {
+background: linear-gradient(135deg, var(–prime) 0%, var(–prime-dark) 100%);
+border-color: var(–prime-dark);
+color: white;
+box-shadow: 0 4px 14px rgba(139, 92, 246, 0.3);
+}
+
+.btn.primary:hover {
+background: linear-gradient(135deg, var(–prime-light) 0%, var(–prime) 100%);
+box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+}
+
+.btn.danger {
+background: linear-gradient(135deg, var(–danger) 0%, #dc2626 100%);
+border-color: #dc2626;
+color: white;
+box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+}
+
+.btn.danger:hover {
+background: linear-gradient(135deg, #f87171 0%, var(–danger) 100%);
+box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+.btn.sm {
+padding: 8px 12px;
+font-size: 12px;
+}
+
+/* Enhanced Badges */
+.badge {
+display: inline-flex;
+align-items: center;
+gap: 4px;
+padding: 6px 10px;
+border-radius: 12px;
+border: 1px solid var(–stroke);
+background: var(–glass);
+font-size: 11px;
+font-weight: 600;
+transition: all 0.2s ease;
+}
+
+.badge.success {
+background: var(–success-bg);
+border-color: rgba(16, 185, 129, 0.2);
+color: var(–success);
+}
+
+.badge.danger {
+background: var(–danger-bg);
+border-color: rgba(239, 68, 68, 0.2);
+color: var(–danger);
+}
+
+.badge.warning {
+background: var(–warning-bg);
+border-color: rgba(245, 158, 11, 0.2);
+color: var(–warning);
+}
+
+/* Enhanced Tables */
+.table-container {
+overflow-x: auto;
+border-radius: 12px;
+border: 1px solid var(–stroke);
+background: var(–panel);
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+}
+
+th, td {
+padding: 14px 16px;
+text-align: left;
+border-bottom: 1px solid var(–stroke);
+}
+
+th {
+background: var(–glass);
+color: var(–muted);
+font-weight: 600;
+font-size: 12px;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+position: sticky;
+top: 0;
+backdrop-filter: blur(10px);
+}
+
+tr:hover {
+background: var(–glass);
+}
+
+tr:last-child td {
+border-bottom: none;
+}
+
+/* Toolbar */
+.toolbar {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 12px;
+flex-wrap: wrap;
+margin-bottom: 16px;
+}
+
+.toolbar-left {
+display: flex;
+align-items: center;
+gap: 12px;
+flex-wrap: wrap;
+}
+
+.toolbar-right {
+display: flex;
+align-items: center;
+gap: 8px;
+flex-wrap: wrap;
+}
+
+/* Form Elements */
+.form-group {
+display: flex;
+flex-direction: column;
+gap: 6px;
+}
+
+.form-label {
+font-size: 12px;
+font-weight: 600;
+color: var(–muted);
+text-transform: uppercase;
+letter-spacing: 0.05em;
+}
+
+.form-input {
+padding: 12px 14px;
+border-radius: 8px;
+border: 1px solid var(–stroke);
+background: var(–glass);
+color: var(–ink);
+font-size: 14px;
+transition: all 0.2s ease;
+}
+
+.form-input:focus {
+outline: none;
+border-color: var(–prime);
+background: var(–glass-strong);
+box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+/* Exposure Visualization */
+.exposure-container {
+margin-top: 12px;
+}
+
+.exposure-chips {
+display: flex;
+gap: 8px;
+flex-wrap: wrap;
+margin-bottom: 12px;
+}
+
+.exposure-chip {
+display: flex;
+align-items: center;
+gap: 6px;
+padding: 6px 10px;
+border-radius: 8px;
+background: var(–glass);
+border: 1px solid var(–stroke);
+font-size: 12px;
+}
+
+.exposure-stack {
+height: 12px;
+border-radius: 8px;
+border: 1px solid var(–stroke);
+display: flex;
+overflow: hidden;
+background: var(–bg-secondary);
+}
+
+/* Status Indicators */
+.status-online {
+color: var(–success);
+}
+
+.status-offline {
+color: var(–danger);
+}
+
+.status-synced {
+color: var(–prime);
+}
+
 /* Sections */
-section[data-page]{display:none}
-section.show{display:block}
-/* Simple SVG wrappers */
-.svg{width:100%;height:100px}
-/* Calendar */
-.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
-.day{border:1px solid var(--stroke);border-radius:10px;padding:8px;min-height:68px;background:rgba(255,255,255,.04)}
-.day.win{background:linear-gradient(180deg,rgba(139,92,246,.42),rgba(139,92,246,.12))}
-.day.loss{background:linear-gradient(180deg,rgba(232,121,249,.10),rgba(139,92,246,.06))}
-table{width:100%;border-collapse:collapse}
-th,td{padding:10px;border-bottom:1px solid var(--stroke);font-size:13px;text-align:left}
-th{color:#cfd1ef}
-.toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+section[data-page] { display: none; }
+section.show { display: block; }
+
+/* Enhanced Mobile Styles */
+@media(max-width: 768px) {
+.main {
+padding: 16px;
+}
+
+.card {
+padding: 16px;
+}
+
+.kpi {
+font-size: 24px;
+}
+
+.toolbar {
+flex-direction: column;
+align-items: flex-start;
+gap: 8px;
+}
+
+.table-container {
+font-size: 12px;
+}
+
+th, td {
+padding: 10px 8px;
+}
+}
+
+/* Animations */
+@keyframes slideIn {
+from {
+opacity: 0;
+transform: translateY(20px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+.animate-in {
+animation: slideIn 0.5s ease-out;
+}
+
+/* Loading States */
+.skeleton {
+background: linear-gradient(90deg, var(–panel) 25%, var(–glass) 50%, var(–panel) 75%);
+background-size: 200% 100%;
+animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+0% {
+background-position: 200% 0;
+}
+100% {
+background-position: -200% 0;
+}
+}
+
+/* Chart Enhancements */
+.chart-container {
+position: relative;
+height: 120px;
+margin-top: 12px;
+}
+
+.svg {
+width: 100%;
+height: 100%;
+overflow: visible;
+}
+
+/* Calendar Enhancements */
+.cal {
+display: grid;
+grid-template-columns: repeat(7, minmax(0, 1fr));
+gap: 8px;
+margin-top: 16px;
+}
+
+.day {
+border: 1px solid var(–stroke);
+border-radius: 8px;
+padding: 10px;
+min-height: 80px;
+background: var(–glass);
+transition: all 0.2s ease;
+cursor: pointer;
+}
+
+.day:hover {
+background: var(–glass-strong);
+transform: translateY(-1px);
+}
+
+.day.win {
+background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.05) 100%);
+border-color: rgba(16, 185, 129, 0.3);
+}
+
+.day.loss {
+background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.05) 100%);
+border-color: rgba(239, 68, 68, 0.3);
+}
+
+.muted {
+color: var(–muted);
+}
+
+/* Quick Actions */
+.quick-actions {
+position: fixed;
+bottom: 24px;
+right: 24px;
+z-index: 60;
+display: flex;
+flex-direction: column;
+gap: 12px;
+}
+
+.quick-action {
+width: 56px;
+height: 56px;
+border-radius: 50%;
+background: var(–prime);
+color: white;
+border: none;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 20px;
+box-shadow: var(–shadow);
+transition: all 0.3s ease;
+}
+
+.quick-action:hover {
+transform: scale(1.1);
+box-shadow: var(–shadow-lg);
+}
+
+@media(max-width: 768px) {
+.quick-actions {
+bottom: 16px;
+right: 16px;
+}
+}
 </style>
+
 </head>
 <body>
 <input id="nav" hidden type="checkbox">
+
 <div class="top">
   <label class="hamb" for="nav">☰</label>
-  <div class="brand">Trader<span style="color:var(--prime)">Duo</span> <span class="badge">Demo</span></div>
-  <div class="search"><input placeholder="Search commands, accounts, orders…"></div>
+  <div class="brand">Trader<span style="color:var(--prime)">Duo</span></div>
+  <div class="search">
+    <input placeholder="Search accounts, positions, orders..." />
+  </div>
+  <div class="status-indicator">
+    <span>Live</span>
+  </div>
 </div>
+
 <div class="overlay"></div>
 
 <div class="layout">
   <aside>
-    <div style="font-weight:800;margin-bottom:6px">Command Center</div>
-    <a class="navbtn" data-route="overview" href="#overview">Overview</a>
-    <a class="navbtn" data-route="copy" href="#copy">Copy Trading</a>
-    <a class="navbtn" data-route="analytics" href="#analytics">Analytics</a>
-    <a class="navbtn" data-route="activity" href="#activity">Activity</a>
-    <a class="navbtn" data-route="settings" href="#settings">Settings</a>
-    <div style="margin-top:auto;display:grid;gap:8px">
-      <button class="btn primary" id="mDisable">Disable Copy Trading</button>
-      <button class="btn" id="mClose">Close All Positions</button>
-      <button class="btn danger" id="mCancel">Cancel All Orders</button>
-    </div>
+    <div class="nav-section">Dashboard</div>
+    <a class="navbtn active" data-route="overview" href="#overview">
+      <span>Overview</span>
+    </a>
+    <a class="navbtn" data-route="copy" href="#copy">
+      <span>Copy Trading</span>
+    </a>
+    <a class="navbtn" data-route="analytics" href="#analytics">
+      <span>Analytics</span>
+    </a>
+
+```
+<div class="nav-section">Management</div>
+<a class="navbtn" data-route="activity" href="#activity">
+  <span>Activity Feed</span>
+</a>
+<a class="navbtn" data-route="settings" href="#settings">
+  <span>Settings</span>
+</a>
+
+<div style="margin-top: auto; display: grid; gap: 10px;">
+  <button class="btn danger" id="mEmergency">🚨 Emergency Stop</button>
+  <button class="btn" id="mClose">Close Positions</button>
+  <button class="btn" id="mCancel">Cancel Orders</button>
+</div>
+```
+
   </aside>
 
   <main class="main">
-    <!-- default visible to avoid blank on JS errors -->
-    <section id="overview" data-page="overview" class="show">
+    <!-- Overview Section -->
+    <section id="overview" data-page="overview" class="show animate-in">
       <div class="grid g-4">
-        <div class="card"><h3>Realized PnL (Today)</h3><div id="kpiRealized" class="kpi">$0.00</div><div class="muted" style="font-size:12px">Closed trades only</div></div>
-        <div class="card"><h3>Open PnL (Intra‑day)</h3><div id="kpiOpen" class="kpi">$0.00</div><svg id="spark" class="svg" viewBox="0 0 100 24" preserveAspectRatio="none"></svg></div>
-        <div class="card">
-          <h3>Open Exposure</h3><div id="kpiExposure" class="kpi" style="font-size:22px">$0</div>
-          <div id="expoChips" style="display:flex;gap:8px;flex-wrap:wrap;margin:6px 0"></div>
-          <div id="expoStack" style="height:8px;border-radius:8px;border:1px solid var(--stroke);display:flex;overflow:hidden;background:#171825"></div>
+        <div class="card primary">
+          <h3>Today's Profit</h3>
+          <div id="kpiRealized" class="kpi positive">$1,247.85</div>
+          <div class="kpi-change positive">+12.4% from yesterday</div>
         </div>
-        <div class="card"><h3>Copy Status</h3><div id="kpiCopy" class="kpi" style="font-size:22px;color:var(--prime)">ENABLED</div><div class="muted" style="font-size:12px"><span id="kpiGroups">3</span> active groups</div></div>
-      </div>
-      <div class="card" style="margin-top:12px">
-        <div class="toolbar"><div style="font-weight:700">Risk Controls</div><div class="muted" style="font-size:12px">Copy trading: <span id="copyState" class="badge">ENABLED</span></div></div>
-        <div class="grid g-3" style="margin-top:8px">
-          <label><div class="muted" style="font-size:12px">Daily Max Loss</div><input id="rcLoss" class="search" value="-$1,500"></label>
-          <label><div class="muted" style="font-size:12px">Daily Max Trades</div><input id="rcTrades" class="search" value="40"></label>
-          <label><div class="muted" style="font-size:12px">Position Limit</div><input id="rcPos" class="search" value="12"></label>
-        </div>
-        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-          <button id="ovDisable" class="btn primary">Disable Copy Trading</button>
-          <button id="ovClose" class="btn">Close All Positions</button>
-          <button id="ovCancel" class="btn danger">Cancel All Orders</button>
-        </div>
-      </div>
-    </section>
 
-    <section id="copy" data-page="copy">
-      <div class="card">
-        <div class="toolbar">
-          <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="badge">+ Contract</span><span class="badge">MES ✕</span><span class="badge">MNQ ✕</span><span class="badge">MCL ✕</span></div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="cpDisable">Disable followers</button><button class="btn" id="cpCancel">Cancel orders</button><button class="btn danger" id="cpFlatten">Flatten all</button></div>
-        </div>
-        <div style="overflow:auto;margin-top:8px">
-          <table>
-            <thead><tr><th>Follow</th><th>Account</th><th>Side</th><th>Qty</th><th>Balance</th><th>Avg Price</th><th>Day PnL</th><th>Open PnL</th><th>Sync</th><th>Actions</th></tr></thead>
-            <tbody id="cpBody"></tbody>
-          </table>
-        </div>
+```
+    <div class="card">
+      <h3>Open P&L</h3>
+      <div id="kpiOpen" class="kpi">$327.50</div>
+      <div class="chart-container">
+        <svg id="spark" class="svg" viewBox="0 0 100 24" preserveAspectRatio="none"></svg>
       </div>
-      <div class="card" style="margin-top:12px">
-        <div class="toolbar"><div style="font-weight:700">Orders</div><div style="display:flex;gap:8px"><button class="btn" id="ordExport">Export</button><button class="btn" id="ordFilter">Filter</button></div></div>
-        <div style="overflow:auto;margin-top:6px">
-          <table>
-            <thead><tr><th>ID</th><th>Account</th><th>Time</th><th>Contract</th><th>Type</th><th>Side</th><th>Qty</th><th>Price</th><th>Status</th></tr></thead>
-            <tbody id="ordBody"></tbody>
-          </table>
-        </div>
+    </div>
+    
+    <div class="card">
+      <h3>Active Positions</h3>
+      <div id="kpiExposure" class="kpi" style="font-size: 24px;">$273,000</div>
+      <div class="exposure-container">
+        <div id="expoChips" class="exposure-chips"></div>
+        <div id="expoStack" class="exposure-stack"></div>
       </div>
-    </section>
+    </div>
+    
+    <div class="card">
+      <h3>Copy Status</h3>
+      <div id="kpiCopy" class="kpi" style="font-size: 24px; color: var(--success);">ACTIVE</div>
+      <div class="muted" style="font-size: 12px;">
+        <span id="kpiGroups">3</span> accounts synced
+      </div>
+    </div>
+  </div>
 
-    <section id="analytics" data-page="analytics">
-      <div class="grid g-4">
-        <div class="card"><h3>P&L (Today)</h3><div id="aPLToday" class="kpi">$0.00</div><div id="aPLNote" class="muted" style="font-size:12px"></div></div>
-        <div class="card"><h3>Profit Factor</h3><div id="aPF" class="kpi">0.00</div></div>
-        <div class="card"><h3>Win Rate</h3><div id="aWR" class="kpi">0%</div></div>
-        <div class="card"><h3>Day Win %</h3><div id="aDW" class="kpi">0%</div><div id="aDWNote" class="muted" style="font-size:12px"></div></div>
+  <div class="card" style="margin-top: 20px;">
+    <div class="toolbar">
+      <div style="font-weight: 700; font-size: 16px;">Risk Management</div>
+      <div class="toolbar-right">
+        <span id="copyState" class="badge success">COPY TRADING ON</span>
       </div>
-      <div class="card" style="margin-top:12px">
-        <h3>Cumulative Equity (21 days)</h3>
-        <svg id="eqCurve" class="svg" viewBox="0 0 100 30" preserveAspectRatio="none"></svg>
+    </div>
+    
+    <div class="grid g-3">
+      <div class="form-group">
+        <label class="form-label">Daily Max Loss</label>
+        <input id="rcLoss" class="form-input" value="$1,500" />
       </div>
-      <div class="grid g-3" style="margin-top:12px">
-        <div class="card"><h3>Daily PnL (last 7)</h3><div id="aDailySum" class="kpi" style="font-size:20px"></div><svg id="dailyBars" class="svg" viewBox="0 0 100 40"></svg></div>
-        <div class="card"><h3>Weekly PnL (last 4)</h3><div id="aWeeklySum" class="kpi" style="font-size:20px"></div><svg id="weeklyBars" class="svg" viewBox="0 0 100 40"></svg></div>
-        <div class="card"><h3>Monthly PnL (YTD)</h3><div id="aMonthlySum" class="kpi" style="font-size:20px"></div><svg id="monthlyBars" class="svg" viewBox="0 0 100 40"></svg></div>
+      <div class="form-group">
+        <label class="form-label">Max Daily Trades</label>
+        <input id="rcTrades" class="form-input" value="40" />
       </div>
-      <div class="card" style="margin-top:12px">
-        <div class="toolbar"><div style="font-weight:700">Monthly Calendar</div><div id="calLabel" class="muted" style="font-size:12px"></div></div>
-        <div id="calGrid" class="cal"></div>
+      <div class="form-group">
+        <label class="form-label">Position Limit</label>
+        <input id="rcPos" class="form-input" value="12" />
       </div>
-    </section>
+    </div>
+    
+    <div class="toolbar-right" style="margin-top: 16px; justify-content: flex-start;">
+      <button id="ovDisable" class="btn primary">Disable Copy Trading</button>
+      <button id="ovClose" class="btn">Close All Positions</button>
+      <button id="ovCancel" class="btn danger">Cancel All Orders</button>
+    </div>
+  </div>
+</section>
 
-    <section id="activity" data-page="activity">
-      <div class="card">
-        <div class="toolbar"><div style="font-weight:700">Latest Activity</div><button class="btn" id="actExport">Export CSV</button></div>
-        <div style="overflow:auto;margin-top:8px"><table><thead><tr><th>Time</th><th>Type</th><th>Message</th></tr></thead><tbody id="actBody"></tbody></table></div>
+<!-- Copy Trading Section -->
+<section id="copy" data-page="copy">
+  <div class="card">
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <div style="font-weight: 700; font-size: 16px;">Copy Trading Dashboard</div>
+        <div style="display: flex; gap: 6px;">
+          <span class="badge">MES</span>
+          <span class="badge">MNQ</span>
+          <span class="badge">MCL</span>
+        </div>
       </div>
-    </section>
+      <div class="toolbar-right">
+        <button class="btn sm" id="cpDisable">Disable Followers</button>
+        <button class="btn sm" id="cpCancel">Cancel Orders</button>
+        <button class="btn danger sm" id="cpFlatten">Emergency Flatten</button>
+      </div>
+    </div>
+    
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>Account</th>
+            <th>Position</th>
+            <th>Quantity</th>
+            <th>Balance</th>
+            <th>Avg Price</th>
+            <th>Day P&L</th>
+            <th>Open P&L</th>
+            <th>Sync</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="cpBody"></tbody>
+      </table>
+    </div>
+  </div>
 
-    <section id="settings" data-page="settings">
-      <div class="card">
-        <div class="grid g-2">
-          <label><div class="muted" style="font-size:12px">Email</div><input class="search" value="you@example.com"></label>
-          <label><div class="muted" style="font-size:12px">Plan</div><select class="search"><option>Starter ($19/mo)</option><option>Pro ($49/mo)</option><option>Scale ($99/mo)</option></select></label>
-        </div>
-        <div class="grid g-2" style="margin-top:12px">
-          <div>
-            <div class="muted" style="font-size:12px;margin-bottom:6px">API Credentials (Tradovate)</div>
-            <input class="search" placeholder="Client ID"><div style="height:8px"></div>
-            <input class="search" placeholder="Client Secret"><div style="height:8px"></div>
-            <button id="testApi" class="btn">Test Connection</button>
-          </div>
-          <div>
-            <div class="muted" style="font-size:12px;margin-bottom:6px">Plan Usage</div>
-            <div style="height:8px;border-radius:999px;background:#171821;border:1px solid var(--stroke);overflow:hidden"><span id="usage" style="display:block;height:8px;background:linear-gradient(90deg,var(--prime),var(--prime2));width:40%"></span></div>
-            <div class="muted" style="font-size:12px;margin-top:6px">2 / 5 broker connections used</div>
-          </div>
-        </div>
-        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px"><button class="btn">Cancel</button><button class="btn primary">Save</button></div>
+  <div class="card" style="margin-top: 20px;">
+    <div class="toolbar">
+      <div style="font-weight: 700; font-size: 16px;">Recent Orders</div>
+      <div class="toolbar-right">
+        <button class="btn sm" id="ordFilter">Filter</button>
+        <button class="btn sm" id="ordExport">Export CSV</button>
       </div>
-    </section>
+    </div>
+    
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Account</th>
+            <th>Time</th>
+            <th>Symbol</th>
+            <th>Type</th>
+            <th>Side</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="ordBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Analytics Section -->
+<section id="analytics" data-page="analytics">
+  <div class="grid g-4">
+    <div class="card">
+      <h3>Today's P&L</h3>
+      <div id="aPLToday" class="kpi positive">$1,247.85</div>
+      <div id="aPLNote" class="muted" style="font-size: 12px;"></div>
+    </div>
+    
+    <div class="card">
+      <h3>Profit Factor</h3>
+      <div id="aPF" class="kpi">2.34</div>
+      <div class="kpi-change positive">+0.15 this week</div>
+    </div>
+    
+    <div class="card">
+      <h3>Win Rate</h3>
+      <div id="aWR" class="kpi">68.5%</div>
+      <div class="kpi-change positive">+2.1% this month</div>
+    </div>
+    
+    <div class="card">
+      <h3>Daily Win Rate</h3>
+      <div id="aDW" class="kpi">71.4%</div>
+      <div id="aDWNote" class="muted" style="font-size: 12px;"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <h3>Equity Curve (21 Days)</h3>
+    <div class="chart-container" style="height: 200px;">
+      <svg id="eqCurve" class="svg" viewBox="0 0 100 30" preserveAspectRatio="none"></svg>
+    </div>
+  </div>
+
+  <div class="grid g-3" style="margin-top: 20px;">
+    <div class="card">
+      <h3>Daily P&L (Last 7)</h3>
+      <div id="aDailySum" class="kpi" style="font-size: 20px;">$2,347</div>
+      <div class="chart-container">
+        <svg id="dailyBars" class="svg" viewBox="0 0 100 40"></svg>
+      </div>
+    </div>
+    
+    <div class="card">
+      <h3>Weekly P&L (Last 4)</h3>
+      <div id="aWeeklySum" class="kpi" style="font-size: 20px;">$8,921</div>
+      <div class="chart-container">
+        <svg id="weeklyBars" class="svg" viewBox="0 0 100 40"></svg>
+      </div>
+    </div>
+    
+    <div class="card">
+      <h3>Monthly P&L (YTD)</h3>
+      <div id="aMonthlySum" class="kpi" style="font-size: 20px;">$34,567</div>
+      <div class="chart-container">
+        <svg id="monthlyBars" class="svg" viewBox="0 0 100 40"></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <div class="toolbar">
+      <div style="font-weight: 700; font-size: 16px;">Performance Calendar</div>
+      <div id="calLabel" class="muted"></div>
+    </div>
+    <div id="calGrid" class="cal"></div>
+  </div>
+</section>
+
+<!-- Activity Section -->
+<section id="activity" data-page="activity">
+  <div class="card">
+    <div class="toolbar">
+      <div style="font-weight: 700; font-size: 16px;">Activity Feed</div>
+      <button class="btn sm" id="actExport">Export CSV</button>
+    </div>
+    
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Type</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody id="actBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Settings Section -->
+<section id="settings" data-page="settings">
+  <div class="card">
+    <div style="font-weight: 700; font-size: 16px; margin-bottom: 20px;">Account Settings</div>
+    
+    <div class="grid g-2">
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input class="form-input" value="trader@example.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Subscription Plan</label>
+        <select class="form-input">
+          <option>Professional ($99/mo)</option>
+          <option>Starter ($29/mo)</option>
+          <option>Enterprise ($199/mo)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid g-2" style="margin-top: 20px;">
+      <div>
+        <div class="form-label" style="margin-bottom: 12px;">Tradovate API</div>
+        <div class="form-group">
+          <input class="form-input" placeholder="Client ID" />
+        </div>
+        <div class="form-group">
+          <input class="form-input" placeholder="Client Secret" type="password" />
+        </div>
+        <button id="testApi" class="btn primary">Test Connection</button>
+      </div>
+      
+      <div>
+        <div class="form-label" style="margin-bottom: 12px;">Usage Overview</div>
+        <div style="height: 12px; border-radius: 999px; background: var(--bg-secondary); border: 1px solid var(--stroke); overflow: hidden;">
+          <span id="usage" style="display: block; height: 12px; background: linear-gradient(90deg, var(--prime), var(--prime-light)); width: 65%;"></span>
+        </div>
+        <div class="muted" style="font-size: 12px; margin-top: 8px;">
+          3 of 5 broker connections used
+        </div>
+        <div class="muted" style="font-size: 12px;">
+          1,247 of 2,000 monthly trades
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbar-right" style="margin-top: 24px; justify-content: flex-end;">
+      <button class="btn">Cancel</button>
+      <button class="btn primary">Save Changes</button>
+    </div>
+  </div>
+</section>
+```
+
   </main>
+</div>
+
+<!-- Quick Actions -->
+
+<div class="quick-actions">
+  <button class="quick-action" title="Emergency Stop">🚨</button>
 </div>
 
 <script>
 (function(){
-  const $=q=>document.querySelector(q), $$=q=>Array.from(document.querySelectorAll(q));
-  /* Router */
-  const pages=$$('section[data-page]'), nav=$$('.navbtn');
-  function goto(route){
-    if(!pages.some(p=>p.id===route)) route='overview';
-    pages.forEach(p=>p.classList.toggle('show', p.id===route));
-    nav.forEach(n=>n.classList.toggle('active', n.dataset.route===route));
-    history.replaceState({},'', '#'+route);
-    const navToggle = $('#nav'); if(navToggle) navToggle.checked=false;
-  }
-  nav.forEach(n=>n.addEventListener('click', e=>{e.preventDefault(); goto(n.dataset.route);}));
-  window.addEventListener('hashchange', ()=>goto(location.hash.slice(1)));
-  goto(location.hash.slice(1)||'overview');
+  const $ = q => document.querySelector(q);
+  const $$ = q => Array.from(document.querySelectorAll(q));
 
-  /* Static dataset (consistent across UI) */
+  // Enhanced Router with animations
+  const pages = $$('section[data-page]');
+  const nav = $$('.navbtn');
+  
+  function goto(route) {
+    if (!pages.some(p => p.id === route)) route = 'overview';
+    
+    pages.forEach(p => {
+      p.classList.toggle('show', p.id === route);
+      if (p.id === route) {
+        p.classList.add('animate-in');
+        setTimeout(() => p.classList.remove('animate-in'), 500);
+      }
+    });
+    
+    nav.forEach(n => n.classList.toggle('active', n.dataset.route === route));
+    history.replaceState({}, '', '#' + route);
+    
+    const navToggle = $('#nav');
+    if (navToggle) navToggle.checked = false;
+  }
+
+  nav.forEach(n => n.addEventListener('click', e => {
+    e.preventDefault();
+    goto(n.dataset.route);
+  }));
+
+  window.addEventListener('hashchange', () => goto(location.hash.slice(1)));
+  goto(location.hash.slice(1) || 'overview');
+
+  // Coherent 21-day trading story - realistic progression
   const DATA = {
+    // Generated realistic trading data with story arc
+    pnlDaily: [
+      // Week 1: Strong start, then pullback
+      485.75, 723.40, -127.60, 312.85, -89.20, 156.30, -245.80,
+      // Week 2: Recovery with big win mid-week  
+      89.45, 267.90, 1247.85, 423.10, -178.30, 534.60, 298.75,
+      // Week 3: Consistent smaller wins, today's strong finish
+      145.20, -67.40, 389.15, 234.80, -156.90, 467.30, 1247.85
+    ],
+    
+    // Computed values that stay in sync
+    get totalPnL() { return this.pnlDaily.reduce((sum, val) => sum + val, 0); },
+    get todaysPnL() { return this.pnlDaily[this.pnlDaily.length - 1]; },
+    get weeklyPnL() { return this.pnlDaily.slice(-7).reduce((sum, val) => sum + val, 0); },
+    get equityCurve() { 
+      let cum = 50000; // Starting equity
+      return this.pnlDaily.map(pnl => cum += pnl);
+    },
+    
     accounts: {
-      leader: {acct:'TV-LEADER-203682037', side:'Long', qty:1, balance:147954.35, avg:22681.50, day:-12.40, open:127.00},
+      leader: {
+        acct: 'TV-LEADER-203682037',
+        side: 'Long',
+        qty: 1, // Fixed to 1 as per requirement
+        get balance() { return 50000 + DATA.totalPnL; }, // Dynamic balance
+        avg: 22681.50,
+        get day() { return DATA.todaysPnL; },
+        open: 327.50
+      },
       followers: [
-        {acct:'TV-FOLLOW-203682034', ratio:1, balance:147352.03},
-        {acct:'TV-FOLLOW-203682035', ratio:2, balance:146811.20},
-        {acct:'TV-FOLLOW-203682036', ratio:1, balance:147205.45}
+        {
+          acct: 'TV-FOLLOW-203682034', 
+          ratio: 1, 
+          get balance() { return 48500 + DATA.totalPnL * 0.97; }, // Slightly different performance
+          get day() { return DATA.todaysPnL * 0.97; },
+          get open() { return DATA.accounts.leader.open * 0.97; }
+        },
+        {
+          acct: 'TV-FOLLOW-203682035', 
+          ratio: 1, 
+          get balance() { return 52000 + DATA.totalPnL * 1.02; }, // Slightly better performance  
+          get day() { return DATA.todaysPnL * 1.02; },
+          get open() { return DATA.accounts.leader.open * 1.02; }
+        },
+        {
+          acct: 'TV-FOLLOW-203682036', 
+          ratio: 1, 
+          get balance() { return 49800 + DATA.totalPnL * 0.99; }, // Close to leader
+          get day() { return DATA.todaysPnL * 0.99; },
+          get open() { return DATA.accounts.leader.open * 0.99; }
+        }
       ]
     },
     positions: [
-      {sym:'ESZ5', side:'Long', qty:2, notional:142000},
-      {sym:'NQZ5', side:'Long', qty:1, notional:98000},
-      {sym:'CLX5', side:'Short', qty:2, notional:33000}
+      {sym: 'ESZ5', side: 'Long', qty: 2, notional: 142000, price: 5847.25},
+      {sym: 'NQZ5', side: 'Long', qty: 1, notional: 98500, price: 22681.50},
+      {sym: 'CLX5', side: 'Short', qty: 3, notional: 32700, price: 89.45}
     ],
-    pnlDaily: [305.25,-80.60,190.35,-260.00,140.10,55.00,-120.45,520.15,130.05,-220.90,410.40,-95.10,240.00,60.00,305.25,-80.60,190.35,-260.00,140.10,55.00,-120.45],
-    monthlyYTD: [0,0,141.45,812.58,550.07,467.00,287.23,675.23,339.61,146.14,0,0]
+    
+    // Monthly data for YTD view
+    monthlyYTD: [
+      2847.92, 4234.15, 6789.33, 8912.47, 7234.82, 9456.78, 
+      11234.56, 12847.93, 14567.89, 16234.77, 18456.92, 0
+    ],
+    
+    // Risk settings
+    riskControls: {
+      dailyMaxLoss: -1500,
+      maxDailyTrades: 40,
+      positionLimit: 12,
+      currentTrades: 23,
+      get riskScore() {
+        const lossRisk = Math.abs(DATA.todaysPnL) / Math.abs(this.dailyMaxLoss);
+        const tradeRisk = this.currentTrades / this.maxDailyTrades;
+        return Math.max(lossRisk, tradeRisk);
+      }
+    }
   };
-  const fmt = n => (n<0?'-':'')+'$'+Math.abs(n).toFixed(2);
-  const sum = a => a.reduce((x,y)=>x+y,0);
-  const lastN = (a,n) => a.slice(-n);
 
-  /* Overview KPIs */
-  const daily7 = lastN(DATA.pnlDaily,7);
-  const openSeries = (function(){const arr=[], base=DATA.accounts.leader.open;
-    let v=0; for(let i=0;i<24;i++){ v += (Math.random()-.4)*10; arr.push(v); } // zero‑baseline wiggle
-    // scale so last equals open
-    const scale = DATA.accounts.leader.open / (arr[arr.length-1]||1);
-    return arr.map(x=>x*scale);
+  const fmt = n => (n < 0 ? '-' : '') + '$' + Math.abs(n).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  const sum = a => a.reduce((x, y) => x + y, 0);
+  const lastN = (a, n) => a.slice(-n);
+
+  // Enhanced sparkline
+  function spark(el, values) {
+    const w = 100, h = 24;
+    const max = Math.max(...values);
+    const min = Math.min(...values);
+    const range = (max - min) || 1;
+    
+    const points = values.map((v, i) => [
+      (i / (values.length - 1)) * w,
+      h - ((v - min) / range * h)
+    ]);
+    
+    const pathData = points.map((p, i) => 
+      (i === 0 ? 'M' : 'L') + p.join(',')
+    ).join(' ');
+    
+    const gradient = values[values.length - 1] >= values[0] ? 
+      'url(#sparkGradientUp)' : 'url(#sparkGradientDown)';
+    
+    el.innerHTML = `
+      <defs>
+        <linearGradient id="sparkGradientUp" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3" />
+          <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.8" />
+        </linearGradient>
+        <linearGradient id="sparkGradientDown" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#ef4444;stop-opacity:0.3" />
+          <stop offset="100%" style="stop-color:#ef4444;stop-opacity:0.8" />
+        </linearGradient>
+      </defs>
+      <path d="${pathData}" fill="none" stroke="${gradient}" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="${points[points.length-1][0]}" cy="${points[points.length-1][1]}" r="2" fill="${values[values.length-1] >= 0 ? '#10b981' : '#ef4444'}"/>
+    `;
+  }
+
+  // Generate realistic intraday data
+  const intradayData = (function() {
+    const arr = [];
+    let base = DATA.accounts.leader.open;
+    let current = 0;
+    
+    for (let i = 0; i < 48; i++) {
+      current += (Math.random() - 0.48) * 15;
+      arr.push(current);
+    }
+    
+    const scale = base / (arr[arr.length - 1] || 1);
+    return arr.map(x => x * scale);
   })();
-  $('#kpiRealized').textContent = fmt(daily7[daily7.length-1]);
+
+  spark($('#spark'), intradayData);
+
+  // Update KPIs with enhanced formatting
+  $('#kpiRealized').textContent = fmt(lastN(DATA.pnlDaily, 1)[0]);
   $('#kpiOpen').textContent = fmt(DATA.accounts.leader.open);
 
-  /* Simple SVG sparkline (no libraries) */
-  function spark(el, values){
-    const w=100,h=24, max=Math.max(...values,0), min=Math.min(...values,0), rng=(max-min)||1;
-    const pts = values.map((v,i)=>[ i/(values.length-1)*w, h-( (v-min)/rng*h ) ]);
-    el.innerHTML = `<polyline fill="none" stroke="${getComputedStyle(document.documentElement).getPropertyValue('--prime').trim()}" stroke-width="1.5" points="${pts.map(p=>p.join(',')).join(' ')}"/>`;
-  }
-  spark($('#spark'), openSeries);
+  // Enhanced exposure visualization
+  const totalExpo = DATA.positions.reduce((a, p) => a + Math.abs(p.notional), 0);
+  $('#kpiExposure').textContent = '$' + totalExpo.toLocaleString();
 
-  /* Exposure */
-  const totalExpo = DATA.positions.reduce((a,p)=>a+Math.abs(p.notional),0);
-  $('#kpiExposure').textContent = '$'+totalExpo.toLocaleString();
-  $('#expoChips').innerHTML = DATA.positions.map(p=>`<span class="badge">${p.sym}</span><span class="muted" style="font-size:12px">${p.side} • ${p.qty} ctr • $${Math.round(Math.abs(p.notional)/1000)}k</span>`).join(' ');
+  const expoChips = $('#expoChips');
+  expoChips.innerHTML = DATA.positions.map(p => 
+    `<div class="exposure-chip">
+      <span class="badge ${p.side === 'Long' ? 'success' : 'danger'}">${p.sym}</span>
+      <span>${p.side} ${p.qty} • $${Math.round(Math.abs(p.notional) / 1000)}k</span>
+    </div>`
+  ).join('');
+
   const stack = $('#expoStack');
-  DATA.positions.forEach((p,i)=>{
-    const w = Math.abs(p.notional) / totalExpo * 100;
-    const seg = document.createElement('div');
-    seg.style.cssText = `width:${w}%;background:${i===0?'#7c3aed':i===1?'#6d28d9':'#a78bfa'}`;
-    stack.appendChild(seg);
+  const colors = ['#8b5cf6', '#6d28d9', '#a78bfa'];
+  DATA.positions.forEach((p, i) => {
+    const width = (Math.abs(p.notional) / totalExpo) * 100;
+    const segment = document.createElement('div');
+    segment.style.cssText = `width: ${width}%; background: ${colors[i % colors.length]}; transition: all 0.3s ease;`;
+    segment.title = `${p.sym}: $${Math.abs(p.notional).toLocaleString()}`;
+    stack.appendChild(segment);
   });
 
-  /* Copy trading table */
-  function renderCopy(){
+  // Enhanced copy trading table
+  function renderCopy() {
     const L = DATA.accounts.leader;
-    const rows = [{lead:true, follow:true, acct:L.acct, side:L.side, qty:L.qty, bal:L.balance, avg:L.avg, day:L.day, open:L.open}]
-      .concat(DATA.accounts.followers.map(f=>({lead:false, follow:true, acct:f.acct, side:L.side, qty:Math.max(1,Math.round(L.qty*f.ratio)), bal:f.balance, avg:L.avg, day:L.day+(Math.random()-.5)*4, open:L.open+(Math.random()-.5)*3 })));
-    $('#cpBody').innerHTML = rows.map(r=>`<tr>
-      <td>${r.lead?'👑 ':''}<input type="checkbox" ${r.follow?'checked':''} ${r.lead?'disabled':''}></td>
-      <td>${r.acct}</td><td><span class="badge">${r.side}</span></td><td>${r.qty}</td>
-      <td>$${r.bal.toLocaleString()}</td><td>${r.avg.toLocaleString()}</td>
-      <td>${fmt(r.day)}</td><td>${fmt(r.open)}</td>
-      <td><span class="badge">Synced</span></td>
-      <td><button class="btn">Flatten</button> <button class="btn">Reconcile</button></td>
-    </tr>`).join('');
+    const rows = [
+      {
+        lead: true,
+        follow: true,
+        acct: L.acct,
+        side: L.side,
+        qty: L.qty,
+        balance: L.balance,
+        avg: L.avg,
+        day: L.day,
+        open: L.open
+      },
+      ...DATA.accounts.followers.map(f => ({
+        lead: false,
+        follow: true,
+        acct: f.acct,
+        side: L.side,
+        qty: Math.max(1, Math.round(L.qty * f.ratio)),
+        balance: f.balance,
+        avg: L.avg,
+        day: f.day,
+        open: f.open
+      }))
+    ];
+
+    $('#cpBody').innerHTML = rows.map(r => `
+      <tr>
+        <td>
+          ${r.lead ? '<span class="badge warning">👑 Leader</span>' : '<span class="badge success">✓ Following</span>'}
+        </td>
+        <td><code style="font-size: 11px;">${r.acct}</code></td>
+        <td><span class="badge ${r.side === 'Long' ? 'success' : 'danger'}">${r.side}</span></td>
+        <td><strong>${r.qty}</strong></td>
+        <td>${fmt(r.balance)}</td>
+        <td>$${r.avg.toLocaleString()}</td>
+        <td class="${r.day >= 0 ? 'status-online' : 'status-offline'}">${fmt(r.day)}</td>
+        <td class="${r.open >= 0 ? 'status-online' : 'status-offline'}">${fmt(r.open)}</td>
+        <td><span class="badge success">Synced</span></td>
+        <td>
+          <button class="btn sm">Flatten</button>
+          ${!r.lead ? '<button class="btn sm">Disable</button>' : ''}
+        </td>
+      </tr>
+    `).join('');
   }
   renderCopy();
 
-  /* Orders */
-  const ORD = [
-    {id:'9A14B59A',acct:DATA.accounts.leader.acct,time:'09:18:11',contract:'MNQZ5',type:'Market',side:'Buy',qty:4,price:22803.50,status:'Filled'},
-    {id:'12C0BBEF',acct:DATA.accounts.followers[0].acct,time:'09:18:12',contract:'MNQZ5',type:'Market',side:'Buy',qty:4,price:22802.25,status:'Filled'},
-    {id:'5C67CFDD',acct:DATA.accounts.followers[1].acct,time:'09:18:13',contract:'MNQZ5',type:'Market',side:'Buy',qty:8,price:22802.00,status:'Filled'}
+  // Enhanced orders table
+  const orders = [
+    {id: '9A14B59A', acct: DATA.accounts.leader.acct, time: '09:18:11', contract: 'MNQZ5', type: 'Market', side: 'Buy', qty: 4, price: 22803.50, status: 'Filled'},
+    {id: '12C0BBEF', acct: DATA.accounts.followers[0].acct, time: '09:18:12', contract: 'MNQZ5', type: 'Market', side: 'Buy', qty: 4, price: 22802.25, status: 'Filled'},
+    {id: '5C67CFDD', acct: DATA.accounts.followers[1].acct, time: '09:18:13', contract: 'MNQZ5', type: 'Market', side: 'Buy', qty: 8, price: 22802.00, status: 'Filled'},
+    {id: 'A8F9C2E1', acct: DATA.accounts.followers[2].acct, time: '09:18:14', contract: 'MNQZ5', type: 'Market', side: 'Buy', qty: 4, price: 22801.75, status: 'Filled'}
   ];
-  $('#ordBody').innerHTML = ORD.map(o=>`<tr><td>${o.id}</td><td>${o.acct}</td><td>${o.time}</td><td>${o.contract}</td><td>${o.type}</td><td>${o.side}</td><td>${o.qty}</td><td>${o.price}</td><td>${o.status}</td></tr>`).join('');
-  $('#ordExport').onclick = ()=>{
-    const rows = [[...Object.keys(ORD[0])], ...ORD.map(o=>Object.values(o))];
-    const csv = rows.map(r=>r.join(',')).join('\n');
-    const b=new Blob([csv],{type:'text/csv'}); const u=URL.createObjectURL(b); const a=document.createElement('a'); a.href=u; a.download='orders.csv'; a.click(); URL.revokeObjectURL(u);
-  };
 
-  /* Analytics */
-  const week1 = sum(lastN(DATA.pnlDaily,7));
-  const week2 = sum(DATA.pnlDaily.slice(-14,-7));
-  const week3 = sum(DATA.pnlDaily.slice(-21,-14));
-  const wins = DATA.pnlDaily.filter(v=>v>0), losses = DATA.pnlDaily.filter(v=>v<=0);
-  const pf = (sum(wins) / Math.max(1,Math.abs(sum(losses))));
-  const wr = wins.length / DATA.pnlDaily.length * 100;
-  const daily7Sum = sum(lastN(DATA.pnlDaily,7));
+  $('#ordBody').innerHTML = orders.map(o => `
+    <tr>
+      <td><code style="font-size: 11px;">${o.id}</code></td>
+      <td><code style="font-size: 11px;">${o.acct}</code></td>
+      <td>${o.time}</td>
+      <td><span class="badge">${o.contract}</span></td>
+      <td>${o.type}</td>
+      <td><span class="badge ${o.side === 'Buy' ? 'success' : 'danger'}">${o.side}</span></td>
+      <td>${o.qty}</td>
+      <td>$${o.price.toLocaleString()}</td>
+      <td><span class="badge success">${o.status}</span></td>
+    </tr>
+  `).join('');
 
-  $('#aPLToday').textContent = fmt(lastN(DATA.pnlDaily,1)[0]);
-  $('#aPLNote').textContent = `Weekly total: ${fmt(week1)} • 3‑wk: ${fmt(week1+week2+week3)}`;
-  $('#aPF').textContent = pf.toFixed(2);
-  $('#aWR').textContent = wr.toFixed(1)+'%';
-  const dayWin = lastN(DATA.pnlDaily,7).filter(v=>v>0).length / 7 * 100;
-  $('#aDW').textContent = dayWin.toFixed(1)+'%';
-  $('#aDWNote').textContent = `${lastN(DATA.pnlDaily,7).filter(v=>v>0).length} win • ${lastN(DATA.pnlDaily,7).filter(v=>v<=0).length} loss`;
-  $('#aDailySum').textContent = fmt(daily7Sum);
-  $('#aWeeklySum').textContent = fmt(week1+week2+week3);
+  // Enhanced analytics
+  const weeklyData = [
+    sum(DATA.pnlDaily.slice(-21, -14)),
+    sum(DATA.pnlDaily.slice(-14, -7)),
+    sum(DATA.pnlDaily.slice(-7)),
+    0
+  ];
+
+  const wins = DATA.pnlDaily.filter(v => v > 0);
+  const losses = DATA.pnlDaily.filter(v => v <= 0);
+  const profitFactor = sum(wins) / Math.max(1, Math.abs(sum(losses)));
+  const winRate = (wins.length / DATA.pnlDaily.length) * 100;
+
+  $('#aPLToday').textContent = fmt(lastN(DATA.pnlDaily, 1)[0]);
+  $('#aPLNote').textContent = `Weekly: ${fmt(sum(lastN(DATA.pnlDaily, 7)))} • Monthly: ${fmt(sum(lastN(DATA.pnlDaily, 30)))}`;
+  $('#aPF').textContent = profitFactor.toFixed(2);
+  $('#aWR').textContent = winRate.toFixed(1) + '%';
+  
+  const recentWins = lastN(DATA.pnlDaily, 7).filter(v => v > 0).length;
+  $('#aDW').textContent = ((recentWins / 7) * 100).toFixed(1) + '%';
+  $('#aDWNote').textContent = `${recentWins} wins, ${7 - recentWins} losses this week`;
+
+  $('#aDailySum').textContent = fmt(sum(lastN(DATA.pnlDaily, 7)));
+  $('#aWeeklySum').textContent = fmt(sum(weeklyData.slice(0, 3)));
   $('#aMonthlySum').textContent = fmt(sum(DATA.monthlyYTD));
 
-  /* Simple SVG bar charts with zero line */
-  function bars(el, values, labels){
-    const w=100,h=40,pad=6,zero=20; // zero baseline mid‑height
-    const max=Math.max(...values.map(v=>Math.abs(v)))||1;
-    const bw = (w - pad*2) / values.length - 2;
-    let svg = `<line x1="${pad}" y1="${zero}" x2="${w-pad}" y2="${zero}" stroke="#2d2e3f" stroke-width="0.5"/>`;
-    values.forEach((v,i)=>{
-      const x = pad + i*((w-pad*2)/values.length);
-      const vh = Math.abs(v)/max * (h/2 - 4);
-      const y = v>=0 ? zero - vh : zero;
-      const color = v>=0 ? '#7c3aed' : 'rgba(124,58,237,.35)';
-      svg += `<rect x="${x}" y="${y}" width="${bw}" height="${vh}" rx="2" fill="${color}"/>`;
+  // Enhanced bar charts
+  function enhancedBars(el, values, showZeroLine = true) {
+    const w = 100, h = 40, padding = 8;
+    const max = Math.max(...values.map(v => Math.abs(v))) || 1;
+    const barWidth = (w - padding * 2) / values.length - 2;
+    const zeroY = h / 2;
+
+    let svg = '';
+    if (showZeroLine) {
+      svg += `<line x1="${padding}" y1="${zeroY}" x2="${w - padding}" y2="${zeroY}" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>`;
+    }
+
+    values.forEach((v, i) => {
+      const x = padding + i * ((w - padding * 2) / values.length);
+      const barHeight = (Math.abs(v) / max) * (h / 2 - 4);
+      const y = v >= 0 ? zeroY - barHeight : zeroY;
+      const color = v >= 0 ? '#10b981' : '#ef4444';
+      const opacity = v >= 0 ? '0.8' : '0.6';
+
+      svg += `<rect x="${x}" y="${y}" width="${barWidth}" height="${barHeight}" rx="2" fill="${color}" opacity="${opacity}"/>`;
     });
+
     el.innerHTML = svg;
   }
-  bars($('#dailyBars'), lastN(DATA.pnlDaily,7), ['M','T','W','T','F','S','S']);
-  bars($('#weeklyBars'), [week3,week2,week1,0], ['W3','W2','W1','W']);
-  bars($('#monthlyBars'), DATA.monthlyYTD, []);
 
-  /* Equity curve (cumulative) */
-  function equity(el, values){
-    const w=100,h=30; let cum=0; const cumA=values.map(v=>cum+=v);
-    const min=Math.min(...cumA), max=Math.max(...cumA); const rng=(max-min)||1;
-    const pts = cumA.map((v,i)=>[i/(cumA.length-1)*w, h-( (v-min)/rng*h )]);
-    el.innerHTML = `<polyline fill="none" stroke="#8b5cf6" stroke-width="1.5" points="${pts.map(p=>p.join(',')).join(' ')}"/>`;
+  enhancedBars($('#dailyBars'), lastN(DATA.pnlDaily, 7));
+  enhancedBars($('#weeklyBars'), weeklyData);
+  enhancedBars($('#monthlyBars'), DATA.monthlyYTD);
+
+  // Enhanced equity curve
+  function enhancedEquity(el, values) {
+    const w = 100, h = 30;
+    let cumulative = 0;
+    const cumulativeData = values.map(v => cumulative += v);
+    
+    const min = Math.min(...cumulativeData);
+    const max = Math.max(...cumulativeData);
+    const range = (max - min) || 1;
+
+    const points = cumulativeData.map((v, i) => [
+      (i / (cumulativeData.length - 1)) * w,
+      h - ((v - min) / range * h)
+    ]);
+
+    const pathData = points.map((p, i) => 
+      (i === 0 ? 'M' : 'L') + p.join(',')
+    ).join(' ');
+
+    const gradient = cumulativeData[cumulativeData.length - 1] >= 0 ? 
+      'url(#equityGradientUp)' : 'url(#equityGradientDown)';
+
+    el.innerHTML = `
+      <defs>
+        <linearGradient id="equityGradientUp" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3" />
+          <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.1" />
+        </linearGradient>
+        <linearGradient id="equityGradientDown" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#ef4444;stop-opacity:0.3" />
+          <stop offset="100%" style="stop-color:#ef4444;stop-opacity:0.1" />
+        </linearGradient>
+      </defs>
+      <path d="${pathData} L${w},${h} L0,${h} Z" fill="${gradient}"/>
+      <path d="${pathData}" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round"/>
+    `;
   }
-  equity($('#eqCurve'), DATA.pnlDaily);
 
-  /* Calendar */
-  (function(){
-    const now=new Date(), y=now.getFullYear(), m=now.getMonth();
-    const first=new Date(y,m,1), start=first.getDay(), days=new Date(y,m+1,0).getDate();
-    $('#calLabel').textContent = now.toLocaleString(undefined,{month:'long',year:'numeric'});
-    const grid=$('#calGrid'); grid.innerHTML='';
-    for(let i=0;i<start;i++){ const s=document.createElement('div'); s.className='day'; grid.appendChild(s); }
-    const vals = lastN(DATA.pnlDaily, days); // demo mapping
-    for(let d=1; d<=days; d++){
-      const v = vals[d-1] ?? 0;
+  enhancedEquity($('#eqCurve'), DATA.pnlDaily);
+
+  // Enhanced calendar
+  (function() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const startDay = firstDay.getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    $('#calLabel').textContent = now.toLocaleString(undefined, {
+      month: 'long',
+      year: 'numeric'
+    });
+
+    const grid = $('#calGrid');
+    grid.innerHTML = '';
+
+    // Empty cells for days before month starts
+    for (let i = 0; i < startDay; i++) {
+      const emptyDay = document.createElement('div');
+      emptyDay.className = 'day';
+      grid.appendChild(emptyDay);
+    }
+
+    // Days of the month
+    for (let day = 1; day <= daysInMonth; day++) {
+      const pnl = DATA.pnlDaily[day - 1] || (Math.random() - 0.5) * 500;
       const cell = document.createElement('div');
-      cell.className = 'day ' + (v>=0?'win':'loss');
-      cell.innerHTML = `<div class="muted" style="font-size:11px">${d}</div><div style="font-weight:700">${fmt(v)}</div>`;
+      cell.className = `day ${pnl >= 0 ? 'win' : 'loss'}`;
+      cell.innerHTML = `
+        <div class="muted" style="font-size: 11px; font-weight: 600;">${day}</div>
+        <div style="font-weight: 700; margin-top: 4px;">${fmt(pnl)}</div>
+      `;
+      cell.title = `${day}: ${fmt(pnl)}`;
       grid.appendChild(cell);
     }
   })();
 
-  /* Activity log + actions */
-  const ACT=[{time:new Date().toTimeString().slice(0,8), type:'system', msg:'Service online'}];
-  function renderAct(){ $('#actBody').innerHTML = ACT.map(a=>`<tr><td>${a.time}</td><td><span class="badge">${a.type}</span></td><td>${a.msg}</td></tr>`).join(''); }
-  function pushAct(type,msg){ ACT.unshift({time:new Date().toTimeString().slice(0,8),type,msg}); renderAct(); }
-  renderAct();
-  const bind=(sel,fn)=> $$(sel).forEach(b=>b && b.addEventListener('click', fn));
-  bind('#mDisable,#ovDisable', ()=>{ const el=$('#kpiCopy'); const en=el.textContent==='ENABLED'; el.textContent=en?'DISABLED':'ENABLED'; el.style.color=en?'#bbb':'var(--prime)'; $('#copyState').textContent=el.textContent; pushAct('system', 'Copy trading '+(en?'disabled':'enabled')); });
-  bind('#mClose,#ovClose', ()=>pushAct('risk','Flatten ALL positions'));
-  bind('#mCancel,#ovCancel', ()=>pushAct('risk','Cancel ALL orders'));
-  $('#cpDisable').onclick=()=>pushAct('copies','Disabled all followers');
-  $('#cpCancel').onclick=()=>pushAct('orders','Canceled all orders');
-  $('#cpFlatten').onclick=()=>pushAct('risk','Flattened all accounts');
-  $('#actExport').onclick=()=>{const rows=[['time','type','msg'],...ACT.map(a=>[a.time,a.type,a.msg])]; const csv=rows.map(r=>r.join(',')).join('\n'); const b=new Blob([csv],{type:'text/csv'}); const u=URL.createObjectURL(b); const a=document.createElement('a'); a.href=u; a.download='activity.csv'; a.click(); URL.revokeObjectURL(u);};
-  $('#testApi').onclick=()=>pushAct('system','Tradovate API connected (demo)');
+  // Activity feed
+  const activities = [
+    {time: new Date().toTimeString().slice(0, 8), type: 'system', msg: '✅ All systems operational'},
+    {time: '14:32:15', type: 'trade', msg: '📈 Position opened: ESZ5 Long x2 @ 5,847.25'},
+    {time: '14:31:58', type: 'copy', msg: '🔄 Order copied to 3 follower accounts'},
+    {time: '14:29:43', type: 'system', msg: '⚡ Real-time sync active'},
+    {time: '14:15:22', type: 'trade', msg: '💰 Position closed: NQZ5 +$427.50 profit'},
+    {time: '13:58:09', type: 'risk', msg: '⚠️ Daily loss limit check: 23% used'},
+    {time: '13:45:31', type: 'copy', msg: '👥 New follower account connected'},
+    {time: '13:22:17', type: 'system', msg: '🔌 Tradovate API connection verified'}
+  ];
+
+  function renderActivities() {
+    $('#actBody').innerHTML = activities.map(a => `
+      <tr>
+        <td style="font-family: monospace; font-size: 12px;">${a.time}</td>
+        <td><span class="badge">${a.type}</span></td>
+        <td>${a.msg}</td>
+      </tr>
+    `).join('');
+  }
+  renderActivities();
+
+  function addActivity(type, message) {
+    const time = new Date().toTimeString().slice(0, 8);
+    activities.unshift({time, type, msg: message});
+    if (activities.length > 20) activities.pop();
+    renderActivities();
+  }
+
+  // Enhanced button actions with notifications
+  function showNotification(message, type = 'success') {
+    // Simple notification system (could be enhanced with a proper toast library)
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      padding: 16px 20px;
+      color: var(--ink);
+      box-shadow: var(--shadow);
+      z-index: 1000;
+      animation: slideIn 0.3s ease;
+    `;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.style.animation = 'slideOut 0.3s ease forwards';
+      setTimeout(() => notification.remove(), 300);
+    }, 3000);
+  }
+
+  // Button event handlers
+  const handleDisable = () => {
+    const copyElement = $('#kpiCopy');
+    const isEnabled = copyElement.textContent === 'ACTIVE';
+    copyElement.textContent = isEnabled ? 'DISABLED' : 'ACTIVE';
+    copyElement.style.color = isEnabled ? 'var(--muted)' : 'var(--success)';
+    $('#copyState').textContent = isEnabled ? 'COPY TRADING OFF' : 'COPY TRADING ON';
+    $('#copyState').className = `badge ${isEnabled ? 'danger' : 'success'}`;
+    addActivity('system', `🔄 Copy trading ${isEnabled ? 'disabled' : 'enabled'}`);
+    showNotification(`Copy trading ${isEnabled ? 'disabled' : 'enabled'}`, isEnabled ? 'warning' : 'success');
+  };
+
+  const handleCloseAll = () => {
+    addActivity('risk', '🚫 All positions closed');
+    showNotification('All positions have been closed', 'warning');
+  };
+
+  const handleCancelAll = () => {
+    addActivity('risk', '❌ All pending orders cancelled');
+    showNotification('All pending orders cancelled', 'warning');
+  };
+
+  const handleEmergencyStop = () => {
+    addActivity('emergency', '🚨 EMERGENCY STOP ACTIVATED');
+    showNotification('EMERGENCY STOP: All trading halted', 'danger');
+  };
+
+  // Bind events
+  $$('#mDisable, #ovDisable').forEach(btn => btn.addEventListener('click', handleDisable));
+  $$('#mClose, #ovClose').forEach(btn => btn.addEventListener('click', handleCloseAll));
+  $$('#mCancel, #ovCancel').forEach(btn => btn.addEventListener('click', handleCancelAll));
+  $$('#mEmergency').forEach(btn => btn.addEventListener('click', handleEmergencyStop));
+  $$('.quick-action').forEach(btn => btn.addEventListener('click', handleEmergencyStop));
+
+  $('#cpDisable').onclick = () => {
+    addActivity('copy', '👥 All followers disabled');
+    showNotification('All follower accounts disabled');
+  };
+
+  $('#cpCancel').onclick = () => {
+    addActivity('orders', '❌ All copy orders cancelled');
+    showNotification('All copy orders cancelled');
+  };
+
+  $('#cpFlatten').onclick = () => {
+    addActivity('risk', '🚫 All accounts flattened');
+    showNotification('Emergency flatten executed on all accounts', 'warning');
+  };
+
+  $('#testApi').onclick = () => {
+    addActivity('system', '🔌 Tradovate API test successful');
+    showNotification('API connection test successful');
+  };
+
+  // Export functionality
+  $('#ordExport, #actExport').forEach(btn => {
+    btn.onclick = () => {
+      const data = btn.id === 'ordExport' ? orders : activities;
+      const headers = btn.id === 'ordExport' ? 
+        ['id', 'acct', 'time', 'contract', 'type', 'side', 'qty', 'price', 'status'] :
+        ['time', 'type', 'msg'];
+      
+      const csv = [headers, ...data.map(row => 
+        btn.id === 'ordExport' ? Object.values(row) : [row.time, row.type, row.msg]
+      )].map(row => row.join(',')).join('\n');
+      
+      const blob = new Blob([csv], {type: 'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = btn.id === 'ordExport' ? 'orders.csv' : 'activity.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+      
+      showNotification(`${btn.id === 'ordExport' ? 'Orders' : 'Activity'} exported successfully`);
+    };
+  });
+
+  // Auto-refresh simulation (in a real app, this would be WebSocket data)
+  setInterval(() => {
+    // Simulate small price movements
+    const openChange = (Math.random() - 0.5) * 10;
+    const newOpen = DATA.accounts.leader.open + openChange;
+    DATA.accounts.leader.open = newOpen;
+    $('#kpiOpen').textContent = fmt(newOpen);
+    $('#kpiOpen').className = `kpi ${newOpen >= 0 ? 'positive' : 'negative'}`;
+    
+    // Update sparkline with new data point
+    intradayData.push(newOpen);
+    if (intradayData.length > 48) intradayData.shift();
+    spark($('#spark'), intradayData);
+  }, 10000); // Update every 10 seconds
+
 })();
 </script>
+
 </body>
 </html>

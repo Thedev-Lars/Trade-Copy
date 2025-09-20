@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>TraderDuo — Professional Copy Trading Platform</title>
 <style>
 :root{
@@ -1141,35 +1141,60 @@ color: var(–muted);
   const $ = q => document.querySelector(q);
   const $$ = q => Array.from(document.querySelectorAll(q));
 
-  // Enhanced Router with animations
+  // Enhanced Router with proper page switching
   const pages = $$('section[data-page]');
   const nav = $$('.navbtn');
   
   function goto(route) {
+    console.log('Navigating to:', route); // Debug
     if (!pages.some(p => p.id === route)) route = 'overview';
     
+    // Hide all pages first
     pages.forEach(p => {
-      p.classList.toggle('show', p.id === route);
-      if (p.id === route) {
-        p.classList.add('animate-in');
-        setTimeout(() => p.classList.remove('animate-in'), 500);
-      }
+      p.classList.remove('show', 'animate-in');
+      p.style.display = 'none';
     });
     
+    // Show target page
+    const targetPage = pages.find(p => p.id === route);
+    if (targetPage) {
+      targetPage.style.display = 'block';
+      targetPage.classList.add('show');
+      // Add animation after a brief delay
+      setTimeout(() => targetPage.classList.add('animate-in'), 10);
+    }
+    
+    // Update navigation active states
     nav.forEach(n => n.classList.toggle('active', n.dataset.route === route));
+    
+    // Update URL
     history.replaceState({}, '', '#' + route);
     
+    // Close mobile menu
     const navToggle = $('#nav');
     if (navToggle) navToggle.checked = false;
+    
+    console.log('Navigation complete to:', route); // Debug
   }
 
+  // Bind navigation events
   nav.forEach(n => n.addEventListener('click', e => {
     e.preventDefault();
+    console.log('Nav clicked:', n.dataset.route); // Debug
     goto(n.dataset.route);
   }));
 
-  window.addEventListener('hashchange', () => goto(location.hash.slice(1)));
-  goto(location.hash.slice(1) || 'overview');
+  // Handle browser back/forward
+  window.addEventListener('hashchange', () => {
+    const route = location.hash.slice(1);
+    console.log('Hash changed to:', route); // Debug
+    goto(route);
+  });
+  
+  // Initialize with proper route
+  const initialRoute = location.hash.slice(1) || 'overview';
+  console.log('Initial route:', initialRoute); // Debug
+  goto(initialRoute);
 
   // Coherent 21-day trading story - realistic progression
   const DATA = {

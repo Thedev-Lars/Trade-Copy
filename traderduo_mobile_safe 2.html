@@ -1,0 +1,378 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>TraderDuo — Static Showcase (Mobile‑Safe)</title>
+<style>
+:root{
+  --bg:#0b0c12;--panel:#11121a;--muted:#b8bbd9;--stroke:#23243a;
+  --prime:#8b5cf6;--prime2:#6d28d9;--ink:#ececf7;--glass:rgba(255,255,255,.06);
+}
+*{box-sizing:border-box} html,body{height:100%}
+body{margin:0;font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
+     color:var(--ink);
+     background:radial-gradient(700px 400px at -10% -10%,rgba(139,92,246,.18),transparent),
+                radial-gradient(700px 400px at 110% 0,rgba(168,85,247,.12),transparent),
+                linear-gradient(#0b0c12,#090a0f)}
+.top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
+     padding:12px 14px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+     border-bottom:1px solid var(--stroke);backdrop-filter:blur(6px)}
+.brand{font-weight:800;letter-spacing:-.02em}
+.hamb{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid var(--stroke);border-radius:12px;background:var(--glass);}
+.search{flex:1;max-width:560px}
+.search input{width:100%;padding:11px 12px;border-radius:12px;border:1px solid var(--stroke);background:rgba(255,255,255,.05);color:var(--ink)}
+.layout{display:flex;min-height:100vh}
+aside{position:fixed;inset:56px auto 0 0;width:280px;transform:translateX(-100%);
+      background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+      border-right:1px solid var(--stroke);backdrop-filter:blur(6px);transition:.2s ease;z-index:40;padding:14px;display:flex;flex-direction:column;gap:8px}
+#nav:checked ~ .layout aside{transform:translateX(0)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:30}
+#nav:checked ~ .overlay{display:block}
+.navbtn{padding:11px 12px;border-radius:12px;color:#dee0f8;text-decoration:none;border:1px solid transparent;display:block}
+.navbtn.active,.navbtn:hover{background:var(--glass);border-color:var(--stroke);color:#fff}
+.main{flex:1;padding:16px}
+@media(min-width:1024px){aside{position:sticky;top:56px;transform:none}.main{margin-left:280px;padding:28px}}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid var(--stroke);
+      border-radius:16px;padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.25)}
+.card h3{margin:0 0 8px;font-size:12px;color:#c7c9e8;letter-spacing:.08em;text-transform:uppercase}
+.kpi{font-size:28px;font-weight:800;letter-spacing:-.02em}
+.grid{display:grid;gap:12px}
+.g-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:1280px){.g-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.g-4,.g-3,.g-2{grid-template-columns:1fr}}
+.btn{padding:10px 12px;border-radius:12px;border:1px solid var(--stroke);background:var(--glass);color:#fff;cursor:pointer}
+.btn.primary{background:linear-gradient(180deg,rgba(139,92,246,.45),rgba(139,92,246,.15));border-color:#4b2f80}
+.btn.danger{background:rgba(255,77,109,.12);border-color:#5a2a49}
+.badge{display:inline-block;padding:3px 8px;border-radius:999px;border:1px solid var(--stroke);background:rgba(255,255,255,.08);font-size:11px}
+.muted{color:var(--muted)}
+/* Sections */
+section[data-page]{display:none}
+section.show{display:block}
+/* Simple SVG wrappers */
+.svg{width:100%;height:100px}
+/* Calendar */
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.day{border:1px solid var(--stroke);border-radius:10px;padding:8px;min-height:68px;background:rgba(255,255,255,.04)}
+.day.win{background:linear-gradient(180deg,rgba(139,92,246,.42),rgba(139,92,246,.12))}
+.day.loss{background:linear-gradient(180deg,rgba(232,121,249,.10),rgba(139,92,246,.06))}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid var(--stroke);font-size:13px;text-align:left}
+th{color:#cfd1ef}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<input id="nav" hidden type="checkbox">
+<div class="top">
+  <label class="hamb" for="nav">☰</label>
+  <div class="brand">Trader<span style="color:var(--prime)">Duo</span> <span class="badge">Demo</span></div>
+  <div class="search"><input placeholder="Search commands, accounts, orders…"></div>
+</div>
+<div class="overlay"></div>
+
+<div class="layout">
+  <aside>
+    <div style="font-weight:800;margin-bottom:6px">Command Center</div>
+    <a class="navbtn" data-route="overview" href="#overview">Overview</a>
+    <a class="navbtn" data-route="copy" href="#copy">Copy Trading</a>
+    <a class="navbtn" data-route="analytics" href="#analytics">Analytics</a>
+    <a class="navbtn" data-route="activity" href="#activity">Activity</a>
+    <a class="navbtn" data-route="settings" href="#settings">Settings</a>
+    <div style="margin-top:auto;display:grid;gap:8px">
+      <button class="btn primary" id="mDisable">Disable Copy Trading</button>
+      <button class="btn" id="mClose">Close All Positions</button>
+      <button class="btn danger" id="mCancel">Cancel All Orders</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <!-- default visible to avoid blank on JS errors -->
+    <section id="overview" data-page="overview" class="show">
+      <div class="grid g-4">
+        <div class="card"><h3>Realized PnL (Today)</h3><div id="kpiRealized" class="kpi">$0.00</div><div class="muted" style="font-size:12px">Closed trades only</div></div>
+        <div class="card"><h3>Open PnL (Intra‑day)</h3><div id="kpiOpen" class="kpi">$0.00</div><svg id="spark" class="svg" viewBox="0 0 100 24" preserveAspectRatio="none"></svg></div>
+        <div class="card">
+          <h3>Open Exposure</h3><div id="kpiExposure" class="kpi" style="font-size:22px">$0</div>
+          <div id="expoChips" style="display:flex;gap:8px;flex-wrap:wrap;margin:6px 0"></div>
+          <div id="expoStack" style="height:8px;border-radius:8px;border:1px solid var(--stroke);display:flex;overflow:hidden;background:#171825"></div>
+        </div>
+        <div class="card"><h3>Copy Status</h3><div id="kpiCopy" class="kpi" style="font-size:22px;color:var(--prime)">ENABLED</div><div class="muted" style="font-size:12px"><span id="kpiGroups">3</span> active groups</div></div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <div class="toolbar"><div style="font-weight:700">Risk Controls</div><div class="muted" style="font-size:12px">Copy trading: <span id="copyState" class="badge">ENABLED</span></div></div>
+        <div class="grid g-3" style="margin-top:8px">
+          <label><div class="muted" style="font-size:12px">Daily Max Loss</div><input id="rcLoss" class="search" value="-$1,500"></label>
+          <label><div class="muted" style="font-size:12px">Daily Max Trades</div><input id="rcTrades" class="search" value="40"></label>
+          <label><div class="muted" style="font-size:12px">Position Limit</div><input id="rcPos" class="search" value="12"></label>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+          <button id="ovDisable" class="btn primary">Disable Copy Trading</button>
+          <button id="ovClose" class="btn">Close All Positions</button>
+          <button id="ovCancel" class="btn danger">Cancel All Orders</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="copy" data-page="copy">
+      <div class="card">
+        <div class="toolbar">
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="badge">+ Contract</span><span class="badge">MES ✕</span><span class="badge">MNQ ✕</span><span class="badge">MCL ✕</span></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="cpDisable">Disable followers</button><button class="btn" id="cpCancel">Cancel orders</button><button class="btn danger" id="cpFlatten">Flatten all</button></div>
+        </div>
+        <div style="overflow:auto;margin-top:8px">
+          <table>
+            <thead><tr><th>Follow</th><th>Account</th><th>Side</th><th>Qty</th><th>Balance</th><th>Avg Price</th><th>Day PnL</th><th>Open PnL</th><th>Sync</th><th>Actions</th></tr></thead>
+            <tbody id="cpBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <div class="toolbar"><div style="font-weight:700">Orders</div><div style="display:flex;gap:8px"><button class="btn" id="ordExport">Export</button><button class="btn" id="ordFilter">Filter</button></div></div>
+        <div style="overflow:auto;margin-top:6px">
+          <table>
+            <thead><tr><th>ID</th><th>Account</th><th>Time</th><th>Contract</th><th>Type</th><th>Side</th><th>Qty</th><th>Price</th><th>Status</th></tr></thead>
+            <tbody id="ordBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="analytics" data-page="analytics">
+      <div class="grid g-4">
+        <div class="card"><h3>P&L (Today)</h3><div id="aPLToday" class="kpi">$0.00</div><div id="aPLNote" class="muted" style="font-size:12px"></div></div>
+        <div class="card"><h3>Profit Factor</h3><div id="aPF" class="kpi">0.00</div></div>
+        <div class="card"><h3>Win Rate</h3><div id="aWR" class="kpi">0%</div></div>
+        <div class="card"><h3>Day Win %</h3><div id="aDW" class="kpi">0%</div><div id="aDWNote" class="muted" style="font-size:12px"></div></div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h3>Cumulative Equity (21 days)</h3>
+        <svg id="eqCurve" class="svg" viewBox="0 0 100 30" preserveAspectRatio="none"></svg>
+      </div>
+      <div class="grid g-3" style="margin-top:12px">
+        <div class="card"><h3>Daily PnL (last 7)</h3><div id="aDailySum" class="kpi" style="font-size:20px"></div><svg id="dailyBars" class="svg" viewBox="0 0 100 40"></svg></div>
+        <div class="card"><h3>Weekly PnL (last 4)</h3><div id="aWeeklySum" class="kpi" style="font-size:20px"></div><svg id="weeklyBars" class="svg" viewBox="0 0 100 40"></svg></div>
+        <div class="card"><h3>Monthly PnL (YTD)</h3><div id="aMonthlySum" class="kpi" style="font-size:20px"></div><svg id="monthlyBars" class="svg" viewBox="0 0 100 40"></svg></div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <div class="toolbar"><div style="font-weight:700">Monthly Calendar</div><div id="calLabel" class="muted" style="font-size:12px"></div></div>
+        <div id="calGrid" class="cal"></div>
+      </div>
+    </section>
+
+    <section id="activity" data-page="activity">
+      <div class="card">
+        <div class="toolbar"><div style="font-weight:700">Latest Activity</div><button class="btn" id="actExport">Export CSV</button></div>
+        <div style="overflow:auto;margin-top:8px"><table><thead><tr><th>Time</th><th>Type</th><th>Message</th></tr></thead><tbody id="actBody"></tbody></table></div>
+      </div>
+    </section>
+
+    <section id="settings" data-page="settings">
+      <div class="card">
+        <div class="grid g-2">
+          <label><div class="muted" style="font-size:12px">Email</div><input class="search" value="you@example.com"></label>
+          <label><div class="muted" style="font-size:12px">Plan</div><select class="search"><option>Starter ($19/mo)</option><option>Pro ($49/mo)</option><option>Scale ($99/mo)</option></select></label>
+        </div>
+        <div class="grid g-2" style="margin-top:12px">
+          <div>
+            <div class="muted" style="font-size:12px;margin-bottom:6px">API Credentials (Tradovate)</div>
+            <input class="search" placeholder="Client ID"><div style="height:8px"></div>
+            <input class="search" placeholder="Client Secret"><div style="height:8px"></div>
+            <button id="testApi" class="btn">Test Connection</button>
+          </div>
+          <div>
+            <div class="muted" style="font-size:12px;margin-bottom:6px">Plan Usage</div>
+            <div style="height:8px;border-radius:999px;background:#171821;border:1px solid var(--stroke);overflow:hidden"><span id="usage" style="display:block;height:8px;background:linear-gradient(90deg,var(--prime),var(--prime2));width:40%"></span></div>
+            <div class="muted" style="font-size:12px;margin-top:6px">2 / 5 broker connections used</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px"><button class="btn">Cancel</button><button class="btn primary">Save</button></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){
+  const $=q=>document.querySelector(q), $$=q=>Array.from(document.querySelectorAll(q));
+  /* Router */
+  const pages=$$('section[data-page]'), nav=$$('.navbtn');
+  function goto(route){
+    if(!pages.some(p=>p.id===route)) route='overview';
+    pages.forEach(p=>p.classList.toggle('show', p.id===route));
+    nav.forEach(n=>n.classList.toggle('active', n.dataset.route===route));
+    history.replaceState({},'', '#'+route);
+    const navToggle = $('#nav'); if(navToggle) navToggle.checked=false;
+  }
+  nav.forEach(n=>n.addEventListener('click', e=>{e.preventDefault(); goto(n.dataset.route);}));
+  window.addEventListener('hashchange', ()=>goto(location.hash.slice(1)));
+  goto(location.hash.slice(1)||'overview');
+
+  /* Static dataset (consistent across UI) */
+  const DATA = {
+    accounts: {
+      leader: {acct:'TV-LEADER-203682037', side:'Long', qty:1, balance:147954.35, avg:22681.50, day:-12.40, open:127.00},
+      followers: [
+        {acct:'TV-FOLLOW-203682034', ratio:1, balance:147352.03},
+        {acct:'TV-FOLLOW-203682035', ratio:2, balance:146811.20},
+        {acct:'TV-FOLLOW-203682036', ratio:1, balance:147205.45}
+      ]
+    },
+    positions: [
+      {sym:'ESZ5', side:'Long', qty:2, notional:142000},
+      {sym:'NQZ5', side:'Long', qty:1, notional:98000},
+      {sym:'CLX5', side:'Short', qty:2, notional:33000}
+    ],
+    pnlDaily: [305.25,-80.60,190.35,-260.00,140.10,55.00,-120.45,520.15,130.05,-220.90,410.40,-95.10,240.00,60.00,305.25,-80.60,190.35,-260.00,140.10,55.00,-120.45],
+    monthlyYTD: [0,0,141.45,812.58,550.07,467.00,287.23,675.23,339.61,146.14,0,0]
+  };
+  const fmt = n => (n<0?'-':'')+'$'+Math.abs(n).toFixed(2);
+  const sum = a => a.reduce((x,y)=>x+y,0);
+  const lastN = (a,n) => a.slice(-n);
+
+  /* Overview KPIs */
+  const daily7 = lastN(DATA.pnlDaily,7);
+  const openSeries = (function(){const arr=[], base=DATA.accounts.leader.open;
+    let v=0; for(let i=0;i<24;i++){ v += (Math.random()-.4)*10; arr.push(v); } // zero‑baseline wiggle
+    // scale so last equals open
+    const scale = DATA.accounts.leader.open / (arr[arr.length-1]||1);
+    return arr.map(x=>x*scale);
+  })();
+  $('#kpiRealized').textContent = fmt(daily7[daily7.length-1]);
+  $('#kpiOpen').textContent = fmt(DATA.accounts.leader.open);
+
+  /* Simple SVG sparkline (no libraries) */
+  function spark(el, values){
+    const w=100,h=24, max=Math.max(...values,0), min=Math.min(...values,0), rng=(max-min)||1;
+    const pts = values.map((v,i)=>[ i/(values.length-1)*w, h-( (v-min)/rng*h ) ]);
+    el.innerHTML = `<polyline fill="none" stroke="${getComputedStyle(document.documentElement).getPropertyValue('--prime').trim()}" stroke-width="1.5" points="${pts.map(p=>p.join(',')).join(' ')}"/>`;
+  }
+  spark($('#spark'), openSeries);
+
+  /* Exposure */
+  const totalExpo = DATA.positions.reduce((a,p)=>a+Math.abs(p.notional),0);
+  $('#kpiExposure').textContent = '$'+totalExpo.toLocaleString();
+  $('#expoChips').innerHTML = DATA.positions.map(p=>`<span class="badge">${p.sym}</span><span class="muted" style="font-size:12px">${p.side} • ${p.qty} ctr • $${Math.round(Math.abs(p.notional)/1000)}k</span>`).join(' ');
+  const stack = $('#expoStack');
+  DATA.positions.forEach((p,i)=>{
+    const w = Math.abs(p.notional) / totalExpo * 100;
+    const seg = document.createElement('div');
+    seg.style.cssText = `width:${w}%;background:${i===0?'#7c3aed':i===1?'#6d28d9':'#a78bfa'}`;
+    stack.appendChild(seg);
+  });
+
+  /* Copy trading table */
+  function renderCopy(){
+    const L = DATA.accounts.leader;
+    const rows = [{lead:true, follow:true, acct:L.acct, side:L.side, qty:L.qty, bal:L.balance, avg:L.avg, day:L.day, open:L.open}]
+      .concat(DATA.accounts.followers.map(f=>({lead:false, follow:true, acct:f.acct, side:L.side, qty:Math.max(1,Math.round(L.qty*f.ratio)), bal:f.balance, avg:L.avg, day:L.day+(Math.random()-.5)*4, open:L.open+(Math.random()-.5)*3 })));
+    $('#cpBody').innerHTML = rows.map(r=>`<tr>
+      <td>${r.lead?'👑 ':''}<input type="checkbox" ${r.follow?'checked':''} ${r.lead?'disabled':''}></td>
+      <td>${r.acct}</td><td><span class="badge">${r.side}</span></td><td>${r.qty}</td>
+      <td>$${r.bal.toLocaleString()}</td><td>${r.avg.toLocaleString()}</td>
+      <td>${fmt(r.day)}</td><td>${fmt(r.open)}</td>
+      <td><span class="badge">Synced</span></td>
+      <td><button class="btn">Flatten</button> <button class="btn">Reconcile</button></td>
+    </tr>`).join('');
+  }
+  renderCopy();
+
+  /* Orders */
+  const ORD = [
+    {id:'9A14B59A',acct:DATA.accounts.leader.acct,time:'09:18:11',contract:'MNQZ5',type:'Market',side:'Buy',qty:4,price:22803.50,status:'Filled'},
+    {id:'12C0BBEF',acct:DATA.accounts.followers[0].acct,time:'09:18:12',contract:'MNQZ5',type:'Market',side:'Buy',qty:4,price:22802.25,status:'Filled'},
+    {id:'5C67CFDD',acct:DATA.accounts.followers[1].acct,time:'09:18:13',contract:'MNQZ5',type:'Market',side:'Buy',qty:8,price:22802.00,status:'Filled'}
+  ];
+  $('#ordBody').innerHTML = ORD.map(o=>`<tr><td>${o.id}</td><td>${o.acct}</td><td>${o.time}</td><td>${o.contract}</td><td>${o.type}</td><td>${o.side}</td><td>${o.qty}</td><td>${o.price}</td><td>${o.status}</td></tr>`).join('');
+  $('#ordExport').onclick = ()=>{
+    const rows = [[...Object.keys(ORD[0])], ...ORD.map(o=>Object.values(o))];
+    const csv = rows.map(r=>r.join(',')).join('\n');
+    const b=new Blob([csv],{type:'text/csv'}); const u=URL.createObjectURL(b); const a=document.createElement('a'); a.href=u; a.download='orders.csv'; a.click(); URL.revokeObjectURL(u);
+  };
+
+  /* Analytics */
+  const week1 = sum(lastN(DATA.pnlDaily,7));
+  const week2 = sum(DATA.pnlDaily.slice(-14,-7));
+  const week3 = sum(DATA.pnlDaily.slice(-21,-14));
+  const wins = DATA.pnlDaily.filter(v=>v>0), losses = DATA.pnlDaily.filter(v=>v<=0);
+  const pf = (sum(wins) / Math.max(1,Math.abs(sum(losses))));
+  const wr = wins.length / DATA.pnlDaily.length * 100;
+  const daily7Sum = sum(lastN(DATA.pnlDaily,7));
+
+  $('#aPLToday').textContent = fmt(lastN(DATA.pnlDaily,1)[0]);
+  $('#aPLNote').textContent = `Weekly total: ${fmt(week1)} • 3‑wk: ${fmt(week1+week2+week3)}`;
+  $('#aPF').textContent = pf.toFixed(2);
+  $('#aWR').textContent = wr.toFixed(1)+'%';
+  const dayWin = lastN(DATA.pnlDaily,7).filter(v=>v>0).length / 7 * 100;
+  $('#aDW').textContent = dayWin.toFixed(1)+'%';
+  $('#aDWNote').textContent = `${lastN(DATA.pnlDaily,7).filter(v=>v>0).length} win • ${lastN(DATA.pnlDaily,7).filter(v=>v<=0).length} loss`;
+  $('#aDailySum').textContent = fmt(daily7Sum);
+  $('#aWeeklySum').textContent = fmt(week1+week2+week3);
+  $('#aMonthlySum').textContent = fmt(sum(DATA.monthlyYTD));
+
+  /* Simple SVG bar charts with zero line */
+  function bars(el, values, labels){
+    const w=100,h=40,pad=6,zero=20; // zero baseline mid‑height
+    const max=Math.max(...values.map(v=>Math.abs(v)))||1;
+    const bw = (w - pad*2) / values.length - 2;
+    let svg = `<line x1="${pad}" y1="${zero}" x2="${w-pad}" y2="${zero}" stroke="#2d2e3f" stroke-width="0.5"/>`;
+    values.forEach((v,i)=>{
+      const x = pad + i*((w-pad*2)/values.length);
+      const vh = Math.abs(v)/max * (h/2 - 4);
+      const y = v>=0 ? zero - vh : zero;
+      const color = v>=0 ? '#7c3aed' : 'rgba(124,58,237,.35)';
+      svg += `<rect x="${x}" y="${y}" width="${bw}" height="${vh}" rx="2" fill="${color}"/>`;
+    });
+    el.innerHTML = svg;
+  }
+  bars($('#dailyBars'), lastN(DATA.pnlDaily,7), ['M','T','W','T','F','S','S']);
+  bars($('#weeklyBars'), [week3,week2,week1,0], ['W3','W2','W1','W']);
+  bars($('#monthlyBars'), DATA.monthlyYTD, []);
+
+  /* Equity curve (cumulative) */
+  function equity(el, values){
+    const w=100,h=30; let cum=0; const cumA=values.map(v=>cum+=v);
+    const min=Math.min(...cumA), max=Math.max(...cumA); const rng=(max-min)||1;
+    const pts = cumA.map((v,i)=>[i/(cumA.length-1)*w, h-( (v-min)/rng*h )]);
+    el.innerHTML = `<polyline fill="none" stroke="#8b5cf6" stroke-width="1.5" points="${pts.map(p=>p.join(',')).join(' ')}"/>`;
+  }
+  equity($('#eqCurve'), DATA.pnlDaily);
+
+  /* Calendar */
+  (function(){
+    const now=new Date(), y=now.getFullYear(), m=now.getMonth();
+    const first=new Date(y,m,1), start=first.getDay(), days=new Date(y,m+1,0).getDate();
+    $('#calLabel').textContent = now.toLocaleString(undefined,{month:'long',year:'numeric'});
+    const grid=$('#calGrid'); grid.innerHTML='';
+    for(let i=0;i<start;i++){ const s=document.createElement('div'); s.className='day'; grid.appendChild(s); }
+    const vals = lastN(DATA.pnlDaily, days); // demo mapping
+    for(let d=1; d<=days; d++){
+      const v = vals[d-1] ?? 0;
+      const cell = document.createElement('div');
+      cell.className = 'day ' + (v>=0?'win':'loss');
+      cell.innerHTML = `<div class="muted" style="font-size:11px">${d}</div><div style="font-weight:700">${fmt(v)}</div>`;
+      grid.appendChild(cell);
+    }
+  })();
+
+  /* Activity log + actions */
+  const ACT=[{time:new Date().toTimeString().slice(0,8), type:'system', msg:'Service online'}];
+  function renderAct(){ $('#actBody').innerHTML = ACT.map(a=>`<tr><td>${a.time}</td><td><span class="badge">${a.type}</span></td><td>${a.msg}</td></tr>`).join(''); }
+  function pushAct(type,msg){ ACT.unshift({time:new Date().toTimeString().slice(0,8),type,msg}); renderAct(); }
+  renderAct();
+  const bind=(sel,fn)=> $$(sel).forEach(b=>b && b.addEventListener('click', fn));
+  bind('#mDisable,#ovDisable', ()=>{ const el=$('#kpiCopy'); const en=el.textContent==='ENABLED'; el.textContent=en?'DISABLED':'ENABLED'; el.style.color=en?'#bbb':'var(--prime)'; $('#copyState').textContent=el.textContent; pushAct('system', 'Copy trading '+(en?'disabled':'enabled')); });
+  bind('#mClose,#ovClose', ()=>pushAct('risk','Flatten ALL positions'));
+  bind('#mCancel,#ovCancel', ()=>pushAct('risk','Cancel ALL orders'));
+  $('#cpDisable').onclick=()=>pushAct('copies','Disabled all followers');
+  $('#cpCancel').onclick=()=>pushAct('orders','Canceled all orders');
+  $('#cpFlatten').onclick=()=>pushAct('risk','Flattened all accounts');
+  $('#actExport').onclick=()=>{const rows=[['time','type','msg'],...ACT.map(a=>[a.time,a.type,a.msg])]; const csv=rows.map(r=>r.join(',')).join('\n'); const b=new Blob([csv],{type:'text/csv'}); const u=URL.createObjectURL(b); const a=document.createElement('a'); a.href=u; a.download='activity.csv'; a.click(); URL.revokeObjectURL(u);};
+  $('#testApi').onclick=()=>pushAct('system','Tradovate API connected (demo)');
+})();
+</script>
+</body>
+</html>

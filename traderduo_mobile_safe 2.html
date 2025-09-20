@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -31,763 +30,299 @@
   --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
 }
 
-/* Browser compatibility fallbacks */
-
-- {
-  box-sizing: border-box;
-  }
-
-/* Force consistent color rendering */
-html {
-color-scheme: dark;
--webkit-font-smoothing: antialiased;
--moz-osx-font-smoothing: grayscale;
-}
-
-/* Ensure consistent dark background */
-html, body {
-background-color: #0a0b14;
-background: #0a0b14;
-}
-
-- { box-sizing: border-box; }
-  html, body { height: 100%; }
-
+/* Global resets + horizontal scroll lock */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html { color-scheme: dark; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html, body { background: var(--bg); height: 100%; max-width: 100%; overflow-x: hidden; }
 body {
-margin: 0;
-font: 14px/1.5 ‘Inter’, -apple-system, BlinkMacSystemFont, ‘Segoe UI’, Roboto, sans-serif;
-color: #f1f3ff;
-color: var(–ink);
-background-color: #0a0b14; /* Fallback */
-background:
-radial-gradient(600px 300px at -10% -10%, rgba(139,92,246,.15), transparent),
-radial-gradient(800px 400px at 110% 0, rgba(168,85,247,.08), transparent),
-radial-gradient(400px 400px at 50% 100%, rgba(59,130,246,.05), transparent),
-#0a0b14; /* Fallback base */
-overflow-x: hidden;
-min-height: 100vh;
+  margin: 0;
+  font: 14px/1.5 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(600px 300px at -10% -10%, rgba(139,92,246,.15), transparent),
+    radial-gradient(800px 400px at 110% 0, rgba(168,85,247,.08), transparent),
+    radial-gradient(400px 400px at 50% 100%, rgba(59,130,246,.05), transparent),
+    var(--bg);
+  min-height: 100vh;
 }
+.layout, .top, .main, aside, .grid, .table-container, svg, canvas { max-width: 100%; }
 
-/* Enhanced Header with proper mobile sizing */
+/* Header */
 .top {
-position: sticky;
-top: 0;
-z-index: 100;
-display: flex;
-align-items: center;
-gap: 12px;
-padding: 12px 16px;
-background-color: rgba(15, 16, 23, 0.8);
-background: rgba(15, 16, 23, 0.8);
-border-bottom: 1px solid #1f2037;
-border-bottom: 1px solid var(–stroke);
-backdrop-filter: blur(20px) saturate(180%);
--webkit-backdrop-filter: blur(20px) saturate(180%);
-transition: all 0.3s ease;
-width: 100%;
-max-width: 100vw;
-box-sizing: border-box;
-overflow: hidden;
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px;
+  background: rgba(15, 16, 23, 0.8);
+  border-bottom: 1px solid var(--stroke);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transition: all 0.3s ease;
 }
-
 .brand {
-font-weight: 900;
-font-size: 18px;
-letter-spacing: -0.02em;
-color: #f1f3ff;
-background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
-background: linear-gradient(135deg, #fff 0%, var(–prime-light) 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-white-space: nowrap;
-flex-shrink: 0;
+  font-weight: 900; font-size: 18px; letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #fff 0%, var(--prime-light) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
-
-.search {
-flex: 1;
-max-width: none;
-min-width: 0; /* Allow shrinking */
-position: relative;
-}
-
-.search input {
-width: 100%;
-padding: 12px 16px 12px 44px;
-border-radius: 12px;
-border: 1px solid #1f2037;
-border: 1px solid var(–stroke);
-background-color: rgba(255,255,255,.08);
-background: rgba(255,255,255,.08);
-background: var(–glass);
-color: #f1f3ff;
-color: var(–ink);
-font-size: 14px;
-transition: all 0.2s ease;
-box-sizing: border-box;
-}
-
-.status-indicator {
-display: flex;
-align-items: center;
-gap: 6px;
-padding: 6px 10px;
-border-radius: 8px;
-background-color: rgba(16, 185, 129, 0.1);
-background: rgba(16, 185, 129, 0.1);
-background: var(–success-bg);
-border: 1px solid rgba(16, 185, 129, 0.2);
-font-size: 11px;
-font-weight: 600;
-white-space: nowrap;
-flex-shrink: 0;
-}
-
 .hamb {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-width: 48px;
-height: 48px;
-border: 1px solid #1f2037;
-border: 1px solid var(–stroke);
-border-radius: 12px;
-background-color: rgba(255,255,255,.08);
-background: rgba(255,255,255,.08);
-background: var(–glass);
-color: #d1d5db;
-color: var(–ink-secondary);
-cursor: pointer;
-transition: all 0.2s ease;
-font-size: 18px;
-/* Ensure it’s always clickable */
-touch-action: manipulation;
--webkit-tap-highlight-color: transparent;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 48px; height: 48px; border: 1px solid var(--stroke);
+  border-radius: 12px; background: var(--glass);
+  color: var(--ink-secondary); cursor: pointer; transition: all 0.2s ease;
+  font-size: 18px; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
 }
-
 .hamb:hover, .hamb:active {
-background-color: rgba(255,255,255,.12);
-background: rgba(255,255,255,.12);
-background: var(–glass-strong);
-border-color: #2a2d47;
-border-color: var(–stroke-light);
-transform: translateY(-1px);
+  background: var(--glass-strong); border-color: var(--stroke-light); transform: translateY(-1px);
 }
 
-.search {
-flex: 1;
-max-width: 600px;
-position: relative;
-}
-
+.search { flex: 1; max-width: 600px; position: relative; }
 .search input {
-width: 100%;
-padding: 14px 16px 14px 48px;
-border-radius: 12px;
-border: 1px solid #1f2037;
-border: 1px solid var(–stroke);
-background-color: rgba(255,255,255,.08);
-background: rgba(255,255,255,.08);
-background: var(–glass);
-color: #f1f3ff;
-color: var(–ink);
-font-size: 16px; /* Prevent zoom on iOS */
-transition: all 0.2s ease;
-min-height: 48px; /* Touch-friendly height */
+  width: 100%; padding: 14px 16px 14px 48px; border-radius: 12px;
+  border: 1px solid var(--stroke); background: var(--glass);
+  color: var(--ink); font-size: 16px; transition: all 0.2s ease; min-height: 48px;
 }
-
 .search input:focus {
-outline: none;
-border-color: var(–prime);
-background: var(–glass-strong);
-box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  outline: none; border-color: var(--prime); background: var(--glass-strong);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
-
 .search::before {
-content: ‘🔍’;
-position: absolute;
-left: 16px;
-top: 50%;
-transform: translateY(-50%);
-opacity: 0.6;
-pointer-events: none;
+  content: '🔍'; position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+  opacity: 0.6; pointer-events: none;
 }
 
 .status-indicator {
-display: flex;
-align-items: center;
-gap: 6px;
-padding: 8px 12px;
-border-radius: 8px;
-background: var(–success-bg);
-border: 1px solid rgba(16, 185, 129, 0.2);
-font-size: 12px;
-font-weight: 600;
+  display: flex; align-items: center; gap: 6px; padding: 8px 12px;
+  border-radius: 8px; background: var(--success-bg);
+  border: 1px solid rgba(16, 185, 129, 0.2); font-size: 12px; font-weight: 600;
 }
-
 .status-indicator::before {
-content: ‘’;
-width: 6px;
-height: 6px;
-border-radius: 50%;
-background: var(–success);
-animation: pulse 2s infinite;
+  content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--success);
+  animation: pulse 2s infinite;
 }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
 
-@keyframes pulse {
-0%, 100% { opacity: 1; }
-50% { opacity: 0.5; }
-}
-
-/* Enhanced Layout */
+/* Layout */
 .layout { display: flex; min-height: 100vh; }
-
 aside {
-position: fixed;
-inset: 70px auto 0 0;
-width: 280px;
-transform: translateX(-100%);
-background: rgba(18, 19, 28, 0.9);
-border-right: 1px solid var(–stroke);
-backdrop-filter: blur(20px) saturate(180%);
-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-z-index: 50;
-padding: 20px;
-display: flex;
-flex-direction: column;
-gap: 12px;
+  position: fixed; inset: 70px auto 0 0; width: 280px; transform: translateX(-100%);
+  background: rgba(18, 19, 28, 0.9); border-right: 1px solid var(--stroke);
+  backdrop-filter: blur(20px) saturate(180%); transition: transform .3s cubic-bezier(.4,0,.2,1);
+  z-index: 50; padding: 20px; display: flex; flex-direction: column; gap: 12px;
 }
-
 #nav:checked ~ .layout aside { transform: translateX(0); }
 
-.overlay {
-position: fixed;
-inset: 0;
-background: rgba(0, 0, 0, 0.6);
-display: none;
-z-index: 40;
-backdrop-filter: blur(4px);
-}
-
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none; z-index: 40;
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); touch-action: manipulation; }
 #nav:checked ~ .overlay { display: block; }
 
 .nav-section {
-font-weight: 700;
-font-size: 12px;
-text-transform: uppercase;
-letter-spacing: 0.05em;
-color: var(–muted);
-margin-bottom: 8px;
-margin-top: 16px;
+  font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--muted); margin-bottom: 8px; margin-top: 16px;
 }
-
 .nav-section:first-child { margin-top: 0; }
 
 .navbtn {
-padding: 12px 14px;
-border-radius: 10px;
-color: var(–ink-secondary);
-text-decoration: none;
-border: 1px solid transparent;
-display: flex;
-align-items: center;
-gap: 10px;
-font-weight: 500;
-transition: all 0.2s ease;
-position: relative;
+  padding: 12px 14px; border-radius: 10px; color: var(--ink-secondary); text-decoration: none;
+  border: 1px solid transparent; display: flex; align-items: center; gap: 10px;
+  font-weight: 500; transition: all 0.2s ease; position: relative;
 }
-
 .navbtn::before {
-content: ‘’;
-width: 6px;
-height: 6px;
-border-radius: 50%;
-background: var(–muted);
-opacity: 0.6;
-transition: all 0.2s ease;
+  content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--muted); opacity: .6; transition: all .2s ease;
 }
-
-.navbtn.active,
-.navbtn:hover {
-background: var(–glass-strong);
-border-color: var(–stroke-light);
-color: var(–ink);
-transform: translateX(4px);
+.navbtn.active, .navbtn:hover {
+  background: var(--glass-strong); border-color: var(--stroke-light); color: var(--ink); transform: translateX(4px);
 }
+.navbtn.active::before { background: var(--prime); opacity: 1; box-shadow: 0 0 8px var(--prime); }
 
-.navbtn.active::before {
-background: var(–prime);
-opacity: 1;
-box-shadow: 0 0 8px var(–prime);
-}
-
-.main {
-flex: 1;
-padding: 24px;
-transition: margin-left 0.3s ease;
-}
-
+.main { flex: 1; padding: 24px; transition: margin-left .3s ease; }
 @media(min-width: 1024px) {
-aside {
-position: sticky;
-top: 70px;
-transform: none;
-}
-.main {
-margin-left: 280px;
-padding: 32px;
-}
+  aside { position: sticky; top: 70px; transform: none; }
+  .main { margin-left: 280px; padding: 32px; }
 }
 
-/* Enhanced Cards with fallbacks */
+/* Cards */
 .card {
-background-color: #12131c; /* Fallback */
-background: linear-gradient(135deg, #12131c 0%, rgba(18, 19, 28, 0.8) 100%);
-background: linear-gradient(135deg, var(–panel) 0%, rgba(18, 19, 28, 0.8) 100%);
-border: 1px solid #1f2037;
-border: 1px solid var(–stroke);
-border-radius: 16px;
-padding: 20px;
-box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-box-shadow: var(–shadow);
-transition: all 0.3s ease;
-position: relative;
-overflow: hidden;
+  background: linear-gradient(135deg, var(--panel) 0%, rgba(18, 19, 28, 0.8) 100%);
+  border: 1px solid var(--stroke); border-radius: 16px; padding: 20px;
+  box-shadow: var(--shadow); transition: all .3s ease; position: relative; overflow: hidden;
 }
-
 .card::before {
-content: ‘’;
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-height: 1px;
-background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
 }
-
-.card:hover {
-transform: translateY(-2px);
-box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-box-shadow: var(–shadow-lg);
-border-color: #2a2d47;
-border-color: var(–stroke-light);
-}
-
-.card.primary {
-background-color: rgba(139, 92, 246, 0.1); /* Fallback */
-background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(109, 40, 217, 0.05) 100%);
-border-color: rgba(139, 92, 246, 0.2);
-}
-
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--stroke-light); }
+.card.primary { background: linear-gradient(135deg, rgba(139,92,246,.1) 0%, rgba(109,40,217,.05) 100%); border-color: rgba(139,92,246,.2); }
 .card h3 {
-margin: 0 0 12px;
-font-size: 12px;
-color: #a3a6cf;
-color: var(–muted);
-letter-spacing: 0.08em;
-text-transform: uppercase;
-font-weight: 600;
+  margin: 0 0 12px; font-size: 12px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; font-weight: 600;
 }
 
-.kpi {
-font-size: 32px;
-font-weight: 900;
-letter-spacing: -0.02em;
-margin-bottom: 8px;
-transition: all 0.3s ease;
-color: #f1f3ff; /* Fallback */
-}
+/* KPIs */
+.kpi { font-size: 32px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--ink); transition: all .3s ease; }
+.kpi.positive { color: var(--success); }
+.kpi.negative { color: var(--danger); }
+.kpi-change { display:flex; align-items:center; gap:4px; font-size:13px; font-weight:600; }
+.kpi-change.positive { color: var(--success); }
+.kpi-change.negative { color: var(--danger); }
+.kpi-change::before { content: '↗'; font-size: 14px; }
+.kpi-change.negative::before { content: '↘'; }
 
-.kpi.positive {
-color: #10b981;
-color: var(–success);
-}
-
-.kpi.negative {
-color: #ef4444;
-color: var(–danger);
-}
-
-.kpi-change {
-display: flex;
-align-items: center;
-gap: 4px;
-font-size: 13px;
-font-weight: 600;
-}
-
-.kpi-change.positive {
-color: #10b981;
-color: var(–success);
-}
-
-.kpi-change.negative {
-color: #ef4444;
-color: var(–danger);
-}
-
-.kpi-change::before {
-content: ‘↗’;
-font-size: 14px;
-}
-
-.kpi-change.negative::before {
-content: ‘↘’;
-}
-
-/* Enhanced Grid */
-.grid {
-display: grid;
-gap: 16px;
-}
-
+/* Grid */
+.grid { display: grid; gap: 16px; }
 .g-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .g-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .g-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media(max-width: 1280px) { .g-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media(max-width: 768px)  { .g-4, .g-3, .g-2 { grid-template-columns: 1fr; } }
 
-@media(max-width: 1280px) {
-.g-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-@media(max-width: 768px) {
-.g-4, .g-3, .g-2 { grid-template-columns: 1fr; }
-}
-
-/* Enhanced Buttons with fallbacks */
+/* Buttons + badges */
 .btn {
-padding: 12px 16px;
-border-radius: 10px;
-border: 1px solid #1f2037;
-border: 1px solid var(–stroke);
-background-color: rgba(255,255,255,.08);
-background: rgba(255,255,255,.08);
-background: var(–glass);
-color: #f1f3ff;
-color: var(–ink);
-cursor: pointer;
-font-weight: 600;
-font-size: 14px;
-transition: all 0.2s ease;
-display: inline-flex;
-align-items: center;
-gap: 8px;
-text-decoration: none;
-position: relative;
-overflow: hidden;
+  padding: 12px 16px; border-radius: 10px; border: 1px solid var(--stroke);
+  background: var(--glass); color: var(--ink); cursor: pointer; font-weight: 600; font-size: 14px;
+  transition: all .2s ease; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; position: relative; overflow: hidden;
 }
+.btn:hover { background: var(--glass-strong); border-color: var(--stroke-light); transform: translateY(-1px); }
+.btn.primary { background: linear-gradient(135deg, var(--prime) 0%, var(--prime-dark) 100%); border-color: var(--prime-dark); color: #fff; box-shadow: 0 4px 14px rgba(139, 92, 246, .3); }
+.btn.primary:hover { background: linear-gradient(135deg, var(--prime-light) 0%, var(--prime) 100%); box-shadow: 0 6px 20px rgba(139, 92, 246, .4); }
+.btn.danger { background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%); border-color: #dc2626; color: #fff; box-shadow: 0 4px 14px rgba(239,68,68,.3); }
+.btn.danger:hover { background: linear-gradient(135deg, #f87171 0%, var(--danger) 100%); box-shadow: 0 6px 20px rgba(239,68,68,.4); }
 
-.btn:hover {
-background-color: rgba(255,255,255,.12);
-background: rgba(255,255,255,.12);
-background: var(–glass-strong);
-border-color: #2a2d47;
-border-color: var(–stroke-light);
-transform: translateY(-1px);
-}
-
-.btn.primary {
-background-color: #8b5cf6; /* Fallback */
-background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
-background: linear-gradient(135deg, var(–prime) 0%, var(–prime-dark) 100%);
-border-color: #6d28d9;
-border-color: var(–prime-dark);
-color: white;
-box-shadow: 0 4px 14px rgba(139, 92, 246, 0.3);
-}
-
-.btn.primary:hover {
-background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
-background: linear-gradient(135deg, var(–prime-light) 0%, var(–prime) 100%);
-box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
-}
-
-.btn.danger {
-background-color: #ef4444; /* Fallback */
-background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-background: linear-gradient(135deg, var(–danger) 0%, #dc2626 100%);
-border-color: #dc2626;
-color: white;
-box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
-}
-
-.btn.danger:hover {
-background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
-background: linear-gradient(135deg, #f87171 0%, var(–danger) 100%);
-box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
-}
-
-/* Enhanced Badges with fallbacks */
 .badge {
-display: inline-flex;
-align-items: center;
-gap: 4px;
-padding: 6px 10px;
-border-radius: 12px;
-border: 1px solid #1f2037;
-border: 1px solid var(–stroke);
-background-color: rgba(255,255,255,.08);
-background: rgba(255,255,255,.08);
-background: var(–glass);
-font-size: 11px;
-font-weight: 600;
-transition: all 0.2s ease;
-color: #f1f3ff;
-color: var(–ink);
+  display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; border-radius: 12px;
+  border: 1px solid var(--stroke); background: var(--glass); font-size: 11px; font-weight: 600; transition: all .2s ease; color: var(--ink);
 }
+.badge.success { background: var(--success-bg); border-color: rgba(16,185,129,.2); color: var(--success); }
+.badge.danger { background: var(--danger-bg); border-color: rgba(239,68,68,.2); color: var(--danger); }
+.badge.warning{ background: var(--warning-bg); border-color: rgba(245,158,11,.2); color: var(--warning); }
 
-.badge.success {
-background-color: rgba(16, 185, 129, 0.1);
-background: rgba(16, 185, 129, 0.1);
-background: var(–success-bg);
-border-color: rgba(16, 185, 129, 0.2);
-color: #10b981;
-color: var(–success);
-}
-
-.badge.danger {
-background-color: rgba(239, 68, 68, 0.1);
-background: rgba(239, 68, 68, 0.1);
-background: var(–danger-bg);
-border-color: rgba(239, 68, 68, 0.2);
-color: #ef4444;
-color: var(–danger);
-}
-
-.badge.warning {
-background-color: rgba(245, 158, 11, 0.1);
-background: rgba(245, 158, 11, 0.1);
-background: var(–warning-bg);
-border-color: rgba(245, 158, 11, 0.2);
-color: #f59e0b;
-color: var(–warning);
-}
-
-/* Enhanced Tables with fallbacks */
-.table-container {
-overflow-x: auto;
-border-radius: 12px;
-border: 1px solid #1f2037;
-border: 1px solid var(–stroke);
-background-color: #12131c;
-background: #12131c;
-background: var(–panel);
-}
-
-table {
-width: 100%;
-border-collapse: collapse;
-}
-
-th, td {
-padding: 14px 16px;
-text-align: left;
-border-bottom: 1px solid #1f2037;
-border-bottom: 1px solid var(–stroke);
-color: #f1f3ff;
-color: var(–ink);
-}
-
+/* Tables */
+.table-container { overflow-x: auto; border-radius: 12px; border: 1px solid var(--stroke); background: var(--panel); }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--stroke); color: var(--ink); white-space: nowrap; }
 th {
-background-color: rgba(255,255,255,.08);
-background: rgba(255,255,255,.08);
-background: var(–glass);
-color: #a3a6cf;
-color: var(–muted);
-font-weight: 600;
-font-size: 12px;
-text-transform: uppercase;
-letter-spacing: 0.05em;
-position: sticky;
-top: 0;
-backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px);
+  background: var(--glass); color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase;
+  letter-spacing: 0.05em; position: sticky; top: 0; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
 }
+tr:hover { background: var(--glass); }
+tr:last-child td { border-bottom: none; }
 
-tr:hover {
-background-color: rgba(255,255,255,.08);
-background: rgba(255,255,255,.08);
-background: var(–glass);
-}
-
-tr:last-child td {
-border-bottom: none;
-}
-
-/* Form Elements with fallbacks */
+/* Forms */
 .form-input {
-padding: 12px 14px;
-border-radius: 8px;
-border: 1px solid #1f2037;
-border: 1px solid var(–stroke);
-background-color: rgba(255,255,255,.08);
-background: rgba(255,255,255,.08);
-background: var(–glass);
-color: #f1f3ff;
-color: var(–ink);
-font-size: 14px;
-transition: all 0.2s ease;
+  padding: 12px 14px; border-radius: 8px; border: 1px solid var(--stroke); background: var(--glass); color: var(--ink); font-size: 14px; transition: all .2s;
+}
+.form-input:focus { outline: none; border-color: var(--prime); background: var(--glass-strong); box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1); }
+.form-label { color: var(--ink-secondary); font-size: 12px; margin-bottom: 6px; display: block; }
+
+/* Muted text */
+.muted { color: var(--muted); }
+
+/* PAGES: default hidden unless .show */
+section[data-page] { display: none; visibility: hidden; width: 100%; }
+section[data-page].show { display: block; visibility: visible; }
+
+/* Simple calendar grid */
+.cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+.cal .day { padding: 8px; border: 1px solid var(--stroke); border-radius: 8px; background: var(--panel); }
+.cal .day.win { border-color: rgba(16,185,129,.4); }
+.cal .day.loss { border-color: rgba(239,68,68,.4); }
+
+/* Quick actions */
+.quick-actions{ position: fixed; bottom: 16px; right: 16px; z-index: 80; }
+.quick-action{ width: 48px; height: 48px; border-radius: 12px; border: 1px solid var(--stroke); background: var(--glass); color: var(--ink); }
+
+.svg { width: 100%; height: 100%; display: block; }
+.chart-container{ width: 100%; height: 120px; }
+.exposure-chips{ display:flex; gap:8px; flex-wrap:wrap; }
+.exposure-stack{ display:flex; height:10px; border-radius:999px; overflow:hidden; border:1px solid var(--stroke); margin-top:8px; }
+.exposure-chip{ display:flex; align-items:center; gap:8px; padding:6px 8px; border:1px solid var(--stroke); border-radius:999px; }
+
+/* -------- Mobile-friendly Copy Trader view -------- */
+
+/* Sticky summary under header */
+#cpSummary {
+  position: sticky; top: 70px; z-index: 45;
+  background: rgba(18,19,28,.9);
+  border-bottom: 1px solid var(--stroke);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 10px 16px;
+}
+#cpSummary .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+.kpi-chip {
+  display:inline-flex; align-items:baseline; gap:6px;
+  padding:8px 10px; border:1px solid var(--stroke);
+  background: var(--panel); border-radius: 10px; font-weight:700;
+}
+.kpi-chip small { color: var(--muted); font-weight:600; }
+
+/* Tabs */
+.tabs { display:flex; gap:8px; padding:10px 16px 0; }
+.tab {
+  flex:0 0 auto; padding:8px 12px; border-radius:10px;
+  border:1px solid var(--stroke); background: var(--glass);
+  font-weight:600; cursor:pointer; user-select:none;
+}
+.tab.active { background: var(--glass-strong); border-color: var(--stroke-light); }
+
+/* Mobile account cards */
+#cpMobileWrap { display:none; padding:12px 16px 16px; }
+#cpMobileList { display:grid; gap:12px; }
+.cp-card {
+  border:1px solid var(--stroke); background: var(--panel);
+  border-radius:14px; padding:12px 14px; box-shadow: var(--shadow);
+}
+.cp-top { display:grid; grid-template-columns: 1fr auto; gap:8px; align-items:center; }
+.cp-tags { display:flex; gap:6px; flex-wrap:wrap; }
+.cp-acct { font-family: ui-monospace, Menlo, Monaco, monospace; font-size:12px; text-align:right; opacity:.9; }
+.cp-stats { margin-top:8px; display:grid; grid-template-columns: 1fr 1fr; gap:8px; }
+.cp-kv { background: var(--glass); border:1px solid var(--stroke); border-radius:10px; padding:8px 10px; font-size:12px; }
+.cp-kv b { display:block; font-size:11px; color:var(--muted); margin-bottom:4px; font-weight:600; }
+.cp-actions { margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+
+/* Collapse details */
+.cp-details { display:none; margin-top:8px; }
+.cp-card.open .cp-details { display:block; }
+.cp-toggle { cursor:pointer; margin-top:6px; color:var(--muted); font-size:12px; }
+
+/* Orders tab container (mobile) */
+#cpOrdersMobile { display:none; padding:12px 16px 16px; }
+.ord-card { border:1px solid var(--stroke); background:var(--panel); border-radius:12px; padding:10px 12px; }
+.ord-line { display:flex; justify-content:space-between; gap:8px; font-size:12px; }
+.ord-line + .ord-line { margin-top:6px; }
+
+/* Desktop keeps table */
+@media (min-width: 768px) {
+  #cpSummary, #cpMobileWrap, #cpOrdersMobile { display:none; }
+  #cpTableWrap { display:block; }
 }
 
-.form-input:focus {
-outline: none;
-border-color: #8b5cf6;
-border-color: var(–prime);
-background-color: rgba(255,255,255,.12);
-background: rgba(255,255,255,.12);
-background: var(–glass-strong);
-box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+/* Phone layout uses cards */
+@media (max-width: 767.98px) {
+  #cpTableWrap { display:none; }
+  #cpMobileWrap { display:block; }
 }
 
-/* Mobile overlay improvements */
-.overlay {
-position: fixed;
-inset: 0;
-background: rgba(0, 0, 0, 0.6);
-display: none;
-z-index: 40;
-backdrop-filter: blur(4px);
--webkit-backdrop-filter: blur(4px);
-/* Better touch interaction */
-touch-action: manipulation;
+/* ---- Modal ---- */
+.modal-backdrop{
+  position: fixed; inset: 0; background: rgba(0,0,0,.6); display:none; z-index: 200;
+  backdrop-filter: blur(4px);
 }
+.modal{
+  position: fixed; inset: 0; display:none; z-index: 210; align-items:center; justify-content:center; padding: 20px;
+}
+.modal.open,.modal-backdrop.open{display:flex;}
+.modal-card{
+  width: 100%; max-width: 560px; background: var(--panel); border:1px solid var(--stroke);
+  border-radius:16px; box-shadow: var(--shadow-lg); padding:16px 18px;
+}
+.modal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;}
+.modal-body{display:grid; gap:12px;}
+.modal-footer{display:flex; justify-content:flex-end; gap:8px; margin-top:12px;}
+.modal-list{max-height:260px; overflow:auto; border:1px solid var(--stroke); border-radius:10px; padding:8px;}
+.modal-row{display:flex; align-items:center; justify-content:space-between; padding:6px 4px; border-bottom:1px dashed var(--stroke);}
+.modal-row:last-child{border-bottom:none;}
 
-#nav:checked ~ .overlay {
-display: block;
-}
-
-/* Mobile navigation improvements */
-@media(max-width: 768px) {
-aside {
-inset: 72px auto 0 0;
-padding: 20px;
-/* Ensure it’s above everything */
-z-index: 60;
-/* Better scrolling if content overflows */
-overflow-y: auto;
--webkit-overflow-scrolling: touch;
-}
-
-/* Ensure hamburger menu is always clickable */
-.hamb {
-position: relative;
-z-index: 70;
-width: 52px;
-height: 52px;
-font-size: 20px;
-}
-
-/* Better mobile search */
-.search input {
-height: 52px;
-padding: 16px 20px 16px 52px;
-font-size: 16px;
-}
-
-.search::before {
-left: 20px;
-font-size: 16px;
-}
-
-/* Enhanced mobile status indicator */
-.status-indicator {
-padding: 8px 12px;
-font-size: 12px;
-min-height: 36px;
-white-space: nowrap;
-}
-
-/* Mobile emergency button improvements */
-.btn.danger {
-min-height: 52px;
-font-weight: 700;
-font-size: 16px;
-}
-
-/* Better mobile table scrolling */
-.table-container {
-position: relative;
-/* Add scroll indicator */
-background:
-linear-gradient(90deg, #12131c, transparent 30px),
-linear-gradient(90deg, transparent calc(100% - 30px), #12131c),
-linear-gradient(90deg, rgba(139, 92, 246, 0.1), transparent 1px),
-linear-gradient(90deg, transparent calc(100% - 1px), rgba(139, 92, 246, 0.1));
-}
-
-/* Mobile grid with better spacing */
-.grid.g-3 {
-grid-template-columns: 1fr;
-gap: 20px;
-}
-
-/* Mobile performance score adjustments */
-.performance-widget .kpi {
-font-size: 40px;
-}
-
-/* Mobile risk management section */
-.card h3 {
-font-size: 13px;
-margin-bottom: 16px;
-}
-
-/* Better mobile spacing for risk bars */
-.form-label {
-font-size: 12px;
-margin-bottom: 8px;
-}
-}
-
-.navbtn {
-padding: 12px 14px;
-border-radius: 10px;
-color: #d1d5db;
-color: var(–ink-secondary);
-text-decoration: none;
-border: 1px solid transparent;
-display: flex;
-align-items: center;
-gap: 10px;
-font-weight: 500;
-transition: all 0.2s ease;
-position: relative;
-}
-
-.navbtn.active,
-.navbtn:hover {
-background-color: rgba(255,255,255,.12);
-background: rgba(255,255,255,.12);
-background: var(–glass-strong);
-border-color: #2a2d47;
-border-color: var(–stroke-light);
-color: #f1f3ff;
-color: var(–ink);
-transform: translateX(4px);
-}
-
-/* Status colors with fallbacks */
-.status-online {
-color: #10b981;
-color: var(–success);
-}
-
-.status-offline {
-color: #ef4444;
-color: var(–danger);
-}
-
-.status-synced {
-color: #8b5cf6;
-color: var(–prime);
-}
-
-/* Muted text fallback */
-.muted {
-color: #a3a6cf;
-color: var(–muted);
-}
 </style>
-
 </head>
 <body>
 <input id="nav" hidden type="checkbox">
@@ -798,9 +333,7 @@ color: var(–muted);
   <div class="search">
     <input placeholder="Search accounts, positions, orders..." />
   </div>
-  <div class="status-indicator">
-    <span>Live</span>
-  </div>
+  <div class="status-indicator"><span>Live</span></div>
 </div>
 
 <div class="overlay"></div>
@@ -808,40 +341,26 @@ color: var(–muted);
 <div class="layout">
   <aside>
     <div class="nav-section">Dashboard</div>
-    <a class="navbtn active" data-route="overview" href="#overview">
-      <span>Overview</span>
-    </a>
-    <a class="navbtn" data-route="copy" href="#copy">
-      <span>Copy Trading</span>
-    </a>
-    <a class="navbtn" data-route="analytics" href="#analytics">
-      <span>Analytics</span>
-    </a>
+    <a class="navbtn active" data-route="overview" href="#overview"><span>Overview</span></a>
+    <a class="navbtn" data-route="copy" href="#copy"><span>Copy Trading</span></a>
+    <a class="navbtn" data-route="analytics" href="#analytics"><span>Analytics</span></a>
 
-```
-<div class="nav-section">Management</div>
-<a class="navbtn" data-route="activity" href="#activity">
-  <span>Activity Feed</span>
-</a>
-<a class="navbtn" data-route="settings" href="#settings">
-  <span>Settings</span>
-</a>
+    <div class="nav-section">Management</div>
+    <a class="navbtn" data-route="activity" href="#activity"><span>Activity Feed</span></a>
+    <a class="navbtn" data-route="settings" href="#settings"><span>Settings</span></a>
 
-<div style="margin-top: auto; display: grid; gap: 10px;">
-  <button class="btn danger" id="mEmergency">🚨 Emergency Stop</button>
-  <button class="btn" id="mClose">Close Positions</button>
-  <button class="btn" id="mCancel">Cancel Orders</button>
-</div>
-```
-
+    <div style="margin-top: auto; display: grid; gap: 10px;">
+      <button class="btn danger" id="mEmergency">🚨 Emergency Stop</button>
+      <button class="btn" id="mClose">Close Positions</button>
+      <button class="btn" id="mCancel">Cancel Orders</button>
+    </div>
   </aside>
 
   <main class="main">
     <!-- Overview Section -->
-    <section id="overview" data-page="overview" class="show animate-in">
-      <!-- Performance Score Widget (Surprise Feature) -->
+    <section id="overview" data-page="overview" class="show">
       <div class="card primary performance-widget" style="margin-bottom: 20px;">
-        <div class="toolbar">
+        <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
           <div>
             <h3 style="margin: 0; color: white;">Performance Score</h3>
             <div class="muted" style="font-size: 12px;">AI-powered risk assessment</div>
@@ -850,335 +369,306 @@ color: var(–muted);
             <div id="performanceScore" class="kpi" style="font-size: 48px; margin: 0; color: white;">A+</div>
             <div style="text-align: right;">
               <div id="riskLevel" class="badge success">Low Risk</div>
-              <div class="muted" style="font-size: 11px; margin-top: 4px;">
-                Score: <span id="riskScore">92/100</span>
-              </div>
+              <div class="muted" style="font-size: 11px; margin-top: 4px;">Score: <span id="riskScore">92/100</span></div>
             </div>
           </div>
         </div>
       </div>
 
-```
-  <div class="grid g-4">
-    <div class="card">
-      <h3>Today's Profit</h3>
-      <div id="kpiRealized" class="kpi positive">$1,247.85</div>
-      <div class="kpi-change positive" id="dailyChange">+12.4% from yesterday</div>
-    </div>
-    
-    <div class="card">
-      <h3>Open P&L</h3>
-      <div id="kpiOpen" class="kpi">$327.50</div>
-      <div class="chart-container">
-        <svg id="spark" class="svg" viewBox="0 0 100 24" preserveAspectRatio="none"></svg>
-      </div>
-    </div>
-    
-    <div class="card">
-      <h3>Active Positions</h3>
-      <div id="kpiExposure" class="kpi" style="font-size: 24px;">$273,000</div>
-      <div class="exposure-container">
-        <div id="expoChips" class="exposure-chips"></div>
-        <div id="expoStack" class="exposure-stack"></div>
-      </div>
-    </div>
-    
-    <div class="card">
-      <h3>Copy Status</h3>
-      <div id="kpiCopy" class="kpi" style="font-size: 24px; color: var(--success);">ACTIVE</div>
-      <div class="muted" style="font-size: 12px;">
-        <span id="kpiGroups">3</span> accounts synced • <span id="syncLatency">12ms</span> latency
-      </div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top: 20px;">
-    <div class="toolbar">
-      <div style="font-weight: 700; font-size: 16px;">Risk Management</div>
-      <div class="toolbar-right">
-        <span id="copyState" class="badge success">COPY TRADING ON</span>
-        <span id="riskAlert" class="badge" style="display: none;">RISK ALERT</span>
-      </div>
-    </div>
-    
-    <!-- Enhanced Risk Visualization -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 16px 0;">
-      <div>
-        <div class="form-label">Daily Loss Risk</div>
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <div style="flex: 1; height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;">
-            <div id="lossRiskBar" style="height: 100%; background: var(--success); width: 23%; transition: all 0.3s ease;"></div>
+      <div class="grid g-4">
+        <div class="card">
+          <h3>Today's Profit</h3>
+          <div id="kpiRealized" class="kpi positive">$0.00</div>
+          <div class="kpi-change positive" id="dailyChange">+0.0% from yesterday</div>
+          <div class="chart-container"><svg id="spark" class="svg" viewBox="0 0 100 24" preserveAspectRatio="none"></svg></div>
+        </div>
+        <div class="card">
+          <h3>Open P&L</h3>
+          <div id="kpiOpen" class="kpi">$0.00</div>
+          <div class="exposure-container">
+            <div id="expoChips" class="exposure-chips"></div>
+            <div id="expoStack" class="exposure-stack"></div>
           </div>
-          <span id="lossRiskText" class="muted" style="font-size: 12px;">23%</span>
+        </div>
+        <div class="card">
+          <h3>Active Positions</h3>
+          <div id="kpiExposure" class="kpi" style="font-size: 24px;">$0</div>
+        </div>
+        <div class="card">
+          <h3>Copy Status</h3>
+          <div id="kpiCopy" class="kpi" style="font-size: 24px; color: var(--success);">ACTIVE</div>
+          <div class="muted" style="font-size: 12px;"><span id="kpiGroups">3</span> accounts synced • <span id="syncLatency">12ms</span> latency</div>
         </div>
       </div>
-      <div>
-        <div class="form-label">Trade Volume Risk</div>
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <div style="flex: 1; height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;">
-            <div id="tradeRiskBar" style="height: 100%; background: var(--warning); width: 58%; transition: all 0.3s ease;"></div>
+
+      <div class="card" style="margin-top: 20px;">
+        <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-weight: 700; font-size: 16px;">Risk Management</div>
+          <div class="toolbar-right">
+            <span id="copyState" class="badge success">COPY TRADING ON</span>
           </div>
-          <span id="tradeRiskText" class="muted" style="font-size: 12px;">58%</span>
         </div>
-      </div>
-      <div>
-        <div class="form-label">Position Risk</div>
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <div style="flex: 1; height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;">
-            <div id="positionRiskBar" style="height: 100%; background: var(--success); width: 33%; transition: all 0.3s ease;"></div>
+
+        <!-- Simplified: settings only, no fake % bars -->
+        <div class="grid g-3" style="margin-top: 8px;">
+          <div class="form-group">
+            <label class="form-label">Daily Max Loss</label>
+            <input id="rcLoss" class="form-input" value="$1,500" />
           </div>
-          <span id="positionRiskText" class="muted" style="font-size: 12px;">33%</span>
+          <div class="form-group">
+            <label class="form-label">Max Daily Trades</label>
+            <input id="rcTrades" class="form-input" value="40" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Position Limit</label>
+            <input id="rcPos" class="form-input" value="12" />
+          </div>
+        </div>
+        <div class="toolbar-right" style="margin-top: 12px; display:flex; gap:10px;">
+          <button id="riskSave" class="btn primary">Save Risk Settings</button>
+          <button id="riskReset" class="btn">Reset</button>
+        </div>
+
+        <div class="toolbar-right" style="margin-top: 16px; display:flex; gap:10px;">
+          <button id="ovDisable" class="btn">Disable Copy Trading</button>
+          <button id="ovClose" class="btn">Close All Positions</button>
+          <button id="ovCancel" class="btn danger">Cancel All Orders</button>
         </div>
       </div>
-    </div>
-    
-    <div class="grid g-3">
-      <div class="form-group">
-        <label class="form-label">Daily Max Loss</label>
-        <input id="rcLoss" class="form-input" value="$1,500" />
-      </div>
-      <div class="form-group">
-        <label class="form-label">Max Daily Trades</label>
-        <input id="rcTrades" class="form-input" value="40" />
-      </div>
-      <div class="form-group">
-        <label class="form-label">Position Limit</label>
-        <input id="rcPos" class="form-input" value="12" />
-      </div>
-    </div>
-    
-    <div class="toolbar-right" style="margin-top: 16px; justify-content: flex-start;">
-      <button id="ovDisable" class="btn primary">Disable Copy Trading</button>
-      <button id="ovClose" class="btn">Close All Positions</button>
-      <button id="ovCancel" class="btn danger">Cancel All Orders</button>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- Copy Trading Section -->
-<section id="copy" data-page="copy">
-  <div class="card">
-    <div class="toolbar">
-      <div class="toolbar-left">
-        <div style="font-weight: 700; font-size: 16px;">Copy Trading Dashboard</div>
-        <div style="display: flex; gap: 6px;">
-          <span class="badge">MES</span>
-          <span class="badge">MNQ</span>
-          <span class="badge">MCL</span>
+    <!-- Copy Trading Section -->
+    <section id="copy" data-page="copy">
+      <!-- Sticky summary and tabs (mobile) -->
+      <div id="cpSummary">
+        <div class="row" id="cpSummaryRow"></div>
+        <div class="tabs">
+          <div class="tab active" data-tab="accounts">Accounts</div>
+          <div class="tab" data-tab="orders">Orders</div>
         </div>
       </div>
-      <div class="toolbar-right">
-        <button class="btn sm" id="cpDisable">Disable Followers</button>
-        <button class="btn sm" id="cpCancel">Cancel Orders</button>
-        <button class="btn danger sm" id="cpFlatten">Emergency Flatten</button>
+
+      <!-- Accounts (mobile cards) -->
+      <div id="cpMobileWrap">
+        <div id="cpMobileList"></div>
       </div>
-    </div>
-    
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Status</th>
-            <th>Account</th>
-            <th>Position</th>
-            <th>Quantity</th>
-            <th>Balance</th>
-            <th>Avg Price</th>
-            <th>Day P&L</th>
-            <th>Open P&L</th>
-            <th>Sync</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="cpBody"></tbody>
-      </table>
-    </div>
-  </div>
 
-  <div class="card" style="margin-top: 20px;">
-    <div class="toolbar">
-      <div style="font-weight: 700; font-size: 16px;">Recent Orders</div>
-      <div class="toolbar-right">
-        <button class="btn sm" id="ordFilter">Filter</button>
-        <button class="btn sm" id="ordExport">Export CSV</button>
-      </div>
-    </div>
-    
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Account</th>
-            <th>Time</th>
-            <th>Symbol</th>
-            <th>Type</th>
-            <th>Side</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="ordBody"></tbody>
-      </table>
-    </div>
-  </div>
-</section>
+      <!-- Orders (mobile cards) -->
+      <div id="cpOrdersMobile"></div>
 
-<!-- Analytics Section -->
-<section id="analytics" data-page="analytics">
-  <div class="grid g-4">
-    <div class="card">
-      <h3>Today's P&L</h3>
-      <div id="aPLToday" class="kpi positive">$1,247.85</div>
-      <div id="aPLNote" class="muted" style="font-size: 12px;"></div>
-    </div>
-    
-    <div class="card">
-      <h3>Profit Factor</h3>
-      <div id="aPF" class="kpi">2.34</div>
-      <div class="kpi-change positive">+0.15 this week</div>
-    </div>
-    
-    <div class="card">
-      <h3>Win Rate</h3>
-      <div id="aWR" class="kpi">68.5%</div>
-      <div class="kpi-change positive">+2.1% this month</div>
-    </div>
-    
-    <div class="card">
-      <h3>Daily Win Rate</h3>
-      <div id="aDW" class="kpi">71.4%</div>
-      <div id="aDWNote" class="muted" style="font-size: 12px;"></div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top: 20px;">
-    <h3>Equity Curve (21 Days)</h3>
-    <div class="chart-container" style="height: 200px;">
-      <svg id="eqCurve" class="svg" viewBox="0 0 100 30" preserveAspectRatio="none"></svg>
-    </div>
-  </div>
-
-  <div class="grid g-3" style="margin-top: 20px;">
-    <div class="card">
-      <h3>Daily P&L (Last 7)</h3>
-      <div id="aDailySum" class="kpi" style="font-size: 20px;">$2,347</div>
-      <div class="chart-container">
-        <svg id="dailyBars" class="svg" viewBox="0 0 100 40"></svg>
-      </div>
-    </div>
-    
-    <div class="card">
-      <h3>Weekly P&L (Last 4)</h3>
-      <div id="aWeeklySum" class="kpi" style="font-size: 20px;">$8,921</div>
-      <div class="chart-container">
-        <svg id="weeklyBars" class="svg" viewBox="0 0 100 40"></svg>
-      </div>
-    </div>
-    
-    <div class="card">
-      <h3>Monthly P&L (YTD)</h3>
-      <div id="aMonthlySum" class="kpi" style="font-size: 20px;">$34,567</div>
-      <div class="chart-container">
-        <svg id="monthlyBars" class="svg" viewBox="0 0 100 40"></svg>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top: 20px;">
-    <div class="toolbar">
-      <div style="font-weight: 700; font-size: 16px;">Performance Calendar</div>
-      <div id="calLabel" class="muted"></div>
-    </div>
-    <div id="calGrid" class="cal"></div>
-  </div>
-</section>
-
-<!-- Activity Section -->
-<section id="activity" data-page="activity">
-  <div class="card">
-    <div class="toolbar">
-      <div style="font-weight: 700; font-size: 16px;">Activity Feed</div>
-      <button class="btn sm" id="actExport">Export CSV</button>
-    </div>
-    
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Type</th>
-            <th>Message</th>
-          </tr>
-        </thead>
-        <tbody id="actBody"></tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- Settings Section -->
-<section id="settings" data-page="settings">
-  <div class="card">
-    <div style="font-weight: 700; font-size: 16px; margin-bottom: 20px;">Account Settings</div>
-    
-    <div class="grid g-2">
-      <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input class="form-input" value="trader@example.com" />
-      </div>
-      <div class="form-group">
-        <label class="form-label">Subscription Plan</label>
-        <select class="form-input">
-          <option>Professional ($99/mo)</option>
-          <option>Starter ($29/mo)</option>
-          <option>Enterprise ($199/mo)</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="grid g-2" style="margin-top: 20px;">
-      <div>
-        <div class="form-label" style="margin-bottom: 12px;">Tradovate API</div>
-        <div class="form-group">
-          <input class="form-input" placeholder="Client ID" />
+      <!-- Desktop table -->
+      <div class="card">
+        <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
+          <div class="toolbar-left">
+            <div style="font-weight: 700; font-size: 16px;">Copy Trading Dashboard</div>
+          </div>
+          <div class="toolbar-right">
+            <button class="btn sm" id="cpEdit">Edit Copy Trading</button>
+            <button class="btn sm" id="cpDisable">Disable Followers</button>
+            <button class="btn sm" id="cpCancel">Cancel Orders</button>
+            <button class="btn danger sm" id="cpFlatten">Emergency Flatten</button>
+          </div>
         </div>
-        <div class="form-group">
-          <input class="form-input" placeholder="Client Secret" type="password" />
-        </div>
-        <button id="testApi" class="btn primary">Test Connection</button>
-      </div>
-      
-      <div>
-        <div class="form-label" style="margin-bottom: 12px;">Usage Overview</div>
-        <div style="height: 12px; border-radius: 999px; background: var(--bg-secondary); border: 1px solid var(--stroke); overflow: hidden;">
-          <span id="usage" style="display: block; height: 12px; background: linear-gradient(90deg, var(--prime), var(--prime-light)); width: 65%;"></span>
-        </div>
-        <div class="muted" style="font-size: 12px; margin-top: 8px;">
-          3 of 5 broker connections used
-        </div>
-        <div class="muted" style="font-size: 12px;">
-          1,247 of 2,000 monthly trades
+
+        <div id="cpTableWrap" class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Account</th>
+                <th>Position</th>
+                <th>Quantity</th>
+                <th>Balance</th>
+                <th>Avg Price</th>
+                <th>Day P&L</th>
+                <th>Open P&L</th>
+                <th>Sync</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="cpBody"></tbody>
+          </table>
         </div>
       </div>
-    </div>
 
-    <div class="toolbar-right" style="margin-top: 24px; justify-content: flex-end;">
-      <button class="btn">Cancel</button>
-      <button class="btn primary">Save Changes</button>
-    </div>
-  </div>
-</section>
-```
+      <div class="card" style="margin-top: 20px;">
+        <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-weight: 700; font-size: 16px;">Recent Orders</div>
+          <div class="toolbar-right">
+            <button class="btn sm" id="ordFilter">Filter</button>
+            <button class="btn sm" id="ordExport">Export CSV</button>
+          </div>
+        </div>
 
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Account</th>
+                <th>Time</th>
+                <th>Symbol</th>
+                <th>Type</th>
+                <th>Side</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="ordBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Analytics Section (UI left untouched) -->
+    <section id="analytics" data-page="analytics">
+      <div class="grid g-4">
+        <div class="card">
+          <h3>Today's P&L</h3>
+          <div id="aPLToday" class="kpi positive">$0.00</div>
+          <div id="aPLNote" class="muted" style="font-size: 12px;"></div>
+        </div>
+        <div class="card">
+          <h3>Profit Factor</h3>
+          <div id="aPF" class="kpi">2.34</div>
+          <div class="kpi-change positive">+0.15 this week</div>
+        </div>
+        <div class="card">
+          <h3>Win Rate</h3>
+          <div id="aWR" class="kpi">0%</div>
+          <div class="kpi-change positive">+0.0% this month</div>
+        </div>
+        <div class="card">
+          <h3>Daily Win Rate</h3>
+          <div id="aDW" class="kpi">0%</div>
+          <div id="aDWNote" class="muted" style="font-size: 12px;"></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 20px;">
+        <h3>Equity Curve (30 Days)</h3>
+        <div class="chart-container" style="height: 200px;">
+          <svg id="eqCurve" class="svg" viewBox="0 0 100 30" preserveAspectRatio="none"></svg>
+        </div>
+      </div>
+
+      <div class="grid g-3" style="margin-top: 20px;">
+        <div class="card">
+          <h3>Daily P&L (Last 7)</h3>
+          <div id="aDailySum" class="kpi" style="font-size: 20px;">$0.00</div>
+          <div class="chart-container"><svg id="dailyBars" class="svg" viewBox="0 0 100 40"></svg></div>
+        </div>
+        <div class="card">
+          <h3>Weekly P&L (Last 4)</h3>
+          <div id="aWeeklySum" class="kpi" style="font-size: 20px;">$0.00</div>
+          <div class="chart-container"><svg id="weeklyBars" class="svg" viewBox="0 0 100 40"></svg></div>
+        </div>
+        <div class="card">
+          <h3>Monthly P&L (YTD)</h3>
+          <div id="aMonthlySum" class="kpi" style="font-size: 20px;">$0.00</div>
+          <div class="chart-container"><svg id="monthlyBars" class="svg" viewBox="0 0 100 40"></svg></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 20px;">
+        <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-weight: 700; font-size: 16px;">Performance Calendar</div>
+          <div id="calLabel" class="muted"></div>
+        </div>
+        <div id="calGrid" class="cal"></div>
+      </div>
+    </section>
+
+    <!-- Activity Section -->
+    <section id="activity" data-page="activity">
+      <div class="card">
+        <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-weight: 700; font-size: 16px;">Activity Feed</div>
+          <button class="btn sm" id="actExport">Export CSV</button>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr><th>Time</th><th>Type</th><th>Message</th></tr>
+            </thead>
+            <tbody id="actBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings Section -->
+    <section id="settings" data-page="settings">
+      <div class="card">
+        <div style="font-weight: 700; font-size: 16px; margin-bottom: 20px;">Account Settings</div>
+        <div class="grid g-2">
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-input" value="trader@example.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subscription Plan</label>
+            <select class="form-input">
+              <option>Professional ($99/mo)</option>
+              <option>Starter ($29/mo)</option>
+              <option>Enterprise ($199/mo)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid g-2" style="margin-top: 20px;">
+          <div>
+            <div class="form-label" style="margin-bottom: 12px;">Tradovate API</div>
+            <div class="form-group"><input class="form-input" placeholder="Client ID" /></div>
+            <div class="form-group"><input class="form-input" placeholder="Client Secret" type="password" /></div>
+            <button id="testApi" class="btn primary">Test Connection</button>
+          </div>
+          <div>
+            <div class="form-label" style="margin-bottom: 12px;">Usage Overview</div>
+            <div style="height: 12px; border-radius: 999px; background: var(--bg-secondary); border: 1px solid var(--stroke); overflow: hidden;">
+              <span id="usage" style="display: block; height: 12px; background: linear-gradient(90deg, var(--prime), var(--prime-light)); width: 65%;"></span>
+            </div>
+            <div class="muted" style="font-size: 12px; margin-top: 8px;">3 of 5 broker connections used</div>
+            <div class="muted" style="font-size: 12px;">1,247 of 2,000 monthly trades</div>
+          </div>
+        </div>
+
+        <div class="toolbar-right" style="margin-top: 24px; display:flex; gap:10px; justify-content: flex-end;">
+          <button class="btn">Cancel</button>
+          <button class="btn primary">Save Changes</button>
+        </div>
+      </div>
+    </section>
   </main>
 </div>
 
 <!-- Quick Actions -->
+<div class="quick-actions"><button class="quick-action" title="Emergency Stop">🚨</button></div>
 
-<div class="quick-actions">
-  <button class="quick-action" title="Emergency Stop">🚨</button>
+<!-- Copy Trading Modal -->
+<div class="modal-backdrop" id="cpBackdrop"></div>
+<div class="modal" id="cpModal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="cpModalTitle">
+    <div class="modal-head">
+      <div id="cpModalTitle" style="font-weight:800">Edit Copy Trading</div>
+      <button class="btn" id="cpCloseX">Close</button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <div class="form-label">Leader</div>
+        <div class="modal-list" id="cpLeaderList"></div>
+      </div>
+      <div>
+        <div class="form-label">Followers</div>
+        <div class="modal-list" id="cpFollowerList"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" id="cpCancelEdit">Cancel</button>
+      <button class="btn primary" id="cpSaveEdit">Save</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1186,804 +676,396 @@ color: var(–muted);
   const $ = q => document.querySelector(q);
   const $$ = q => Array.from(document.querySelectorAll(q));
 
-  // FINAL CLEANUP - Remove emojis and ensure proper initialization
-  const $ = q => document.querySelector(q);
-  const $$ = q => Array.from(document.querySelectorAll(q));
+  /* --- utils --- */
+  function fmt(n){ const s=(typeof n==='number')?n:parseFloat(String(n||0)); const sign=s<0?'-':''; return sign+'$'+Math.abs(s).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  const toNumber = x => (typeof x==='number')?x:parseFloat(String(x).replace(/[^0-9.\\-]/g,''))||0;
+  function sum(arr){ return arr.reduce((a,b)=>a+b,0); }
+  function lastN(arr,n){ return arr.slice(Math.max(0,arr.length-n)); }
+  function showToast(message){
+    const n=document.createElement('div');
+    n.style.cssText='position:fixed;top:84px;right:20px;background:var(--panel);border:1px solid var(--stroke);border-radius:12px;padding:12px 14px;color:var(--ink);box-shadow:var(--shadow);z-index:1000';
+    n.textContent=message; document.body.appendChild(n); setTimeout(()=>n.remove(), 2200);
+  }
 
-  // Wait for DOM to be ready
-  function initNavigation() {
-    const pages = $$('section[data-page]');
-    const navButtons = $$('.navbtn');
+  /* --- hamburger autoclose & router --- */
+  function initHamburgerAutoclose(){
     const navCheckbox = $('#nav');
     const overlay = $('.overlay');
-    
-    console.log('Found pages:', pages.map(p => p.id));
-    console.log('Found nav buttons:', navButtons.map(n => n.dataset.route));
-    
-    // Navigation function
-    function navigateToPage(targetRoute) {
-      console.log('Navigating to:', targetRoute);
-      
-      // Default to overview if route doesn't exist
-      if (!targetRoute || !pages.some(p => p.id === targetRoute)) {
-        targetRoute = 'overview';
-      }
-      
-      // Hide ALL pages
-      pages.forEach(page => {
-        page.classList.remove('show', 'animate-in');
-        page.style.display = 'none';
-        page.style.visibility = 'hidden';
-      });
-      
-      // Show ONLY target page
-      const targetPage = document.getElementById(targetRoute);
-      if (targetPage) {
-        console.log('Showing page:', targetRoute);
-        targetPage.style.display = 'block';
-        targetPage.style.visibility = 'visible';
-        targetPage.classList.add('show');
-        
-        // Add animation
-        setTimeout(() => {
-          if (targetPage.classList.contains('show')) {
-            targetPage.classList.add('animate-in');
-          }
-        }, 50);
-      } else {
-        console.error('Page not found:', targetRoute);
-        return;
-      }
-      
-      // Update navigation active states
-      navButtons.forEach(btn => {
-        const isActive = btn.dataset.route === targetRoute;
-        btn.classList.toggle('active', isActive);
-      });
-      
-      // Update URL
-      history.replaceState({}, '', '#' + targetRoute);
-      
-      // Close mobile menu
-      if (navCheckbox) {
-        navCheckbox.checked = false;
-      }
-      
-      console.log('Navigation complete to:', targetRoute);
-    }
-    
-    // Bind click events to navigation buttons
-    navButtons.forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        const route = this.dataset.route;
-        console.log('Navigation clicked:', route);
-        navigateToPage(route);
-      });
+    const main = document.querySelector('main');
+    const closeNav=()=>{ if(navCheckbox) navCheckbox.checked=false; };
+    if(overlay) overlay.addEventListener('click', closeNav);
+    if(main) main.addEventListener('click', closeNav);
+  }
+  function goto(route){
+    const pages=$$('section[data-page]');
+    if(!pages.some(p=>p.id===route)) route='overview';
+    pages.forEach(p=>{
+      const show=(p.id===route);
+      p.classList.toggle('show',show);
+      p.style.display=show?'block':'none';
+      p.style.visibility=show?'visible':'hidden';
+      p.setAttribute('aria-hidden', show? 'false':'true');
     });
-    
-    // Handle overlay clicks (close mobile menu)
-    if (overlay) {
-      overlay.addEventListener('click', function() {
-        if (navCheckbox) {
-          navCheckbox.checked = false;
-        }
-      });
+    $$('.navbtn').forEach(n=>n.classList.toggle('active', n.dataset.route===route));
+    if(location.hash.slice(1)!==route) { try{history.replaceState(null,'','#'+route);}catch(e){location.hash='#'+route;} }
+    window.scrollTo({top:0,left:0,behavior:'instant'});
+  }
+  function initRouting(){
+    $$('.navbtn').forEach(n=>n.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); goto(n.dataset.route); }));
+    window.addEventListener('hashchange', ()=>goto(location.hash.slice(1)));
+    goto(location.hash.slice(1)||'overview');
+  }
+
+  /* --- deterministic 30-day dataset --- */
+  function seededRand(seed){ let t=seed; return ()=> (t = (t*9301 + 49297) % 233280) / 233280; }
+  const rand = seededRand(1337);
+  const DATA = (function buildData(){
+    // 30 days pnl with realistic arc
+    const pnlDaily=[]; let drift=120, vol=280;
+    for(let i=0;i<30;i++){
+      const shock = (rand()-0.5)*vol;
+      drift += (rand()-0.48)*60;
+      const v = Math.round((drift + shock)*100)/100;
+      pnlDaily.push(v);
     }
-    
-    // Handle hash changes
-    window.addEventListener('hashchange', function() {
-      const route = location.hash.slice(1);
-      console.log('Hash changed to:', route);
-      navigateToPage(route);
+    // accounts
+    const leader = { acct:'TV-LEADER-203682037', side:'Long', qty:1, avg:22681.50 };
+    // base open PnL ~ +/- 500
+    const baseOpen = Math.round(((rand()-0.5)*700+300)*100)/100;
+    leader.open = baseOpen;
+    leader.balance = 50000 + sum(pnlDaily);
+    leader.day = pnlDaily[pnlDaily.length-1];
+    const followers=[0,1,2].map((i)=>{
+      const skew=1 + (rand()-0.5)*0.06; // +/-3%
+      const bal=48000 + i*1500 + sum(pnlDaily)*skew;
+      return {
+        acct:'TV-FOLLOW-20368203'+(4+i),
+        ratio:1,
+        balance: bal,
+        day: leader.day*skew,
+        open: leader.open*skew
+      };
     });
-    
-    // Initialize with current route
-    const initialRoute = location.hash.slice(1) || 'overview';
-    console.log('Initializing with route:', initialRoute);
-    navigateToPage(initialRoute);
-  }
-  
-  // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initNavigation);
-  } else {
-    initNavigation();
-  }
-
-  // Coherent 21-day trading story - realistic progression
-  const DATA = {
-    // Generated realistic trading data with story arc
-    pnlDaily: [
-      // Week 1: Strong start, then pullback
-      485.75, 723.40, -127.60, 312.85, -89.20, 156.30, -245.80,
-      // Week 2: Recovery with big win mid-week  
-      89.45, 267.90, 1247.85, 423.10, -178.30, 534.60, 298.75,
-      // Week 3: Consistent smaller wins, today's strong finish
-      145.20, -67.40, 389.15, 234.80, -156.90, 467.30, 1247.85
-    ],
-    
-    // Computed values that stay in sync
-    get totalPnL() { return this.pnlDaily.reduce((sum, val) => sum + val, 0); },
-    get todaysPnL() { return this.pnlDaily[this.pnlDaily.length - 1]; },
-    get weeklyPnL() { return this.pnlDaily.slice(-7).reduce((sum, val) => sum + val, 0); },
-    get equityCurve() { 
-      let cum = 50000; // Starting equity
-      return this.pnlDaily.map(pnl => cum += pnl);
-    },
-    
-    accounts: {
-      leader: {
-        acct: 'TV-LEADER-203682037',
-        side: 'Long',
-        qty: 1, // Fixed to 1 as per requirement
-        get balance() { return 50000 + DATA.totalPnL; }, // Dynamic balance
-        avg: 22681.50,
-        get day() { return DATA.todaysPnL; },
-        open: 327.50
-      },
-      followers: [
-        {
-          acct: 'TV-FOLLOW-203682034', 
-          ratio: 1, 
-          get balance() { return 48500 + DATA.totalPnL * 0.97; }, // Slightly different performance
-          get day() { return DATA.todaysPnL * 0.97; },
-          get open() { return DATA.accounts.leader.open * 0.97; }
-        },
-        {
-          acct: 'TV-FOLLOW-203682035', 
-          ratio: 1, 
-          get balance() { return 52000 + DATA.totalPnL * 1.02; }, // Slightly better performance  
-          get day() { return DATA.todaysPnL * 1.02; },
-          get open() { return DATA.accounts.leader.open * 1.02; }
-        },
-        {
-          acct: 'TV-FOLLOW-203682036', 
-          ratio: 1, 
-          get balance() { return 49800 + DATA.totalPnL * 0.99; }, // Close to leader
-          get day() { return DATA.todaysPnL * 0.99; },
-          get open() { return DATA.accounts.leader.open * 0.99; }
-        }
-      ]
-    },
-    positions: [
-      {sym: 'ESZ5', side: 'Long', qty: 2, notional: 142000, price: 5847.25},
-      {sym: 'NQZ5', side: 'Long', qty: 1, notional: 98500, price: 22681.50},
-      {sym: 'CLX5', side: 'Short', qty: 3, notional: 32700, price: 89.45}
-    ],
-    
-    // Monthly data for YTD view
-    monthlyYTD: [
-      2847.92, 4234.15, 6789.33, 8912.47, 7234.82, 9456.78, 
-      11234.56, 12847.93, 14567.89, 16234.77, 18456.92, 0
-    ],
-    
-    // Risk settings
-    riskControls: {
-      dailyMaxLoss: -1500,
-      maxDailyTrades: 40,
-      positionLimit: 12,
-      currentTrades: 23,
-      get riskScore() {
-        const lossRisk = Math.abs(DATA.todaysPnL) / Math.abs(this.dailyMaxLoss);
-        const tradeRisk = this.currentTrades / this.maxDailyTrades;
-        return Math.max(lossRisk, tradeRisk);
-      }
-    }
-  };
-
-  // Update all KPIs with synchronized data
-  function updateAllKPIs() {
-    // Main KPIs
-    $('#kpiRealized').textContent = fmt(DATA.todaysPnL);
-    $('#kpiRealized').className = `kpi ${DATA.todaysPnL >= 0 ? 'positive' : 'negative'}`;
-    
-    $('#kpiOpen').textContent = fmt(DATA.accounts.leader.open);
-    $('#kpiOpen').className = `kpi ${DATA.accounts.leader.open >= 0 ? 'positive' : 'negative'}`;
-    
-    // Daily change calculation
-    const yesterday = DATA.pnlDaily[DATA.pnlDaily.length - 2] || 0;
-    const changePercent = yesterday !== 0 ? ((DATA.todaysPnL - yesterday) / Math.abs(yesterday) * 100) : 0;
-    $('#dailyChange').textContent = `${changePercent >= 0 ? '+' : ''}${changePercent.toFixed(1)}% from yesterday`;
-    $('#dailyChange').className = `kpi-change ${changePercent >= 0 ? 'positive' : 'negative'}`;
-    
-    // Performance Score (Surprise Feature)
-    updatePerformanceScore();
-    
-    // Sync latency simulation
-    $('#syncLatency').textContent = `${Math.floor(Math.random() * 20) + 8}ms`;
-  }
-
-  // Performance Score Algorithm (Surprise Feature)
-  function updatePerformanceScore() {
-    const recentPnL = DATA.pnlDaily.slice(-7);
-    const winRate = recentPnL.filter(p => p > 0).length / recentPnL.length;
-    const avgWin = recentPnL.filter(p => p > 0).reduce((a, b) => a + b, 0) / recentPnL.filter(p => p > 0).length || 0;
-    const avgLoss = Math.abs(recentPnL.filter(p => p < 0).reduce((a, b) => a + b, 0) / recentPnL.filter(p => p < 0).length || 0);
-    const profitFactor = avgWin / (avgLoss || 1);
-    const consistency = 1 - (Math.max(...recentPnL) - Math.min(...recentPnL)) / 2000; // Normalize volatility
-    
-    // Calculate overall score
-    const score = Math.min(100, Math.max(0, 
-      (winRate * 30) + 
-      (Math.min(profitFactor, 3) / 3 * 40) + 
-      (consistency * 30)
-    ) * 100);
-    
-    const grade = score >= 90 ? 'A+' : score >= 80 ? 'A' : score >= 70 ? 'B+' : score >= 60 ? 'B' : 'C';
-    const risk = score >= 80 ? 'Low Risk' : score >= 60 ? 'Medium Risk' : 'High Risk';
-    const riskClass = score >= 80 ? 'success' : score >= 60 ? 'warning' : 'danger';
-    
-    $('#performanceScore').textContent = grade;
-    $('#riskScore').textContent = `${Math.round(score)}/100`;
-    $('#riskLevel').textContent = risk;
-    $('#riskLevel').className = `badge ${riskClass}`;
-  }
-
-  // Enhanced Risk Monitoring (Surprise Feature)
-  function updateRiskBars() {
-    const currentLoss = Math.abs(Math.min(0, DATA.todaysPnL));
-    const maxLoss = 1500;
-    const lossRisk = Math.min(100, (currentLoss / maxLoss) * 100);
-    
-    const currentTrades = DATA.riskControls.currentTrades;
-    const maxTrades = DATA.riskControls.maxDailyTrades;
-    const tradeRisk = (currentTrades / maxTrades) * 100;
-    
-    const currentPositions = DATA.positions.length;
-    const maxPositions = DATA.riskControls.positionLimit;
-    const positionRisk = (currentPositions / maxPositions) * 100;
-    
-    // Update risk bars
-    updateRiskBar('#lossRiskBar', '#lossRiskText', lossRisk);
-    updateRiskBar('#tradeRiskBar', '#tradeRiskText', tradeRisk);
-    updateRiskBar('#positionRiskBar', '#positionRiskText', positionRisk);
-    
-    // Show risk alert if any metric is high
-    const maxRisk = Math.max(lossRisk, tradeRisk, positionRisk);
-    const riskAlert = $('#riskAlert');
-    if (maxRisk > 80) {
-      riskAlert.style.display = 'inline-flex';
-      riskAlert.className = 'badge danger';
-      riskAlert.textContent = 'HIGH RISK';
-    } else if (maxRisk > 60) {
-      riskAlert.style.display = 'inline-flex';
-      riskAlert.className = 'badge warning';
-      riskAlert.textContent = 'MODERATE RISK';
-    } else {
-      riskAlert.style.display = 'none';
-    }
-  }
-  
-  function updateRiskBar(barSelector, textSelector, percentage) {
-    const bar = $(barSelector);
-    const text = $(textSelector);
-    
-    bar.style.width = `${percentage}%`;
-    text.textContent = `${Math.round(percentage)}%`;
-    
-    // Color coding
-    if (percentage > 80) {
-      bar.style.background = 'var(--danger)';
-    } else if (percentage > 60) {
-      bar.style.background = 'var(--warning)';
-    } else {
-      bar.style.background = 'var(--success)';
-    }
-  }
-
-  // Enhanced sparkline
-  function spark(el, values) {
-    const w = 100, h = 24;
-    const max = Math.max(...values);
-    const min = Math.min(...values);
-    const range = (max - min) || 1;
-    
-    const points = values.map((v, i) => [
-      (i / (values.length - 1)) * w,
-      h - ((v - min) / range * h)
-    ]);
-    
-    const pathData = points.map((p, i) => 
-      (i === 0 ? 'M' : 'L') + p.join(',')
-    ).join(' ');
-    
-    const gradient = values[values.length - 1] >= values[0] ? 
-      'url(#sparkGradientUp)' : 'url(#sparkGradientDown)';
-    
-    el.innerHTML = `
-      <defs>
-        <linearGradient id="sparkGradientUp" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3" />
-          <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.8" />
-        </linearGradient>
-        <linearGradient id="sparkGradientDown" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" style="stop-color:#ef4444;stop-opacity:0.3" />
-          <stop offset="100%" style="stop-color:#ef4444;stop-opacity:0.8" />
-        </linearGradient>
-      </defs>
-      <path d="${pathData}" fill="none" stroke="${gradient}" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="${points[points.length-1][0]}" cy="${points[points.length-1][1]}" r="2" fill="${values[values.length-1] >= 0 ? '#10b981' : '#ef4444'}"/>
-    `;
-  }
-
-  // Generate realistic intraday data
-  const intradayData = (function() {
-    const arr = [];
-    let base = DATA.accounts.leader.open;
-    let current = 0;
-    
-    for (let i = 0; i < 48; i++) {
-      current += (Math.random() - 0.48) * 15;
-      arr.push(current);
-    }
-    
-    const scale = base / (arr[arr.length - 1] || 1);
-    return arr.map(x => x * scale);
+    // positions
+    const positions=[
+      {sym:'ESZ5', side:'Long', qty:2, notional:142000, price:5847.25},
+      {sym:'NQZ5', side:'Long', qty:1, notional:98500, price:22681.50},
+      {sym:'CLX5', side:'Short', qty:3, notional:32700, price:89.45}
+    ];
+    // orders: leader + copied
+    const baseId = ()=> Math.random().toString(16).slice(2,10).toUpperCase();
+    const orders=[];
+    const mkTime = (h,m,s)=> [h.toString().padStart(2,'0'),m.toString().padStart(2,'0'),s.toString().padStart(2,'0')].join(':');
+    const leaderNow = {id:baseId(), acct: leader.acct, time: mkTime(9,18,11), contract:'ESZ5', type:'Market', side:'Buy', qty:1, price:5847.25, status:'Filled'};
+    orders.push(leaderNow);
+    followers.forEach((f,i)=>{
+      orders.push({id:baseId(), acct:f.acct, time: mkTime(9,18,12+i), contract:'ESZ5', type:'Market', side:'Buy', qty:1, price: leaderNow.price - i*0.25, status:'Filled'});
+    });
+    // add another sequence
+    const l2 = {id:baseId(), acct: leader.acct, time: mkTime(8,45,33), contract:'NQZ5', type:'Limit', side:'Buy', qty:1, price:22681.50, status:'Filled'};
+    orders.push(l2);
+    followers.forEach((f,i)=> orders.push({id:baseId(), acct:f.acct, time: mkTime(8,45,34+i), contract:'NQZ5', type:'Limit', side:'Buy', qty:1, price:l2.price - i*1.0, status:'Filled'}));
+    // activity skeleton
+    const activities=[
+      {time:new Date().toTimeString().slice(0,8), type:'system', msg:'✅ All systems operational'},
+      {time:'14:32:15', type:'trade', msg:'📈 Position opened: ESZ5 Long x2 @ 5,847.25'},
+      {time:'14:31:58', type:'copy', msg:'🔄 Order copied to 3 follower accounts'},
+      {time:'14:29:43', type:'system', msg:'⚡ Real-time sync active'}
+    ];
+    return {
+      pnlDaily, accounts:{leader, followers}, positions, orders, activities,
+      monthlyYTD: [2847.92,4234.15,6789.33,8912.47,7234.82,9456.78,11234.56,12847.93,14567.89,16234.77,18456.92,0]
+    };
   })();
 
-  spark($('#spark'), intradayData);
+  /* --- persistence --- */
+  const RISK_KEY='td_risk_settings';
+  const COPY_KEY='td_copy_map';
 
-  // Update KPIs with enhanced formatting
-  $('#kpiRealized').textContent = fmt(lastN(DATA.pnlDaily, 1)[0]);
-  $('#kpiOpen').textContent = fmt(DATA.accounts.leader.open);
-
-  // Enhanced exposure visualization
-  const totalExpo = DATA.positions.reduce((a, p) => a + Math.abs(p.notional), 0);
-  $('#kpiExposure').textContent = '$' + totalExpo.toLocaleString();
-
-  const expoChips = $('#expoChips');
-  expoChips.innerHTML = DATA.positions.map(p => 
-    `<div class="exposure-chip">
-      <span class="badge ${p.side === 'Long' ? 'success' : 'danger'}">${p.sym}</span>
-      <span>${p.side} ${p.qty} • $${Math.round(Math.abs(p.notional) / 1000)}k</span>
-    </div>`
-  ).join('');
-
-  const stack = $('#expoStack');
-  const colors = ['#8b5cf6', '#6d28d9', '#a78bfa'];
-  DATA.positions.forEach((p, i) => {
-    const width = (Math.abs(p.notional) / totalExpo) * 100;
-    const segment = document.createElement('div');
-    segment.style.cssText = `width: ${width}%; background: ${colors[i % colors.length]}; transition: all 0.3s ease;`;
-    segment.title = `${p.sym}: $${Math.abs(p.notional).toLocaleString()}`;
-    stack.appendChild(segment);
-  });
-
-  // Enhanced copy trading table with synchronized data
-  function updateCopyTradingTable() {
-    const L = DATA.accounts.leader;
-    const rows = [
-      {
-        lead: true,
-        follow: true,
-        acct: L.acct,
-        side: L.side,
-        qty: L.qty, // Always 1 as per requirement
-        balance: L.balance,
-        avg: L.avg,
-        day: L.day,
-        open: L.open
-      },
-      ...DATA.accounts.followers.map(f => ({
-        lead: false,
-        follow: true,
-        acct: f.acct,
-        side: L.side,
-        qty: 1, // All followers locked to qty=1
-        balance: f.balance,
-        avg: L.avg,
-        day: f.day,
-        open: f.open
-      }))
-    ];
-
-    $('#cpBody').innerHTML = rows.map(r => `
-      <tr>
-        <td>
-          ${r.lead ? '<span class="badge warning">👑 Leader</span>' : '<span class="badge success">✓ Following</span>'}
-        </td>
-        <td><code style="font-size: 11px;">${r.acct}</code></td>
-        <td><span class="badge ${r.side === 'Long' ? 'success' : 'danger'}">${r.side}</span></td>
-        <td><strong>${r.qty}</strong></td>
-        <td>${fmt(r.balance)}</td>
-        <td>$${r.avg.toLocaleString()}</td>
-        <td class="${r.day >= 0 ? 'status-online' : 'status-offline'}">${fmt(r.day)}</td>
-        <td class="${r.open >= 0 ? 'status-online' : 'status-offline'}">${fmt(r.open)}</td>
-        <td><span class="badge success">Synced</span></td>
-        <td>
-          <button class="btn sm">Flatten</button>
-          ${!r.lead ? '<button class="btn sm">Disable</button>' : ''}
-        </td>
-      </tr>
-    `).join('');
+  function loadRisk(){
+    try{ const o=JSON.parse(localStorage.getItem(RISK_KEY)||'{}'); if(o.loss) $('#rcLoss').value=o.loss; if(o.trades) $('#rcTrades').value=o.trades; if(o.pos) $('#rcPos').value=o.pos; }catch(e){}
+  }
+  function saveRisk(){
+    const o={ loss:$('#rcLoss').value, trades:$('#rcTrades').value, pos:$('#rcPos').value };
+    localStorage.setItem(RISK_KEY, JSON.stringify(o));
+    showToast('Risk settings saved');
+  }
+  function resetRisk(){
+    $('#rcLoss').value='$1,500'; $('#rcTrades').value='40'; $('#rcPos').value='12';
+    localStorage.removeItem(RISK_KEY);
+    showToast('Risk settings reset');
   }
 
-  // Enhanced analytics with synchronized data
-  function updateAnalytics() {
-    const wins = DATA.pnlDaily.filter(v => v > 0);
-    const losses = DATA.pnlDaily.filter(v => v <= 0);
-    const profitFactor = sum(wins) / Math.max(1, Math.abs(sum(losses)));
-    const winRate = (wins.length / DATA.pnlDaily.length) * 100;
-
-    $('#aPLToday').textContent = fmt(DATA.todaysPnL);
-    $('#aPLToday').className = `kpi ${DATA.todaysPnL >= 0 ? 'positive' : 'negative'}`;
-    $('#aPLNote').textContent = `Weekly: ${fmt(DATA.weeklyPnL)} • Total: ${fmt(DATA.totalPnL)}`;
-    
-    $('#aPF').textContent = profitFactor.toFixed(2);
-    $('#aWR').textContent = winRate.toFixed(1) + '%';
-    
-    const recentWins = lastN(DATA.pnlDaily, 7).filter(v => v > 0).length;
-    $('#aDW').textContent = ((recentWins / 7) * 100).toFixed(1) + '%';
-    $('#aDWNote').textContent = `${recentWins} wins, ${7 - recentWins} losses this week`;
-
-    $('#aDailySum').textContent = fmt(DATA.weeklyPnL);
-    $('#aWeeklySum').textContent = fmt(sum(DATA.pnlDaily.slice(-21)));
-    $('#aMonthlySum').textContent = fmt(sum(DATA.monthlyYTD));
+  function defaultCopyMap(){
+    return { leader: DATA.accounts.leader.acct, followers: DATA.accounts.followers.map(f=>f.acct) };
+  }
+  function loadCopyMap(){
+    try{ const o=JSON.parse(localStorage.getItem(COPY_KEY)||'null'); return (o && o.leader)? o : defaultCopyMap(); }catch(e){ return defaultCopyMap(); }
+  }
+  function saveCopyMap(map){
+    localStorage.setItem(COPY_KEY, JSON.stringify(map));
+    showToast('Copy trading updated');
   }
 
-  // Enhanced orders table with realistic data
-  function updateOrdersTable() {
-    const orders = [
-      {id: '9A14B59A', acct: DATA.accounts.leader.acct, time: '09:18:11', contract: 'ESZ5', type: 'Market', side: 'Buy', qty: 1, price: 5847.25, status: 'Filled'},
-      {id: '12C0BBEF', acct: DATA.accounts.followers[0].acct, time: '09:18:12', contract: 'ESZ5', type: 'Market', side: 'Buy', qty: 1, price: 5847.00, status: 'Filled'},
-      {id: '5C67CFDD', acct: DATA.accounts.followers[1].acct, time: '09:18:13', contract: 'ESZ5', type: 'Market', side: 'Buy', qty: 1, price: 5846.75, status: 'Filled'},
-      {id: 'A8F9C2E1', acct: DATA.accounts.followers[2].acct, time: '09:18:14', contract: 'ESZ5', type: 'Market', side: 'Buy', qty: 1, price: 5846.50, status: 'Filled'},
-      {id: 'B7D3E5F2', acct: DATA.accounts.leader.acct, time: '08:45:33', contract: 'NQZ5', type: 'Limit', side: 'Buy', qty: 1, price: 22681.50, status: 'Filled'},
-      {id: 'C8E4F6G3', acct: DATA.accounts.leader.acct, time: '07:32:18', contract: 'CLX5', type: 'Market', side: 'Sell', qty: 3, price: 89.45, status: 'Filled'}
-    ];
-
-    $('#ordBody').innerHTML = orders.map(o => `
-      <tr>
-        <td><code style="font-size: 11px;">${o.id}</code></td>
-        <td><code style="font-size: 11px;">${o.acct}</code></td>
-        <td>${o.time}</td>
-        <td><span class="badge">${o.contract}</span></td>
-        <td>${o.type}</td>
-        <td><span class="badge ${o.side === 'Buy' ? 'success' : 'danger'}">${o.side}</span></td>
-        <td>${o.qty}</td>
-        <td>$${o.price.toLocaleString()}</td>
-        <td><span class="badge success">${o.status}</span></td>
-      </tr>
-    `).join('');
-  }
-
-  // Enhanced calendar with realistic data
-  function updateCalendar() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth();
-    const firstDay = new Date(year, month, 1);
-    const startDay = firstDay.getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-    $('#calLabel').textContent = now.toLocaleString(undefined, {
-      month: 'long',
-      year: 'numeric'
+  /* --- totals derived from copy map --- */
+  function getRowsFromMap(map){
+    const all = [DATA.accounts.leader, ...DATA.accounts.followers];
+    const leader = all.find(a=>a.acct===map.leader) || DATA.accounts.leader;
+    const followers = all.filter(a=>map.followers.includes(a.acct) && a.acct!==leader.acct);
+    const mkRow = (acct, role) => ({
+      role, acct: acct.acct, side: 'Long', qty:1, balance: acct.balance, avg: acct.avg || 22681.50, day: acct.day, open: acct.open
     });
-
-    const grid = $('#calGrid');
-    grid.innerHTML = '';
-
-    // Empty cells for days before month starts
-    for (let i = 0; i < startDay; i++) {
-      const emptyDay = document.createElement('div');
-      emptyDay.className = 'day';
-      grid.appendChild(emptyDay);
-    }
-
-    // Days of the month with actual P&L data
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dataIndex = day - 1;
-      const pnl = dataIndex < DATA.pnlDaily.length ? DATA.pnlDaily[dataIndex] : 0;
-      
-      const cell = document.createElement('div');
-      cell.className = `day ${pnl >= 0 ? 'win' : 'loss'}`;
-      cell.innerHTML = `
-        <div class="muted" style="font-size: 11px; font-weight: 600;">${day}</div>
-        <div style="font-weight: 700; margin-top: 4px;">${fmt(pnl)}</div>
-      `;
-      cell.title = `${day}: ${fmt(pnl)}`;
-      grid.appendChild(cell);
-    }
+    return [mkRow(leader,'Leader'), ...followers.map(f=>mkRow(f,'Follower'))];
+  }
+  function computeTotals(map){
+    const rows = getRowsFromMap(map);
+    const dayTotal  = sum(rows.map(r=>toNumber(r.day)));
+    const openTotal = sum(rows.map(r=>toNumber(r.open)));
+    const balTotal  = sum(rows.map(r=>toNumber(r.balance)));
+    const followers = rows.filter(r=>r.role==='Follower').length;
+    return {rows, dayTotal, openTotal, balTotal, followers};
   }
 
-  // Enhanced activity feed
-  function updateActivities() {
-    const activities = [
-      {time: new Date().toTimeString().slice(0, 8), type: 'system', msg: `✅ Performance Score: A+ (${$('#riskScore').textContent})`},
-      {time: '14:35:22', type: 'trade', msg: `📈 ESZ5 Long x1 @ $${DATA.positions[0].price} - Leader`},
-      {time: '14:35:23', type: 'copy', msg: '🔄 Order replicated to 3 follower accounts'},
-      {time: '14:35:24', type: 'system', msg: '⚡ All accounts synchronized (12ms latency)'},
-      {time: '14:20:15', type: 'trade', msg: `💰 NQZ5 position: +$${fmt(DATA.todaysPnL * 0.3).substring(1)} unrealized`},
-      {time: '13:58:09', type: 'risk', msg: `⚠️ Risk Score: ${$('#riskScore').textContent.split('/')[0]}/100 - ${$('#riskLevel').textContent}`},
-      {time: '13:45:31', type: 'copy', msg: '👥 All follower accounts active and synced'},
-      {time: '13:22:17', type: 'system', msg: '🔌 Tradovate API connection: 99.9% uptime'},
-      {time: '12:15:44', type: 'trade', msg: `📉 CLX5 Short x3 @ $${DATA.positions[2].price} - Risk managed`}
-    ];
-
-    $('#actBody').innerHTML = activities.map(a => `
-      <tr>
-        <td style="font-family: monospace; font-size: 12px;">${a.time}</td>
-        <td><span class="badge">${a.type}</span></td>
-        <td>${a.msg}</td>
-      </tr>
-    `).join('');
+  /* --- Overview KPIs & exposure --- */
+  function updateOverview(map){
+    const {dayTotal, openTotal} = computeTotals(map);
+    const y = DATA.pnlDaily[DATA.pnlDaily.length-2] || 0;
+    const pct = y!==0 ? ((dayTotal - y)/Math.abs(y)*100) : 0;
+    $('#kpiRealized').textContent=fmt(dayTotal);
+    $('#kpiRealized').className='kpi ' + (dayTotal>=0?'positive':'negative');
+    $('#kpiOpen').textContent=fmt(openTotal);
+    $('#kpiOpen').className='kpi ' + (openTotal>=0?'positive':'negative');
+    $('#dailyChange').textContent=(pct>=0?'+':'')+pct.toFixed(1)+'% from yesterday';
+    $('#dailyChange').className='kpi-change '+(pct>=0?'positive':'negative');
+    $('#syncLatency').textContent=(Math.floor(Math.random()*20)+8)+'ms';
+    // sparkline that ends at today's PnL
+    spark($('#spark'), (function(){
+      const steps=48, end=dayTotal, arr=[0]; for(let i=1;i<steps;i++){ const remain=end-arr[i-1]; const step=remain/(steps-i) + (Math.random()-0.5)*remain*0.05; arr.push(arr[i-1]+step); } return arr;
+    })());
+  }
+  function updateExposure(){
+    const total = DATA.positions.reduce((a,p)=>a+Math.abs(p.notional),0);
+    $('#kpiExposure').textContent='$'+total.toLocaleString();
+    const chips=$('#expoChips'); chips.innerHTML = DATA.positions.map(p=> '<div class="exposure-chip"><span class="badge '+(p.side==='Long'?'success':'danger')+'">'+p.sym+'</span><span>'+p.side+' '+p.qty+' • $'+Math.round(Math.abs(p.notional)/1000)+'k</span></div>').join('');
+    const stack=$('#expoStack'); stack.innerHTML='';
+    const colors=['#8b5cf6','#6d28d9','#a78bfa']; DATA.positions.forEach((p,i)=>{ const w=(Math.abs(p.notional)/total)*100; const d=document.createElement('div'); d.style.cssText='width:'+w+'%;background:'+colors[i%colors.length]+';'; stack.appendChild(d); });
+  }
+  function spark(el, values){
+    const w=100,h=24,max=Math.max(...values),min=Math.min(...values),range=(max-min)||1;
+    const pts=values.map((v,i)=>[(i/(values.length-1))*w, h - ((v-min)/range*h)]);
+    const path=pts.map((p,i)=>(i?'L':'M')+p.join(',')).join(' ');
+    const up = values[values.length-1] >= values[0];
+    el.innerHTML = '<defs>\
+      <linearGradient id="sparkUp" x1="0%" y1="0%" x2="100%" y2="0%">\
+        <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3" />\
+        <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.8" />\
+      </linearGradient>\
+      <linearGradient id="sparkDown" x1="0%" y1="0%" x2="100%" y2="0%">\
+        <stop offset="0%" style="stop-color:#ef4444;stop-opacity:0.3" />\
+        <stop offset="100%" style="stop-color:#ef4444;stop-opacity:0.8" />\
+      </linearGradient>\
+    </defs>\
+    <path d="'+path+'" fill="none" stroke="'+(up?'url(#sparkUp)':'url(#sparkDown)')+'" stroke-width="2" stroke-linecap="round"/>\
+    <circle cx="'+pts[pts.length-1][0]+'" cy="'+pts[pts.length-1][1]+'" r="2" fill="'+(up?'#10b981':'#ef4444')+'"/>';
   }
 
-  // Enhanced bar charts
-  function enhancedBars(el, values, showZeroLine = true) {
-    const w = 100, h = 40, padding = 8;
-    const max = Math.max(...values.map(v => Math.abs(v))) || 1;
-    const barWidth = (w - padding * 2) / values.length - 2;
-    const zeroY = h / 2;
-
-    let svg = '';
-    if (showZeroLine) {
-      svg += `<line x1="${padding}" y1="${zeroY}" x2="${w - padding}" y2="${zeroY}" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>`;
-    }
-
-    values.forEach((v, i) => {
-      const x = padding + i * ((w - padding * 2) / values.length);
-      const barHeight = (Math.abs(v) / max) * (h / 2 - 4);
-      const y = v >= 0 ? zeroY - barHeight : zeroY;
-      const color = v >= 0 ? '#10b981' : '#ef4444';
-      const opacity = v >= 0 ? '0.8' : '0.6';
-
-      svg += `<rect x="${x}" y="${y}" width="${barWidth}" height="${barHeight}" rx="2" fill="${color}" opacity="${opacity}"/>`;
+  /* --- Copy Trading table & mobile cards --- */
+  function renderCopyDesktop(map){
+    const {rows}=computeTotals(map);
+    $('#cpBody').innerHTML = rows.map(r =>
+      '<tr>\
+        <td>'+(r.role==='Leader'?'<span class="badge warning">👑 Leader</span>':'<span class="badge success">✓ Follower</span>')+'</td>\
+        <td><code style="font-size:11px">'+r.acct+'</code></td>\
+        <td><span class="badge '+(r.side==='Long'?'success':'danger')+'">'+r.side+'</span></td>\
+        <td><strong>'+r.qty+'</strong></td>\
+        <td>'+fmt(r.balance)+'</td>\
+        <td>$'+Number(r.avg).toLocaleString()+'</td>\
+        <td>'+fmt(r.day)+'</td>\
+        <td>'+fmt(r.open)+'</td>\
+        <td><span class="badge success">Synced</span></td>\
+        <td><button class="btn sm">Flatten</button>'+ (r.role!=='Leader' ? ' <button class="btn sm">Disable</button>' : '') +'</td>\
+      </tr>'
+    ).join('');
+  }
+  function renderCpSummary(map){
+    const { dayTotal, openTotal, followers, balTotal } = computeTotals(map);
+    const row = $('#cpSummaryRow');
+    row.innerHTML = '<span class="kpi-chip"><small>Day P&L</small> '+fmt(dayTotal)+'</span>\
+    <span class="kpi-chip"><small>Open P&L</small> '+fmt(openTotal)+'</span>\
+    <span class="kpi-chip"><small>Followers</small> '+followers+'</span>\
+    <span class="kpi-chip"><small>Balance</small> '+fmt(balTotal)+'</span>';
+  }
+  function renderCpMobile(map){
+    const host = $('#cpMobileList');
+    const {rows}=computeTotals(map);
+    host.innerHTML = rows.map(r => '\
+      <div class="cp-card">\
+        <div class="cp-top">\
+          <div class="cp-tags">'+(r.role==='Leader' ? '<span class="badge warning">👑 Leader</span>' : '<span class="badge success">✓ Follower</span>')+'\
+          <span class="badge '+(r.side==='Long'?'success':'danger')+'">'+r.side+'</span><span class="badge">Qty '+r.qty+'</span></div>\
+          <div class="cp-acct">'+r.acct+'</div>\
+        </div>\
+        <div class="cp-stats">\
+          <div class="cp-kv"><b>Day P&L</b><span>'+fmt(r.day)+'</span></div>\
+          <div class="cp-kv"><b>Open P&L</b><span>'+fmt(r.open)+'</span></div>\
+        </div>\
+        <div class="cp-details">\
+          <div class="cp-stats">\
+            <div class="cp-kv"><b>Balance</b><span>'+fmt(r.balance)+'</span></div>\
+            <div class="cp-kv"><b>Avg Price</b><span>$'+Number(r.avg).toLocaleString()+'</span></div>\
+          </div>\
+          <div class="cp-actions"><button class="btn sm">Flatten</button>'+(r.role!=='Leader' ? ' <button class="btn sm">Disable</button>' : '')+' <span class="badge success">Synced</span></div>\
+        </div>\
+        <div class="cp-toggle">Tap to see details ▾</div>\
+      </div>').join('');
+    $$('#cpMobileList .cp-card').forEach(card => {
+      const toggle = card.querySelector('.cp-toggle');
+      toggle.addEventListener('click', () => {
+        card.classList.toggle('open');
+        toggle.textContent = card.classList.contains('open') ? 'Hide details ▴' : 'Tap to see details ▾';
+      });
     });
+  }
 
+  /* --- Orders & Activity --- */
+  function renderOrders(){
+    const o = DATA.orders;
+    $('#ordBody').innerHTML = o.map(x => '<tr><td><code style="font-size:11px">'+x.id+'</code></td><td><code style="font-size:11px">'+x.acct+'</code></td><td>'+x.time+'</td><td><span class="badge">'+x.contract+'</span></td><td>'+x.type+'</td><td><span class="badge '+(x.side==='Buy'?'success':'danger')+'">'+x.side+'</span></td><td>'+x.qty+'</td><td>$'+Number(x.price).toLocaleString()+'</td><td><span class="badge success">'+x.status+'</span></td></tr>').join('');
+  }
+  function renderActivities(){
+    const acts = DATA.activities;
+    $('#actBody').innerHTML = acts.map(a => '<tr><td style="font-family:monospace;font-size:12px">'+a.time+'</td><td><span class="badge">'+a.type+'</span></td><td>'+a.msg+'</td></tr>').join('');
+  }
+
+  /* --- Analytics wiring (UI unchanged) --- */
+  function enhancedBars(el, values, showZeroLine=true){
+    const w=100,h=40,p=8,max=Math.max(...values.map(v=>Math.abs(v)))||1, barW=(w-p*2)/values.length-2, zeroY=h/2;
+    let svg = showZeroLine ? '<line x1="'+p+'" y1="'+zeroY+'" x2="'+(w-p)+'" y2="'+zeroY+'" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>' : '';
+    values.forEach((v,i)=>{
+      const x = p + i*((w-p*2)/values.length);
+      const barH = (Math.abs(v)/max)*(h/2-4);
+      const y = v>=0 ? zeroY - barH : zeroY;
+      const color = v>=0 ? '#10b981' : '#ef4444';
+      const opacity = v>=0 ? '0.8' : '0.6';
+      svg += '<rect x="'+x+'" y="'+y+'" width="'+barW+'" height="'+barH+'" rx="2" fill="'+color+'" opacity="'+opacity+'"/>';
+    });
     el.innerHTML = svg;
   }
-
-  enhancedBars($('#dailyBars'), lastN(DATA.pnlDaily, 7));
-  enhancedBars($('#weeklyBars'), weeklyData);
-  enhancedBars($('#monthlyBars'), DATA.monthlyYTD);
-
-  // Enhanced equity curve
-  function enhancedEquity(el, values) {
-    const w = 100, h = 30;
-    let cumulative = 0;
-    const cumulativeData = values.map(v => cumulative += v);
-    
-    const min = Math.min(...cumulativeData);
-    const max = Math.max(...cumulativeData);
-    const range = (max - min) || 1;
-
-    const points = cumulativeData.map((v, i) => [
-      (i / (cumulativeData.length - 1)) * w,
-      h - ((v - min) / range * h)
-    ]);
-
-    const pathData = points.map((p, i) => 
-      (i === 0 ? 'M' : 'L') + p.join(',')
-    ).join(' ');
-
-    const gradient = cumulativeData[cumulativeData.length - 1] >= 0 ? 
-      'url(#equityGradientUp)' : 'url(#equityGradientDown)';
-
-    el.innerHTML = `
-      <defs>
-        <linearGradient id="equityGradientUp" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3" />
-          <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.1" />
-        </linearGradient>
-        <linearGradient id="equityGradientDown" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style="stop-color:#ef4444;stop-opacity:0.3" />
-          <stop offset="100%" style="stop-color:#ef4444;stop-opacity:0.1" />
-        </linearGradient>
-      </defs>
-      <path d="${pathData} L${w},${h} L0,${h} Z" fill="${gradient}"/>
-      <path d="${pathData}" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round"/>
-    `;
+  function enhancedEquity(el, values){
+    const w=100,h=30; let c=0;
+    const cum=values.map(v=>c+=v), min=Math.min(...cum), max=Math.max(...cum), range=(max-min)||1;
+    const pts=cum.map((v,i)=>[(i/(cum.length-1))*w, h - ((v-min)/range*h)]);
+    const path=pts.map((p,i)=>(i?'L':'M')+p.join(',')).join(' ');
+    el.innerHTML = '<defs><linearGradient id="equityUp" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3"/><stop offset="100%" style="stop-color:#10b981;stop-opacity:0.1"/></linearGradient></defs><path d="'+path+' L'+w+','+h+' L0,'+h+' Z" fill="url(#equityUp)"/><path d="'+path+'" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round"/>';
+  }
+  function updateAnalytics(map){
+    const {dayTotal}=computeTotals(map);
+    const wins = DATA.pnlDaily.filter(v=>v>0);
+    const losses = DATA.pnlDaily.filter(v=>v<=0);
+    const profitFactor = sum(wins)/Math.max(1,Math.abs(sum(losses)));
+    const winRate = (wins.length/DATA.pnlDaily.length)*100;
+    $('#aPLToday').textContent=fmt(dayTotal);
+    $('#aPLToday').className='kpi '+(dayTotal>=0?'positive':'negative');
+    $('#aPLNote').textContent='Total: '+fmt(sum(DATA.pnlDaily));
+    $('#aPF').textContent=profitFactor.toFixed(2);
+    $('#aWR').textContent=winRate.toFixed(1)+'%';
+    const recentWins = lastN(DATA.pnlDaily,7).filter(v=>v>0).length;
+    $('#aDW').textContent=((recentWins/7)*100).toFixed(1)+'%';
+    $('#aDWNote').textContent=recentWins+' wins, '+(7-recentWins)+' losses this week';
+    $('#aDailySum').textContent=fmt(sum(lastN(DATA.pnlDaily,7)));
+    $('#aWeeklySum').textContent=fmt(sum(lastN(DATA.pnlDaily,21)));
+    $('#aMonthlySum').textContent=fmt(sum(DATA.monthlyYTD));
+    // charts
+    enhancedBars($('#dailyBars'), lastN(DATA.pnlDaily,7));
+    enhancedBars($('#weeklyBars'), lastN(DATA.pnlDaily,21));
+    enhancedBars($('#monthlyBars'), DATA.monthlyYTD);
+    enhancedEquity($('#eqCurve'), DATA.pnlDaily);
+    // calendar
+    const now=new Date(); $('#calLabel').textContent=now.toLocaleString(undefined,{month:'long', year:'numeric'});
+    const grid=$('#calGrid'); grid.innerHTML='';
+    const first=new Date(now.getFullYear(), now.getMonth(), 1); const start=first.getDay();
+    const days=new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+    for(let i=0;i<start;i++){ const d=document.createElement('div'); d.className='day'; grid.appendChild(d); }
+    for(let day=1; day<=days; day++){ const idx=day-1; const pnl = DATA.pnlDaily[idx] ?? 0; const cell=document.createElement('div'); cell.className='day '+(pnl>=0?'win':'loss'); cell.innerHTML='<div class="muted" style="font-size:11px;font-weight:600">'+day+'</div><div style="font-weight:700;margin-top:4px">'+fmt(pnl)+'</div>'; grid.appendChild(cell); }
   }
 
-  enhancedEquity($('#eqCurve'), DATA.pnlDaily);
-
-  // Enhanced calendar
-  (function() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth();
-    const firstDay = new Date(year, month, 1);
-    const startDay = firstDay.getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-    $('#calLabel').textContent = now.toLocaleString(undefined, {
-      month: 'long',
-      year: 'numeric'
-    });
-
-    const grid = $('#calGrid');
-    grid.innerHTML = '';
-
-    // Empty cells for days before month starts
-    for (let i = 0; i < startDay; i++) {
-      const emptyDay = document.createElement('div');
-      emptyDay.className = 'day';
-      grid.appendChild(emptyDay);
-    }
-
-    // Days of the month
-    for (let day = 1; day <= daysInMonth; day++) {
-      const pnl = DATA.pnlDaily[day - 1] || (Math.random() - 0.5) * 500;
-      const cell = document.createElement('div');
-      cell.className = `day ${pnl >= 0 ? 'win' : 'loss'}`;
-      cell.innerHTML = `
-        <div class="muted" style="font-size: 11px; font-weight: 600;">${day}</div>
-        <div style="font-weight: 700; margin-top: 4px;">${fmt(pnl)}</div>
-      `;
-      cell.title = `${day}: ${fmt(pnl)}`;
-      grid.appendChild(cell);
-    }
-  })();
-
-  // Activity feed
-  const activities = [
-    {time: new Date().toTimeString().slice(0, 8), type: 'system', msg: '✅ All systems operational'},
-    {time: '14:32:15', type: 'trade', msg: '📈 Position opened: ESZ5 Long x2 @ 5,847.25'},
-    {time: '14:31:58', type: 'copy', msg: '🔄 Order copied to 3 follower accounts'},
-    {time: '14:29:43', type: 'system', msg: '⚡ Real-time sync active'},
-    {time: '14:15:22', type: 'trade', msg: '💰 Position closed: NQZ5 +$427.50 profit'},
-    {time: '13:58:09', type: 'risk', msg: '⚠️ Daily loss limit check: 23% used'},
-    {time: '13:45:31', type: 'copy', msg: '👥 New follower account connected'},
-    {time: '13:22:17', type: 'system', msg: '🔌 Tradovate API connection verified'}
-  ];
-
-  function renderActivities() {
-    $('#actBody').innerHTML = activities.map(a => `
-      <tr>
-        <td style="font-family: monospace; font-size: 12px;">${a.time}</td>
-        <td><span class="badge">${a.type}</span></td>
-        <td>${a.msg}</td>
-      </tr>
-    `).join('');
+  /* --- Copy modal --- */
+  function openCpModal(map){
+    const backdrop=$('#cpBackdrop'), modal=$('#cpModal');
+    backdrop.classList.add('open'); modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+    // lists
+    const all = [DATA.accounts.leader, ...DATA.accounts.followers];
+    const leaderList=$('#cpLeaderList'); const followerList=$('#cpFollowerList');
+    leaderList.innerHTML = all.map(a=> '<div class="modal-row"><span>'+a.acct+'</span><input type="radio" name="leadSel" value="'+a.acct+'" '+(map.leader===a.acct?'checked':'')+'></div>').join('');
+    followerList.innerHTML = all.map(a=> '<div class="modal-row"><span>'+a.acct+'</span><input type="checkbox" name="folSel" value="'+a.acct+'" '+(map.followers.includes(a.acct)&&map.leader!==a.acct?'checked':'')+' '+(map.leader===a.acct?'disabled':'')+'></div>').join('');
   }
+  function closeCpModal(){ $('#cpBackdrop').classList.remove('open'); $('#cpModal').classList.remove('open'); $('#cpModal').setAttribute('aria-hidden','true'); }
+
+  /* --- init --- */
+  initHamburgerAutoclose();
+  initRouting();
+  loadRisk();
+
+  let copyMap = loadCopyMap();
+  updateOverview(copyMap);
+  updateExposure();
+  renderCopyDesktop(copyMap);
+  renderCpSummary(copyMap);
+  renderCpMobile(copyMap);
+  renderOrders();
   renderActivities();
+  updateAnalytics(copyMap);
 
-  function addActivity(type, message) {
-    const time = new Date().toTimeString().slice(0, 8);
-    activities.unshift({time, type, msg: message});
-    if (activities.length > 20) activities.pop();
-    renderActivities();
-  }
+  // bindings
+  $('#riskSave').addEventListener('click', saveRisk);
+  $('#riskReset').addEventListener('click', resetRisk);
 
-  // Enhanced button actions with notifications
-  function showNotification(message, type = 'success') {
-    // Simple notification system (could be enhanced with a proper toast library)
-    const notification = document.createElement('div');
-    notification.style.cssText = `
-      position: fixed;
-      top: 80px;
-      right: 20px;
-      background: var(--panel);
-      border: 1px solid var(--stroke);
-      border-radius: 12px;
-      padding: 16px 20px;
-      color: var(--ink);
-      box-shadow: var(--shadow);
-      z-index: 1000;
-      animation: slideIn 0.3s ease;
-    `;
-    notification.textContent = message;
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-      notification.style.animation = 'slideOut 0.3s ease forwards';
-      setTimeout(() => notification.remove(), 300);
-    }, 3000);
-  }
-
-  // Button event handlers
-  const handleDisable = () => {
-    const copyElement = $('#kpiCopy');
-    const isEnabled = copyElement.textContent === 'ACTIVE';
-    copyElement.textContent = isEnabled ? 'DISABLED' : 'ACTIVE';
-    copyElement.style.color = isEnabled ? 'var(--muted)' : 'var(--success)';
-    $('#copyState').textContent = isEnabled ? 'COPY TRADING OFF' : 'COPY TRADING ON';
-    $('#copyState').className = `badge ${isEnabled ? 'danger' : 'success'}`;
-    addActivity('system', `🔄 Copy trading ${isEnabled ? 'disabled' : 'enabled'}`);
-    showNotification(`Copy trading ${isEnabled ? 'disabled' : 'enabled'}`, isEnabled ? 'warning' : 'success');
+  const toggleCopy = ()=>{
+    const el=$('#kpiCopy'); const on=el.textContent.trim()==='ACTIVE';
+    el.textContent = on ? 'DISABLED' : 'ACTIVE';
+    el.style.color = on ? 'var(--muted)' : 'var(--success)';
+    $('#copyState').textContent = on ? 'COPY TRADING OFF' : 'COPY TRADING ON';
+    $('#copyState').className = 'badge ' + (on ? 'danger' : 'success');
+    showToast('Copy trading ' + (on?'disabled':'enabled'));
   };
+  $('#ovDisable').addEventListener('click', toggleCopy);
+  const closeAll = ()=> showToast('All positions have been closed');
+  const cancelAll = ()=> showToast('All pending orders cancelled');
+  const emergency = ()=> showToast('EMERGENCY STOP: All trading halted');
+  $('#ovClose').addEventListener('click', closeAll);
+  $('#ovCancel').addEventListener('click', cancelAll);
+  $('#mEmergency').addEventListener('click', emergency);
+  $('#mClose').addEventListener('click', closeAll);
+  $('#mCancel').addEventListener('click', cancelAll);
 
-  const handleCloseAll = () => {
-    addActivity('risk', '🚫 All positions closed');
-    showNotification('All positions have been closed', 'warning');
-  };
-
-  const handleCancelAll = () => {
-    addActivity('risk', '❌ All pending orders cancelled');
-    showNotification('All pending orders cancelled', 'warning');
-  };
-
-  const handleEmergencyStop = () => {
-    addActivity('emergency', '🚨 EMERGENCY STOP ACTIVATED');
-    showNotification('EMERGENCY STOP: All trading halted', 'danger');
-  };
-
-  // Bind events
-  $$('#mDisable, #ovDisable').forEach(btn => btn.addEventListener('click', handleDisable));
-  $$('#mClose, #ovClose').forEach(btn => btn.addEventListener('click', handleCloseAll));
-  $$('#mCancel, #ovCancel').forEach(btn => btn.addEventListener('click', handleCancelAll));
-  $$('#mEmergency').forEach(btn => btn.addEventListener('click', handleEmergencyStop));
-  $$('.quick-action').forEach(btn => btn.addEventListener('click', handleEmergencyStop));
-
-  $('#cpDisable').onclick = () => {
-    addActivity('copy', '👥 All followers disabled');
-    showNotification('All follower accounts disabled');
-  };
-
-  $('#cpCancel').onclick = () => {
-    addActivity('orders', '❌ All copy orders cancelled');
-    showNotification('All copy orders cancelled');
-  };
-
-  $('#cpFlatten').onclick = () => {
-    addActivity('risk', '🚫 All accounts flattened');
-    showNotification('Emergency flatten executed on all accounts', 'warning');
-  };
-
-  $('#testApi').onclick = () => {
-    addActivity('system', '🔌 Tradovate API test successful');
-    showNotification('API connection test successful');
-  };
-
-  // Export functionality
-  $('#ordExport, #actExport').forEach(btn => {
-    btn.onclick = () => {
-      const data = btn.id === 'ordExport' ? orders : activities;
-      const headers = btn.id === 'ordExport' ? 
-        ['id', 'acct', 'time', 'contract', 'type', 'side', 'qty', 'price', 'status'] :
-        ['time', 'type', 'msg'];
-      
-      const csv = [headers, ...data.map(row => 
-        btn.id === 'ordExport' ? Object.values(row) : [row.time, row.type, row.msg]
-      )].map(row => row.join(',')).join('\n');
-      
-      const blob = new Blob([csv], {type: 'text/csv'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = btn.id === 'ordExport' ? 'orders.csv' : 'activity.csv';
-      a.click();
-      URL.revokeObjectURL(url);
-      
-      showNotification(`${btn.id === 'ordExport' ? 'Orders' : 'Activity'} exported successfully`);
-    };
+  // copy modal
+  $('#cpEdit').addEventListener('click', ()=> openCpModal(copyMap));
+  $('#cpCloseX').addEventListener('click', closeCpModal);
+  $('#cpCancelEdit').addEventListener('click', closeCpModal);
+  $('#cpSaveEdit').addEventListener('click', ()=>{
+    const leaderSel = document.querySelector('input[name="leadSel"]:checked');
+    const folSel = Array.from(document.querySelectorAll('input[name="folSel"]:checked')).map(x=>x.value);
+    const newMap = { leader: leaderSel ? leaderSel.value : copyMap.leader, followers: folSel.filter(a=>a!== (leaderSel?leaderSel.value:copyMap.leader)) };
+    copyMap = newMap;
+    saveCopyMap(copyMap);
+    closeCpModal();
+    // re-render everywhere
+    updateOverview(copyMap);
+    renderCopyDesktop(copyMap);
+    renderCpSummary(copyMap);
+    renderCpMobile(copyMap);
+    updateAnalytics(copyMap);
   });
 
-  // Enhanced real-time simulation with full data sync
-  setInterval(() => {
-    // Simulate realistic market movements
-    const volatility = 0.02; // 2% max change
-    const change = (Math.random() - 0.5) * 20; // Small price movements
-    DATA.accounts.leader.open = Math.max(-500, Math.min(1000, DATA.accounts.leader.open + change));
-    
-    // Update risk controls based on current state
-    DATA.riskControls.currentTrades = Math.min(40, DATA.riskControls.currentTrades + (Math.random() > 0.7 ? 1 : 0));
-    
-    // Refresh all widgets with new data
-    updateAllKPIs();
-    updateRiskBars();
-    updateCharts();
-    
-    // Simulate occasional activity
-    if (Math.random() > 0.95) {
-      const messages = [
-        '📊 Market data refresh complete',
-        '🔄 Portfolio rebalance executed',
-        '⚡ System health check passed',
-        '📈 New high watermark achieved',
-        '🎯 Risk parameters optimized'
-      ];
-      const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-      updateActivities();
-    }
-  }, 8000); // Update every 8 seconds
-
+  // mobile tabs
+  $$('.tab').forEach(t => t.addEventListener('click', () => {
+    $$('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    const tab = t.dataset.tab;
+    $('#cpMobileWrap').style.display   = (tab==='accounts') ? 'block' : 'none';
+    $('#cpOrdersMobile').style.display = (tab==='orders')   ? 'block' : 'none';
+  }));
 })();
 </script>
-
 </body>
 </html>
